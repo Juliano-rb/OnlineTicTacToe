@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Client } from "boardgame.io/react";
+import { Local, SocketIO } from "boardgame.io/multiplayer";
+import { TicTacToeBoard } from "./Board";
+import { TicTacToe } from "./Game";
+import { useState } from "react";
 
-function App() {
+const TicTacToeClient = Client({
+  game: TicTacToe,
+  board: TicTacToeBoard,
+  // multiplayer: Local({ persist: true, storageKey: "bgio" }),
+  multiplayer: SocketIO({ server: "localhost:8000" }),
+});
+
+const App = () => {
+  const [playerId, setPlayerId] = useState<string | null>(null) 
+
+  if (playerId === null) {
+    return (
+      <div>
+        <p>Play as</p>
+        <button onClick={() => setPlayerId("0")}>Player 0</button>
+        <button onClick={() => setPlayerId("1")}>Player 1</button>
+      </div>
+    );
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <TicTacToeClient playerID="0" />
     </div>
-  );
-}
+  )
+};
 
 export default App;
