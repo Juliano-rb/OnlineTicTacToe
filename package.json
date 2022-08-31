@@ -17,8 +17,8 @@
     "web-vitals": "^3.0.0"
   },
   "scripts": {
-    "dev": "react-scripts start",
-    "serve": "NODE_ENV=development ts-node src/server.ts",
+    "dev": "BROWSER=none react-scripts start",
+    "serve": "NODE_ENV=development nodemon src/server.ts",
     "build": "react-scripts build",
     "start": "ts-node src/server.ts",
     "test": "react-scripts test",
@@ -46,6 +46,7 @@
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0"
+    "@types/react-dom": "^18.0.0",
+    "nodemon": "^2.0.19"
   }
 }

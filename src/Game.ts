@@ -32,12 +32,16 @@ function IsDraw(cells: (null | string)[]) {
 }
 
 export const TicTacToe: Game<TicTacToeState> = {
+  name: "JogoDaVelha",
   setup: () => ({ cells: Array(9).fill(null) }),
 
   turn: {
     minMoves: 1,
     maxMoves: 1,
   },
+
+  minPlayers: 2,
+  maxPlayers: 2,
 
   moves: {
     clickCell: (G, ctx, id) => {
