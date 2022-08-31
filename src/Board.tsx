@@ -31,7 +31,6 @@ export function TicTacToeBoard({ ctx, G, moves }: TicTacToeProps) {
   for (let i = 0; i < 3; i++) {
     let cells = [];
     for (let j = 0; j < 3; j++) {
-      debugger;
       const id = 3 * i + j;
       const cellValue = parseInt(G.cells[id] || '');
       cells.push(

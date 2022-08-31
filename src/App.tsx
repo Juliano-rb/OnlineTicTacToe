@@ -4,8 +4,11 @@ import { TicTacToeBoard } from "./Board";
 import { TicTacToe } from "./Game";
 import { useState } from "react";
 
+const ENV = process.env.NODE_ENV
 const { protocol, hostname, port } = window.location
-const server = `${protocol}//${hostname}:${port}`;
+const serverPort = ENV === 'development'? '8000' : port
+
+const server = `${protocol}//${hostname}:${serverPort}`;
 
 const TicTacToeClient = Client({
   game: TicTacToe,

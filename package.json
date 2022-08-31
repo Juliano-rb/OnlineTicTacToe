@@ -18,6 +18,7 @@
   },
   "scripts": {
     "dev": "react-scripts start",
+    "serve": "NODE_ENV=development ts-node src/server.ts",
     "build": "react-scripts build",
     "start": "ts-node src/server.ts",
     "test": "react-scripts test",
