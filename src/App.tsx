@@ -4,11 +4,14 @@ import { TicTacToeBoard } from "./Board";
 import { TicTacToe } from "./Game";
 import { useState } from "react";
 
+const { protocol, hostname, port } = window.location
+const server = `${protocol}//${hostname}:${port}`;
+
 const TicTacToeClient = Client({
   game: TicTacToe,
   board: TicTacToeBoard,
   // multiplayer: Local({ persist: true, storageKey: "bgio" }),
-  multiplayer: SocketIO({ server: "localhost:8000" }),
+  multiplayer: SocketIO({ server })
 });
 
 const App = () => {
@@ -26,9 +29,10 @@ const App = () => {
 
   return (
     <div>
-      <TicTacToeClient playerID="0" />
+      <h2>Player {playerId}</h2>
+      <TicTacToeClient playerID={playerId} />
     </div>
-  )
+  );
 };
 
 export default App;

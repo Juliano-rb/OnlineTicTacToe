@@ -17,6 +17,8 @@ export function TicTacToeBoard({ ctx, G, moves }: TicTacToeProps) {
       );
   }
 
+  const cellGlyphs = ['⭕', '❌']
+
   const cellStyle: React.CSSProperties = {
     border: "1px solid #555",
     width: "50px",
@@ -29,12 +31,13 @@ export function TicTacToeBoard({ ctx, G, moves }: TicTacToeProps) {
   for (let i = 0; i < 3; i++) {
     let cells = [];
     for (let j = 0; j < 3; j++) {
+      debugger;
       const id = 3 * i + j;
-      console.log(id, G.cells)
+      const cellValue = parseInt(G.cells[id] || '');
       cells.push(
         <td key={id}>
           {G.cells[id] ? (
-            <div style={cellStyle}>{G.cells[id]}</div>
+            <div style={cellStyle}>{cellGlyphs[cellValue]}</div>
           ) : (
             <button style={cellStyle} onClick={() => onClick(id)} />
           )}
