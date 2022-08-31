@@ -37,7 +37,7 @@ export const TicTacToe: Game<TicTacToeState> = {
 
   turn: {
     minMoves: 1,
-    maxMoves: 1,
+    maxMoves: 1
   },
 
   minPlayers: 2,
