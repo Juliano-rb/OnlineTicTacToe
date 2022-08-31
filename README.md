@@ -1,19 +1,17 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+## Summary:
+### In a development environment:
+- `yarn serve`: starts the server for multiplayer games in development mode (live reload activated). Server runs at http://localhost:8000.
+- `yarn dev`: starts frontend react project in development mode. Frontend runs at http://localhost:3000.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### In a production environment:
+- `yarn build`: create statics files in `/build` directory
+- `yarn start`: starts the backend server and delivery the static files, both at http://localhost:8000.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
+---
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.\
