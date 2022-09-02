@@ -17,6 +17,6 @@ export default createGlobalStyle`
         font-weight: 400;
         
         text-align: center;
-        margin: 0 auto;
+        /* margin: 0 auto; */
     }
 `;

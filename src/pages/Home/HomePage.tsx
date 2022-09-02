@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "../../components/Button";
+import ClickableItem from "../../components/ClickableItem";
 import Input from "../../components/Input";
 import MainLayout from "../../components/MainLayout";
 import Title from "../../components/Title";
@@ -20,7 +21,15 @@ const HomePage = ()=>{
           }}
         />
 
-        {showMatchList? 'test': ''}
+        {showMatchList ? (
+          <ClickableItem
+            title="Flavinho do Pneu"
+            actionText="Entrar"
+            action={() => alert("clicou")}
+          />
+        ) : (
+          ""
+        )}
       </MainLayout>
     );
 }
