@@ -9,7 +9,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = styled.button<Props>`
   font-size: 1rem;
   height: 41px;
-  min-width: 120px;
+  min-width: 100px;
   border-radius: 5px;
   cursor: pointer;
 

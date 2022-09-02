@@ -4,7 +4,7 @@ import styled from "styled-components";
 import colors from "../../assets/styles/colors";
 import Button from "../Button";
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface Props {
   title: string;
   actionText?: string;
   action?: ()=>void
