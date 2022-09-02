@@ -5,6 +5,7 @@ import Input from "../../components/Input";
 import List from "../../components/List";
 import MainLayout from "../../components/MainLayout";
 import Title from "../../components/Title";
+import Toast from "../../components/Toast";
 import Toggle from "../../components/Toggle";
 import _uniqueId from "lodash/uniqueId";
 
@@ -39,6 +40,8 @@ const HomePage = () => {
       />
 
       {showMatchList ? <List title="Partidas">{itens}</List> : null}
+      <br/>
+      <Toast title="Partida" description="Shaolim Matador de Porco" />
     </MainLayout>
   );
 };
