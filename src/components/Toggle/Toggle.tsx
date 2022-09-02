@@ -1,9 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import colors from "../../assets/styles/colors";
-import Add from "@mui/icons-material/Add";
-import Close from "@mui/icons-material/Close";
-import SvgIcon from "@mui/material/SvgIcon";
+import PersonAdd from "@mui/icons-material/PersonAddAlt1";
 
 interface ToggleProps{
   onChange?: (active: boolean)=>void;
@@ -19,15 +17,20 @@ const ToggleStyle = styled.button<Props>`
   width: 41px;
   border-radius: 41px;
   padding: 0;
+  cursor: pointer;
 
   text-align: center;
 
-  border: 1px solid ${colors.soft};
-  background-color: ${colors.softier};
-  color: ${(props) => (props.active ? colors.alert : colors.black)};
+  border: 1px solid ${colors.confirm};
+  background-color: ${(props) => (props.active ? colors.shadow : colors.white)};
 
   display: flex;
   align-items: center;
+
+  ${(props) =>
+    props.active
+      ? "box-shadow: inset 0px 2px 1px rgba(0, 0, 0, 0.5);"
+      : "filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));"}
 `;
 
 const Toggle = ({ onChange }: ToggleProps) => {
@@ -41,11 +44,10 @@ const Toggle = ({ onChange }: ToggleProps) => {
 
   return (
     <ToggleStyle active={active} onClick={handleChange}>
-      {active ? (
-          <Close />
-      ) : (
-          <Add />
-      )}
+      <PersonAdd
+        color="info"
+        style={{ fontSize: active ? "1.35rem" : "1.43rem" }}
+      />
     </ToggleStyle>
   );
 };

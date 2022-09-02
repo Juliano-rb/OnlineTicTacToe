@@ -11,6 +11,7 @@ const Button = styled.button<Props>`
   height: 41px;
   min-width: 120px;
   border-radius: 5px;
+  cursor: pointer;
 
   border: none;
   background-color: ${(props) =>

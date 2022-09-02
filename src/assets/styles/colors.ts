@@ -10,6 +10,7 @@ const colors = {
   softier: "#FAE369",
   white: "#fff",
   black: "#000",
+  shadow: "#E1E1E1",
 };
 
 export default colors
