@@ -20,6 +20,9 @@ const ToggleStyle = styled.button<Props>`
   cursor: pointer;
 
   text-align: center;
+  svg{
+    margin: 0 auto;
+  }
 
   border: 1px solid ${colors.confirm};
   background-color: ${(props) => (props.active ? colors.shadow : colors.white)};
