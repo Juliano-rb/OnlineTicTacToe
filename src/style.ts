@@ -19,4 +19,12 @@ export default createGlobalStyle`
         text-align: center;
         /* margin: 0 auto; */
     }
+    div{
+        user-select: none;
+        -webkit-user-select: none;
+    }
+    p{
+        user-select: text;
+        -webkit-user-select: text;
+    }
 `;
