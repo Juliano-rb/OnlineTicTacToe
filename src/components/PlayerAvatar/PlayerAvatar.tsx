@@ -3,7 +3,8 @@ import styled, { keyframes } from "styled-components";
 import { zoomInLeft, fadeOut } from "react-animations";
 import colors from "../../assets/styles/colors";
 import Card from "../Card";
-import Avatar from "./Avatar";
+import Modal from "../Modal";
+import Emoji from "../Emoji";
 
 const FADE_IN_DURATION = 2000;
 const FADE_OUT_DURATION = 450;
@@ -64,6 +65,7 @@ const PlayerAvatar = ({
 }: Props) => {
   const messageRef = useRef<HTMLDivElement>(null);
   const [showMessage, setShowMessage] = useState<boolean>(false);
+  const [showChat, setShowChat] = useState<boolean>(true)
 
   useEffect(() => {
     setShowMessage(true);
@@ -79,7 +81,7 @@ const PlayerAvatar = ({
 
   return (
     <Container orientation={orientation}>
-      <Avatar avatar={avatar}/>
+      <Emoji emoji={avatar} action={()=>setShowChat(true)} />
       <FlexDiv orientation={orientation}>
         <p>{name}</p>
         {message && showMessage && (
