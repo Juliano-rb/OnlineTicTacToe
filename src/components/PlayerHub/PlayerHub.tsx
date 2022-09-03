@@ -56,7 +56,7 @@ const FlexDiv = styled.div<AdjustableItem>`
   }
 `;
 
-const PlayerAvatar = ({
+const PlayerHub = ({
   avatar,
   name,
   message,
@@ -94,4 +94,4 @@ const PlayerAvatar = ({
   );
 };
 
-export default PlayerAvatar;
+export default PlayerHub;

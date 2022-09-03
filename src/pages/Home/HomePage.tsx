@@ -8,8 +8,9 @@ import Title from "../../components/Title";
 import Toast from "../../components/Toast";
 import Toggle from "../../components/Toggle";
 import _uniqueId from "lodash/uniqueId";
-import PlayerAvatar from "../../components/PlayerAvatar";
+import PlayerHub from "../../components/PlayerHub";
 import Card from "../../components/Card";
+import EmojiList from "../../components/PlayerHub/EmojiList";
 
 const HomePage = () => {
   const [showMatchList, setShowMatchList] = useState<boolean>(false);
@@ -46,7 +47,8 @@ const HomePage = () => {
       <br />
       <Toast title="Partida" description="Shaolim Matador de Porco" />
 
-      <PlayerAvatar avatar="🧓" name="Flavinho do Pneu" message={message} />
+      <PlayerHub avatar="🧓" name="Flavinho do Pneu" message={message} />
+
     </MainLayout>
   );
 };

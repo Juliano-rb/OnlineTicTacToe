@@ -1,20 +1,20 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import PlayerAvatar, { FADE_OUT_DURATION, FADE_IN_DURATION } from './PlayerAvatar';
+import PlayerHub, { FADE_OUT_DURATION, FADE_IN_DURATION } from './PlayerHub';
 import { wait } from '@testing-library/user-event/dist/utils';
 import { act } from 'react-dom/test-utils';
 
 
-describe("PlayerAvatar", () => {
+describe("PlayerHub", () => {
     const avatar = '👨‍🦰',
         name = 'John',
         messageDuration = 500;
 
-    test('renders PlayerAvatar', () => {
+    test('renders PlayerHub', () => {
         let message = '';
 
         act(() => {
-            render(<PlayerAvatar avatar={avatar} name={name} message={message} />);
+            render(<PlayerHub avatar={avatar} name={name} message={message} />);
         })
 
         expect(screen.getByText(avatar)).toBeInTheDocument();
@@ -26,7 +26,7 @@ describe("PlayerAvatar", () => {
         let message = 'Good day';
 
         act(() => {
-            render(<PlayerAvatar avatar={avatar}
+            render(<PlayerHub avatar={avatar}
                                  name={name}
                                  message={message}
                                  messageDuration={messageDuration} />);
