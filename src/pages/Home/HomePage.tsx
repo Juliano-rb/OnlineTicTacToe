@@ -12,10 +12,12 @@ import PlayerHub from "../../components/PlayerHub";
 import Card from "../../components/Card";
 import EmojiList from "../../components/PlayerHub/EmojiList";
 import AvatarPick from "../../components/AvatarPick/AvatarPick";
+import Switch from "../../components/Switch";
 
 const HomePage = () => {
   const [showMatchList, setShowMatchList] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('E lá vamos nós')
+  const [selecao, setSelecao] = useState<string>("Jogo rápido")
 
   const itens = [
     <ClickableItem
@@ -33,7 +35,7 @@ const HomePage = () => {
   ];
 
   return (
-    <div>
+    <MainLayout>
       <Title>Velha</Title>
       <Input type="text" placeholder="Seu apelido" />
       <Button>Jogo rápido</Button><br/>
@@ -51,7 +53,10 @@ const HomePage = () => {
       <PlayerHub avatar="🧓" name="Flavinho do Pneu" message={message} />
 
       <AvatarPick avatar='👩🏼' avatarList={['🧓🏼','👩🏼‍🦰','👩🏼','👨🏿','👩🏿','👶🏽','👵🏼','🧔🏼','👨🏼','👨🏼‍🦰','👨🏼‍🦲', '🤶🏼']} />
-    </div>
+    
+      <Switch options={['Jogo rápido', "Ver oponentes"]} setOption={setSelecao} />
+       <div>{selecao}</div>
+    </MainLayout>
   );
 };
 
