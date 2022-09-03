@@ -25,8 +25,8 @@ const Container = styled.div`
 `
 
 const Background = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: 0;
   top: 50%;
   left: 50%;

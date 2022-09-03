@@ -19,8 +19,9 @@ interface Props {
 const Container = styled.div<ContainerStyleProps>`
     font-size: ${props=>SIZE_MAPPING[props.size]};
     cursor: pointer;
+    display: inline-block;
 
-    :hover {
+    :active {
       transform: scale(1.1);
       transition: 0.1s ;
     }
