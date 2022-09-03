@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import colors from "../../assets/styles/colors";
+import { ReactNode } from "react";
 
 interface CardStyleProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: "normal" | "large";
 }
 
 interface Props extends CardStyleProps {
-  text: string;
+  text?: string;
+  action?: ()=>void
+  children?: ReactNode;
 }
 
 const CardStyle = styled.div<CardStyleProps>`
@@ -20,8 +23,14 @@ const CardStyle = styled.div<CardStyleProps>`
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
 `;
 
-const Card = ({ text, size }: Props) => {
-  return <CardStyle size={size}>{text}</CardStyle>;
+/**
+ * Card component act as a container for other elements
+ * @text a text to be rendered as a child 
+ * @children can be used to render any element as a child of a card
+ * @returns 
+ */
+const Card = ({ text, action, size, children }: Props) => {
+  return <CardStyle onClick={()=>action && action()} size={size}>{text}{children}</CardStyle>;
 };
 
 export default Card;
