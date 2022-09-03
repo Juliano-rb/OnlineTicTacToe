@@ -6,16 +6,24 @@ import Card from "../Card";
 
 const FADE_IN_DURATION = 2000;
 const FADE_OUT_DURATION = 450;
+const DEFAULT_MESSAGE_DURATION = 3000;
 
 interface Props {
   avatar: string;
   name: string;
   message: string;
   messageDuration?: number;
+  orientation?: "left" | "right";
 }
 
-const PlayerAvatarStyle = styled.div`
+interface AdjustableItem {
+  orientation: "left" | "right";
+}
+
+const Container = styled.div<AdjustableItem>`
   display: flex;
+  flex-direction: ${(props) =>
+    props.orientation === "left" ? "row" : "row-reverse"};
 
   .avatar {
     font-size: 3rem;
@@ -28,10 +36,12 @@ const PlayerAvatarStyle = styled.div`
   }
 `;
 
-const FlexDiv = styled.div`
+const FlexDiv = styled.div<AdjustableItem>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: ${(props) =>
+    props.orientation === "left" ? "flex-start" : "flex-end"};
 
   div {
     animation: ${FADE_IN_DURATION}ms ${keyframes`${zoomInLeft}`};
@@ -42,27 +52,32 @@ const FlexDiv = styled.div`
   }
 `;
 
-const PlayerAvatar = ({ avatar, name, message, messageDuration=3000 }: Props) => {
-  const messageRef = useRef<HTMLDivElement>(null)
-  const [showMessage, setShowMessage] = useState<boolean>(false)
+const PlayerAvatar = ({
+  avatar,
+  name,
+  message,
+  orientation = "left",
+  messageDuration = DEFAULT_MESSAGE_DURATION,
+}: Props) => {
+  const messageRef = useRef<HTMLDivElement>(null);
+  const [showMessage, setShowMessage] = useState<boolean>(false);
 
-  useEffect(()=>{
-    setShowMessage(true)
-    
+  useEffect(() => {
+    setShowMessage(true);
+
     setTimeout(() => {
       if (messageRef?.current) messageRef.current.className = "fadeOut";
 
       setTimeout(() => {
         setShowMessage(false);
-      }, FADE_OUT_DURATION-50);
-    }, messageDuration+FADE_IN_DURATION);
-
-  }, [message, messageDuration])
+      }, FADE_OUT_DURATION - 50);
+    }, messageDuration + FADE_IN_DURATION);
+  }, [message, messageDuration]);
 
   return (
-    <PlayerAvatarStyle>
+    <Container orientation={orientation}>
       <div className="avatar">{avatar}</div>
-      <FlexDiv>
+      <FlexDiv orientation={orientation}>
         <p>{name}</p>
         {message && showMessage && (
           <div ref={messageRef}>
@@ -70,7 +85,7 @@ const PlayerAvatar = ({ avatar, name, message, messageDuration=3000 }: Props) =>
           </div>
         )}
       </FlexDiv>
-    </PlayerAvatarStyle>
+    </Container>
   );
 };
 
