@@ -3,10 +3,17 @@ import styled, { keyframes } from "styled-components";
 import { zoomInLeft, fadeOut } from "react-animations";
 import colors from "../../assets/styles/colors";
 import Card from "../Card";
+import Avatar from "./Avatar";
 
 const FADE_IN_DURATION = 2000;
 const FADE_OUT_DURATION = 450;
 const DEFAULT_MESSAGE_DURATION = 3000;
+
+export {
+  FADE_IN_DURATION,
+  FADE_OUT_DURATION,
+  DEFAULT_MESSAGE_DURATION
+}
 
 interface Props {
   avatar: string;
@@ -24,10 +31,6 @@ const Container = styled.div<AdjustableItem>`
   display: flex;
   flex-direction: ${(props) =>
     props.orientation === "left" ? "row" : "row-reverse"};
-
-  .avatar {
-    font-size: 3rem;
-  }
 
   p {
     color: ${colors.white};
@@ -76,11 +79,11 @@ const PlayerAvatar = ({
 
   return (
     <Container orientation={orientation}>
-      <div className="avatar">{avatar}</div>
+      <Avatar avatar={avatar}/>
       <FlexDiv orientation={orientation}>
         <p>{name}</p>
         {message && showMessage && (
-          <div ref={messageRef}>
+          <div ref={messageRef} data-test-id="message">
             <Card text={message} />
           </div>
         )}
