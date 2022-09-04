@@ -24,7 +24,7 @@ export default createGlobalStyle`
         -webkit-user-select: none;
     }
     p{
-        user-select: text;
-        -webkit-user-select: text;
+        user-select: none;
+        -webkit-user-select: none;
     }
 `;
