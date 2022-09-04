@@ -5,6 +5,7 @@ const colors = {
   confirmSoft: "#D0A891",
   alert: "#FA7D34",
   alertSoft: "#FCA673",
+  share: "#05D61A",
   highlight: "#B26C42",
   soft: "#AD9311",
   softier: "#FAE369",

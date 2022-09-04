@@ -13,6 +13,7 @@ import Card from "../../components/Card";
 import EmojiList from "../../components/PlayerHub/EmojiList";
 import AvatarPick from "../../components/AvatarPick/AvatarPick";
 import Switch from "../../components/Switch";
+import ShareIcon from "@mui/icons-material/Share";
 
 const HomePage = () => {
   const [showMatchList, setShowMatchList] = useState<boolean>(false);
@@ -57,7 +58,14 @@ const HomePage = () => {
       <Input type="text" placeholder="Seu apelido" />
       <br/>
       <Button>Jogo rápido</Button><br/>
-      <Button variation="cancel">Cancelar</Button>
+      <Button variation="share" onClick={()=>{
+        try {
+          navigator.share({ url:"http://velha1.herokuapp.com", title:"Teset", text:"Este é um teste" })
+          
+        } catch (error) {
+          alert(JSON.stringify(error))
+        }
+      }}><ShareIcon fontSize="small" /> Compartilhar</Button>
 
       {selecao === "Ver oponentes" ? <List action={{text:"Criar jogo", action:()=>alert('ola')}} >{itens}</List> : null}
       <br />
