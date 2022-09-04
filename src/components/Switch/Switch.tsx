@@ -8,11 +8,10 @@ interface SwitchProps{
 }
 
 const Container = styled.div`
-  width: 280px;
+  width: 202px;
   height: 36px;
   color: ${colors.confirm};
   background-color: white;
-  font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
 
@@ -21,11 +20,14 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  column-gap: 10px;
+
+  div{
+    font-size: 0.9rem;
+  }
 `
 
 const BtnStyle = styled.div`
-  width: 35px;
+  width: 31px;
   height: 100%;
   text-align: center;
 

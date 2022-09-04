@@ -5,7 +5,7 @@ const Title = styled.h1`
   color: ${colors.alert};
 
   font-family: "Bangers";
-  font-size: 5rem;
+  font-size: 4.5rem;
 
   text-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
 

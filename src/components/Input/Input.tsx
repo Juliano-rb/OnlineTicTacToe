@@ -2,8 +2,8 @@ import styled from "styled-components";
 import colors from "../../assets/styles/colors";
 
 const Input = styled.input`
-  height: 50px;
-  width: 280px;
+  height: 45px;
+  width: 202px;
 
   font-size: 1rem;
   color: ${colors.main};
