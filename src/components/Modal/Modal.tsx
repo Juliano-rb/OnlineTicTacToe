@@ -1,6 +1,5 @@
 import styled, { keyframes } from "styled-components";
 import colors from "../../assets/styles/colors";
-import _uniqueId from 'lodash/uniqueId'
 import { bounceIn } from "react-animations";
 import { ReactNode } from "react";
 

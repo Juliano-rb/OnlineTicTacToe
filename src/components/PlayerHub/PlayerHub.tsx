@@ -3,7 +3,6 @@ import styled, { keyframes } from "styled-components";
 import { zoomInLeft, fadeOut } from "react-animations";
 import colors from "../../assets/styles/colors";
 import Card from "../Card";
-import Modal from "../Modal";
 import Emoji from "../Emoji";
 
 const FADE_IN_DURATION = 2000;
@@ -89,6 +88,8 @@ const PlayerHub = ({
             <Card text={message} />
           </div>
         )}
+
+        {showChat && <div>chat</div>}
       </FlexDiv>
     </Container>
   );
