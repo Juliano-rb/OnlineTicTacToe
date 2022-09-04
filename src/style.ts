@@ -18,6 +18,7 @@ export default createGlobalStyle`
         
         text-align: center;
         /* margin: 0 auto; */
+        -webkit-tap-highlight-color: transparent;
     }
     div{
         user-select: none;
