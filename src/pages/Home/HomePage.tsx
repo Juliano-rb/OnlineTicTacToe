@@ -32,21 +32,34 @@ const HomePage = () => {
       action={() => alert("clicou")}
       key={_uniqueId()}
     />,
+    <ClickableItem
+      title="Flavinho do Pneu"
+      actionText="Entrar"
+      action={() => alert("clicou")}
+      key={_uniqueId()}
+    />,<ClickableItem
+    title="Flavinho do Pneu"
+    actionText="Entrar"
+    action={() => alert("clicou")}
+    key={_uniqueId()}
+  />,<ClickableItem
+  title="Flavinho do Pneu"
+  actionText="Entrar"
+  action={() => alert("clicou")}
+  key={_uniqueId()}
+/>,
   ];
 
   return (
     <MainLayout>
       <Title>Velha</Title>
+      <Switch options={['Jogo rápido', "Ver oponentes"]} setOption={setSelecao} />
       <Input type="text" placeholder="Seu apelido" />
+      <br/>
       <Button>Jogo rápido</Button><br/>
       <Button variation="cancel">Cancelar</Button>
-      <Toggle
-        onChange={(value) => {
-          setShowMatchList(value);
-        }}
-      />
 
-      {showMatchList ? <List title="Partidas">{itens}</List> : null}
+      {selecao === "Ver oponentes" ? <List action={{text:"Criar jogo", action:()=>alert('ola')}} >{itens}</List> : null}
       <br />
       <Toast title="Partida" description="Shaolim Matador de Porco" />
 
@@ -54,8 +67,7 @@ const HomePage = () => {
 
       <AvatarPick avatar='👩🏼' avatarList={['🧓🏼','👩🏼‍🦰','👩🏼','👨🏿','👩🏿','👶🏽','👵🏼','🧔🏼','👨🏼','👨🏼‍🦰','👨🏼‍🦲', '🤶🏼']} />
     
-      <Switch options={['Jogo rápido', "Ver oponentes"]} setOption={setSelecao} />
-       <div>{selecao}</div>
+      
     </MainLayout>
   );
 };
