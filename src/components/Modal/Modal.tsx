@@ -21,17 +21,15 @@ interface ContainerStyle{
 
 const Container =
   styled.div <ContainerStyle>`
-    position: absolute;
-    /* top: ${props=>POSITION_MAPPING[props.position]}; */
-    /* margin: 0 auto; */
-
+    position: relative;
+    margin: 0 auto;
+    top: ${props=>POSITION_MAPPING[props.position]};
     max-width: 300px;
     border-radius: 4px;
     padding: 10px;
     
     background-color: ${colors.white};
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-
     animation: 0.4s ${keyframes`${bounceIn}`};
 `;
 
@@ -43,6 +41,7 @@ const Background = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   position: fixed;
+  background-color: rgb(0 0 0 / 10%);
 `
 /**
  * Modal component act as a container for other elements
@@ -63,9 +62,8 @@ const Modal = ({
       onClick={() => {
         setIsOpen && setIsOpen(false);
       }}
-      data-testid="overlay"
     >
-      <Container position={position} onClick={handleClick} data-testid="modal">
+      <Container position={position} onClick={handleClick}>
         {children}
       </Container>
     </Background>

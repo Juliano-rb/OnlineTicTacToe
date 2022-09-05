@@ -1,7 +1,6 @@
 import { ReactNode, useRef, useState } from "react";
 import styled from "styled-components";
 import colors from "../../assets/styles/colors";
-import Card from "../Card";
 import Emoji from "../Emoji";
 import ReactionPicker from "./ReactionPicker";
 import Modal from "../Modal";
@@ -66,7 +65,7 @@ const PlayerHub = ({
   };
 
   return (
-    <Container orientation={orientation} data-testid="pai">
+    <Container orientation={orientation}>
       <Emoji emoji={avatar} action={() => setShowChat(true)} />
       <FlexDiv orientation={orientation}>
         <p>{name}</p>
