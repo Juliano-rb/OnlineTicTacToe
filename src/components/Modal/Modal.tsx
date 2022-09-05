@@ -22,16 +22,14 @@ interface ContainerStyle{
 const Container =
   styled.div <ContainerStyle>`
     position: relative;
-    top: ${props=>POSITION_MAPPING[props.position]};
     margin: 0 auto;
-
+    top: ${props=>POSITION_MAPPING[props.position]};
     max-width: 300px;
     border-radius: 4px;
     padding: 10px;
     
     background-color: ${colors.white};
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-
     animation: 0.4s ${keyframes`${bounceIn}`};
 `;
 
@@ -42,7 +40,8 @@ const Background = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  position: absolute;
+  position: fixed;
+  background-color: rgb(0 0 0 / 10%);
 `
 /**
  * Modal component act as a container for other elements

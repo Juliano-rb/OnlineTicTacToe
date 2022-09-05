@@ -1,7 +1,6 @@
 import { ReactNode, useRef, useState } from "react";
 import styled from "styled-components";
 import colors from "../../assets/styles/colors";
-import Card from "../Card";
 import Emoji from "../Emoji";
 import ReactionPicker from "./ReactionPicker";
 import Modal from "../Modal";
@@ -22,6 +21,7 @@ interface AdjustableItem {
 }
 
 const Container = styled.div<AdjustableItem>`
+  position: relative;
   display: flex;
   flex-direction: ${(props) =>
     props.orientation === "left" ? "row" : "row-reverse"};
@@ -70,12 +70,12 @@ const PlayerHub = ({
       <FlexDiv orientation={orientation}>
         <p>{name}</p>
         <ReactionList messages={messageList} />
-        {showChat && (
-          <Modal setIsOpen={setShowChat}>
-            <ReactionPicker action={clickReactionAction} />
-          </Modal>
-        )}
       </FlexDiv>
+      {showChat && (
+        <Modal setIsOpen={setShowChat}>
+          <ReactionPicker action={clickReactionAction} />
+        </Modal>
+      )}
     </Container>
   );
 };
