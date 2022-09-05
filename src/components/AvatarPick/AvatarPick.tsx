@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "../Modal";
 import Emoji from "../Emoji";
-import EmojiList from "../PlayerHub/EmojiList";
+import EmojiList from "./EmojiList";
 
 interface Props {
   avatar?: string

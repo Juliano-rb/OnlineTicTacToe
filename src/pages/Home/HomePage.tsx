@@ -61,7 +61,7 @@ const HomePage = () => {
       <br />
       <Toast title="Partida" description="Shaolim Matador de Porco" />
 
-      <PlayerHub avatar="🧓" name="Flavinho do Pneu" message={message} />
+      <PlayerHub avatar="🧓" name="Flavinho do Pneu" />
 
       <AvatarPick avatar='👩🏼' avatarList={['🧓🏼','👩🏼‍🦰','👩🏼','👨🏿','👩🏿','👶🏽','👵🏼','🧔🏼','👨🏼','👨🏼‍🦰','👨🏼‍🦲', '🤶🏼']} />
     

@@ -4,13 +4,25 @@ import { bounceIn } from "react-animations";
 import { ReactNode } from "react";
 
 interface Props {
-  setIsOpen?: (value: boolean)=>void;
+  setIsOpen?: (value: boolean) => void;
   children: ReactNode;
+  position?: "top" | "center" | "bottom";
 }
 
-const Container = styled.div`
+const POSITION_MAPPING = {
+  top: "0px",
+  center: "50%",
+  bottom: "60%"
+}
+
+interface ContainerStyle{
+  position: "top" | "center" | "bottom"
+}
+
+const Container =
+  styled.div <ContainerStyle>`
     position: relative;
-    top: 50%;
+    top: ${props=>POSITION_MAPPING[props.position]};
     margin: 0 auto;
 
     max-width: 300px;
@@ -21,7 +33,7 @@ const Container = styled.div`
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
 
     animation: 0.4s ${keyframes`${bounceIn}`};
-`
+`;
 
 const Background = styled.div`
   width: 100%;
@@ -40,18 +52,23 @@ const Background = styled.div`
  */
 const Modal = ({
   setIsOpen,
-  children
+  children,
+  position = "center"
 }: Props) => {
   const handleClick = (event:React.MouseEvent<HTMLDivElement>)=>{
     event.stopPropagation()
   }
   return (
-    <Background onClick={()=>{ setIsOpen && setIsOpen(false)}}>
-      <Container onClick={handleClick}>
+    <Background
+      onClick={() => {
+        setIsOpen && setIsOpen(false);
+      }}
+    >
+      <Container position={position} onClick={handleClick}>
         {children}
       </Container>
     </Background>
-  )
+  );
 
 };
 

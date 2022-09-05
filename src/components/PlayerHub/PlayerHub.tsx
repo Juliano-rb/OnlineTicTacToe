@@ -1,24 +1,18 @@
-import { useEffect, useRef, useState } from "react";
-import styled, { keyframes } from "styled-components";
-import { zoomInLeft, fadeOut } from "react-animations";
+import { ReactNode, useRef, useState } from "react";
+import styled from "styled-components";
 import colors from "../../assets/styles/colors";
 import Card from "../Card";
 import Emoji from "../Emoji";
+import ReactionPicker from "./ReactionPicker";
+import Modal from "../Modal";
+import Reaction from "./Reaction";
+import ReactionList from "./ReactionList";
 
-const FADE_IN_DURATION = 2000;
-const FADE_OUT_DURATION = 450;
 const DEFAULT_MESSAGE_DURATION = 3000;
-
-export {
-  FADE_IN_DURATION,
-  FADE_OUT_DURATION,
-  DEFAULT_MESSAGE_DURATION
-}
-
+export {DEFAULT_MESSAGE_DURATION}
 interface Props {
   avatar: string;
   name: string;
-  message: string;
   messageDuration?: number;
   orientation?: "left" | "right";
 }
@@ -42,54 +36,45 @@ const Container = styled.div<AdjustableItem>`
 const FlexDiv = styled.div<AdjustableItem>`
   display: flex;
   flex-direction: column;
+  row-gap: 6px;
   justify-content: space-between;
   align-items: ${(props) =>
     props.orientation === "left" ? "flex-start" : "flex-end"};
 
-  div {
-    animation: ${FADE_IN_DURATION}ms ${keyframes`${zoomInLeft}`};
-  }
-
-  div.fadeOut {
-    animation: ${FADE_OUT_DURATION}ms ${keyframes`${fadeOut}`};
-  }
 `;
 
 const PlayerHub = ({
   avatar,
   name,
-  message,
   orientation = "left",
   messageDuration = DEFAULT_MESSAGE_DURATION,
 }: Props) => {
-  const messageRef = useRef<HTMLDivElement>(null);
-  const [showMessage, setShowMessage] = useState<boolean>(false);
-  const [showChat, setShowChat] = useState<boolean>(true)
+  const [messageList, setMessageList] = useState<ReactNode[]>([]);
+  const [showChat, setShowChat] = useState<boolean>(false);
 
-  useEffect(() => {
-    setShowMessage(true);
+  const newMessage = (message: string)=>{
+    setMessageList([
+      ...messageList,
+      <Reaction messageDuration={messageDuration} message={message} />,
+    ]);
+  }
 
-    setTimeout(() => {
-      if (messageRef?.current) messageRef.current.className = "fadeOut";
-
-      setTimeout(() => {
-        setShowMessage(false);
-      }, FADE_OUT_DURATION - 50);
-    }, messageDuration + FADE_IN_DURATION);
-  }, [message, messageDuration]);
+  const clickReactionAction = (data: string) => {
+    newMessage(data);
+    setShowChat(false);
+  };
 
   return (
     <Container orientation={orientation}>
-      <Emoji emoji={avatar} action={()=>setShowChat(true)} />
+      <Emoji emoji={avatar} action={() => setShowChat(true)} />
       <FlexDiv orientation={orientation}>
         <p>{name}</p>
-        {message && showMessage && (
-          <div ref={messageRef} data-test-id="message">
-            <Card text={message} />
-          </div>
+        <ReactionList messages={messageList} />
+        {showChat && (
+          <Modal setIsOpen={setShowChat}>
+            <ReactionPicker action={clickReactionAction} />
+          </Modal>
         )}
-
-        {showChat && <div>chat</div>}
       </FlexDiv>
     </Container>
   );
