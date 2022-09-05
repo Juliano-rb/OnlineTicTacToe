@@ -1,15 +1,31 @@
 import Button from "../Button"
 import ShareIcon from "@mui/icons-material/Share";
 
-const ShareButton = ()=>{
-    return <Button variation="share" onClick={()=>{
-        try {
-          navigator.share({ url:"https://velha.onrender.com", title:"Você já conhece o melhor jogo da velha?", text:"Jogue aqui" })
+interface Props{
+  buttonText?: string
+  shareUrl: string
+  shareTitle?: string
+  shareText?: string
+}
+
+const ShareButton = ({buttonText, shareTitle, shareUrl, shareText}: Props)=>{
+    const share = ()=>{
+      try {
+          navigator.share({
+            url: shareUrl,
+            title: shareTitle,
+            text: shareText,
+          });
           
         } catch (error) {
           alert("Erro ao compartilhar")
         }
-      }}><ShareIcon fontSize="small" /> Compartilhar</Button>
+    }
+    return (
+      <Button variation="share" onClick={share}>
+        <ShareIcon fontSize="small" /> {buttonText}
+      </Button>
+    );
 }
 
 export default ShareButton

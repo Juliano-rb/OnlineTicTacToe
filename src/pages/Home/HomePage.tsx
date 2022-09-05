@@ -55,7 +55,7 @@ const HomePage = () => {
       <br/>
       <Button onClick={()=>setMessage(message + '.')}>Jogo rápido</Button><br/>
       
-      <ShareButton />
+      <ShareButton buttonText="Compartilhar" shareUrl="https://velha.onrender.com" shareTitle="O Melhor jogo da velha já feito" />
 
       {selecao === "Ver oponentes" ? <List action={{text:"Criar jogo", action:()=>alert('ola')}} >{itens}</List> : null}
       <br />
