@@ -22,6 +22,7 @@ interface AdjustableItem {
 }
 
 const Container = styled.div<AdjustableItem>`
+  position: relative;
   display: flex;
   flex-direction: ${(props) =>
     props.orientation === "left" ? "row" : "row-reverse"};
@@ -65,17 +66,17 @@ const PlayerHub = ({
   };
 
   return (
-    <Container orientation={orientation}>
+    <Container orientation={orientation} data-testid="pai">
       <Emoji emoji={avatar} action={() => setShowChat(true)} />
       <FlexDiv orientation={orientation}>
         <p>{name}</p>
         <ReactionList messages={messageList} />
-        {showChat && (
-          <Modal setIsOpen={setShowChat}>
-            <ReactionPicker action={clickReactionAction} />
-          </Modal>
-        )}
       </FlexDiv>
+      {showChat && (
+        <Modal setIsOpen={setShowChat}>
+          <ReactionPicker action={clickReactionAction} />
+        </Modal>
+      )}
     </Container>
   );
 };
