@@ -10,7 +10,7 @@ import _uniqueId from "lodash/uniqueId";
 import PlayerHub from "../../components/PlayerHub";
 import AvatarPick from "../../components/AvatarPick/AvatarPick";
 import Switch from "../../components/Switch";
-import ShareIcon from "@mui/icons-material/Share";
+import ShareButton from "../../components/ShareButton";
 
 const HomePage = () => {
   const [message, setMessage] = useState<string>('E lá vamos nós')
@@ -54,14 +54,8 @@ const HomePage = () => {
       <Input type="text" placeholder="Seu apelido" />
       <br/>
       <Button onClick={()=>setMessage(message + '.')}>Jogo rápido</Button><br/>
-      <Button variation="share" onClick={()=>{
-        try {
-          navigator.share({ url:"http://velha1.herokuapp.com", title:"Teset", text:"Este é um teste" })
-          
-        } catch (error) {
-          alert(error)
-        }
-      }}><ShareIcon fontSize="small" /> Compartilhar</Button>
+      
+      <ShareButton />
 
       {selecao === "Ver oponentes" ? <List action={{text:"Criar jogo", action:()=>alert('ola')}} >{itens}</List> : null}
       <br />
