@@ -3,7 +3,18 @@ import Board from "../../components/Board";
 
 const PlayPage = () => {
   const [cells, setCells] = useState<string[]>(Array(8).fill(""));
-  return <Board setCells={setCells} cells={cells} valueMapping={{ "0": "X", "1": "O" }} />;
+  const [player, setPlayer] = useState<string>("0");
+
+
+  return (
+    <Board
+      player={player}
+      setPlayer={setPlayer}
+      setCells={setCells}
+      cells={cells}
+      valueMapping={{ "0": "X", "1": "O" }}
+    />
+  );
 };
 
 export default PlayPage;

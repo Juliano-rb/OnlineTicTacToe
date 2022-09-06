@@ -1,19 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components"
 import colors from "../../assets/styles/colors"
 import Cell from "./Cell";
+import VictoryLine from "./VictoryLine";
+import { IsVictory as CheckVictory } from "./VictoryLine/getVictoryLine";
+import { IVictory } from "./VictoryLine/VictoryLine";
 
 interface Props {
   cells: string[];
   setCells: (value: string[]) => void;
   valueMapping?: {};
   action?: (data: string) => void;
+  player: string;
+  setPlayer: (data: string) => void;
 }
 
 const Container = styled.div`
     padding: 6px;
-    width: 100%;
+    width: fit-content;
     margin: 0 auto;
+    position: relative;
 `
 
 const Table = styled.table`
@@ -55,18 +61,36 @@ const Table = styled.table`
   }
 `;
 
-const Board = ({ cells, valueMapping, setCells }: Props) => {
-    const [player, setPlayer] = useState<string>("0")
+const Board = ({ cells, valueMapping, setCells, player, setPlayer }: Props) => {
+    const [victory, setVictory] = useState<IVictory | null>()
+
+    useEffect(()=>{
+        const isVictory = CheckVictory(cells, player);
+        setVictory(isVictory);
+    }, [cells, player])
+    
     const onClick = (index: number, player: string) => {
-        const cellsCopy = [...cells]
+        if (victory) return
+        if (cells[index]) return;
+
+        const cellsCopy = [...cells];
+        
         cellsCopy[index] = player
         setCells(cellsCopy);
         
-        const nextPlayer = player === "0"? "1" : "0"
-        setPlayer(nextPlayer)
+        setPlayer(player === "0" ? "1" : "0");
     };
+
     return (
       <Container>
+        {victory && (
+          <VictoryLine
+            position={victory.position}
+            rotation={victory.rotation}
+            winner={victory.winner}
+          />
+        )}
+
         <Table>
           <tbody>
             <tr>
