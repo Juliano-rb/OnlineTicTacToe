@@ -1,5 +1,9 @@
+import { useState } from "react";
+import Board from "../../components/Board";
+
 const PlayPage = () => {
-  return <h1>Play</h1>;
+  const [cells, setCells] = useState<string[]>(Array(8).fill(""));
+  return <Board setCells={setCells} cells={cells} valueMapping={{ "0": "X", "1": "O" }} />;
 };
 
 export default PlayPage;
