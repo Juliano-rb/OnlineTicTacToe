@@ -26,7 +26,7 @@ interface CellProps {
 const Cell = ({ value, index, cellMapping, onClick }: CellProps) => {
 
   return (
-    <TdStyle onClick={onClick} className={`_${index}`} value={value}>
+    <TdStyle onClick={onClick} className={`_${index}`} role={`cell${index}`} value={value}>
       {cellMapping? cellMapping[value] : value}
     </TdStyle>
   );

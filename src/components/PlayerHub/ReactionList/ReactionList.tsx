@@ -12,7 +12,7 @@ const Container = styled.div`
 `;
 
 const ReactionList = ({messages}:Props)=>{
-  return <Container>{messages.map((message) => message)}</Container>;
+  return <Container data-testid="reactionList">{messages.map((message) => message)}</Container>;
 }
 
 export default ReactionList

@@ -91,7 +91,7 @@ const Board = ({ cells, valueMapping, setCells, player, setPlayer }: Props) => {
           />
         )}
 
-        <Table>
+        <Table role="table">
           <tbody>
             <tr>
               <Cell

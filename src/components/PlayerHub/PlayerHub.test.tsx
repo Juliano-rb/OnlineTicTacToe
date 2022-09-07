@@ -1,44 +1,54 @@
-// import React from 'react';
-// import { render, screen } from '@testing-library/react';
-// // import PlayerHub, { FADE_OUT_DURATION, FADE_IN_DURATION } from './PlayerHub';
-// import { wait } from '@testing-library/user-event/dist/utils';
-// import { act } from 'react-dom/test-utils';
+import { render, screen } from '@testing-library/react';
+import PlayerHub from './PlayerHub';
+import userEvent from '@testing-library/user-event'
+import { act } from 'react-dom/test-utils';
 
 
-// describe("PlayerHub", () => {
-//     const avatar = '👨‍🦰',
-//         name = 'John',
-//         messageDuration = 500;
+describe("PlayerHub", () => {
+    const avatar = '👨‍🦰',
+        name = 'John',
+        messageDuration = 500;
 
-//     test('renders PlayerHub', () => {
-//         let message = '';
+    test('renders PlayerHub', () => {
+        act(() => {
+            render(<PlayerHub avatar={avatar} name={name} messageDuration={messageDuration}  />);
+        })
 
-//         act(() => {
-//             render(<PlayerHub avatar={avatar} name={name} />);
-//         })
+        expect(screen.getByText(avatar)).toBeInTheDocument();
+        expect(screen.getByText(name)).toBeInTheDocument();
+        expect(screen.queryByTestId('message')).not.toBeInTheDocument();
+    });
 
-//         expect(screen.getByText(avatar)).toBeInTheDocument();
-//         expect(screen.getByText(name)).toBeInTheDocument();
-//         expect(screen.queryByTestId('message')).not.toBeInTheDocument();
-//     });
+    test('open reactionList when click on avatar', async () => {
+        render(<PlayerHub avatar={avatar}
+                            name={name}
+                            messageDuration={messageDuration} />);
+        
+            
 
-//     test('renders a new message', async () => {
-//         let message = 'Good day';
+        await userEvent.click(screen.getByText(avatar))
 
-//         act(() => {
-//             render(<PlayerHub avatar={avatar}
-//                                  name={name}
-//                                 //  message={message}
-//                                  messageDuration={messageDuration} />);
-//         })
+        expect(screen.getByText('Você é bom!')).toBeInTheDocument();
+        expect(screen.getByText('Uau!!')).toBeInTheDocument();
+        expect(screen.getByText('😎')).toBeInTheDocument();
+        expect(screen.getByText('🤛')).toBeInTheDocument();
 
-//         expect(screen.getByText(message)).toBeInTheDocument();
-//         await wait(FADE_IN_DURATION + messageDuration + FADE_OUT_DURATION)
+    });
 
-//         expect(screen.queryByText(message)).not.toBeInTheDocument();
-//     });
-// })
+    test.each(["Você é bom!","Uau!!", "Quero revanche", '😎', '🤛'])
+        (`should show a message when click in reaction %i`, async (reaction) => {
+        render(<PlayerHub avatar={avatar}
+                            name={name}
+                            messageDuration={messageDuration} />);
+        
+        userEvent.click(screen.getByText(avatar))
 
+        const reactButton = screen.getByText(reaction)
+        userEvent.click(reactButton)
+        expect(reactButton).not.toBeInTheDocument()
 
+        const message = await screen.findByText(reaction);
+        expect(message).toBeInTheDocument();
 
-export {}
+    });
+})

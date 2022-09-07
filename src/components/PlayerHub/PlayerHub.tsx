@@ -1,4 +1,4 @@
-import { ReactNode, useRef, useState } from "react";
+import { ReactNode, useState } from "react";
 import styled from "styled-components";
 import colors from "../../assets/styles/colors";
 import Emoji from "../Emoji";
@@ -6,6 +6,7 @@ import ReactionPicker from "./ReactionPicker";
 import Modal from "../Modal";
 import Reaction from "./Reaction";
 import ReactionList from "./ReactionList";
+import _uniqueId from "lodash/uniqueId";
 
 const DEFAULT_MESSAGE_DURATION = 3000;
 export {DEFAULT_MESSAGE_DURATION}
@@ -55,7 +56,7 @@ const PlayerHub = ({
   const newMessage = (message: string)=>{
     setMessageList([
       ...messageList,
-      <Reaction messageDuration={messageDuration} message={message} />,
+      <Reaction messageDuration={messageDuration} message={message} key={_uniqueId()} />,
     ]);
   }
 

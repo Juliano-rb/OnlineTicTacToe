@@ -1,7 +1,5 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import _uniqueId from "lodash/uniqueId";
-import { wait } from '@testing-library/user-event/dist/utils';
 import { act } from 'react-dom/test-utils';
 import List from './List';
 import ClickableItem from "../ClickableItem";
