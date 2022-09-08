@@ -1,7 +1,54 @@
 import { IVictory as IVictoryLine } from "./VictoryLine";
 
-// Return true if `cells` is in a winning configuration.
-export const IsVictory =(cells: (null | string)[], player: string): IVictoryLine | null =>{
+const getVictoryLine = (winningPositionIndex: number, winningPlayer: string): IVictoryLine => {
+  const allPositions: IVictoryLine[] = [
+    {
+      position: "top",
+      rotation: "0",
+      winner: winningPlayer,
+    },
+    {
+      position: "middle",
+      rotation: "0",
+      winner: winningPlayer,
+    },
+    {
+      position: "bottom",
+      rotation: "0",
+      winner: winningPlayer,
+    },
+    {
+      position: "left",
+      rotation: "90deg",
+      winner: winningPlayer,
+    },
+    {
+      position: "middle",
+      rotation: "90deg",
+      winner: winningPlayer,
+    },
+    {
+      position: "right",
+      rotation: "90deg",
+      winner: winningPlayer,
+    },
+    {
+      position: "middle",
+      rotation: "45deg",
+      winner: winningPlayer,
+    },
+    {
+      position: "middle",
+      rotation: "-45deg",
+      winner: winningPlayer,
+    },
+  ];
+
+  return allPositions[winningPositionIndex];
+};
+
+// Return a setup for a 'victory stroke' if `cells` is in a winning configuration. False else where
+export const IsVictory = (cells: (null | string)[], player: string): IVictoryLine | null =>{
   const winningPlayer = player === "0" ? "1" : "0";
 
   const positions = [
@@ -15,53 +62,6 @@ export const IsVictory =(cells: (null | string)[], player: string): IVictoryLine
     [2, 4, 6],
   ];
 
-  const getVictoryLine = (winningPositionIndex: number): IVictoryLine => {
-    const allPositions: IVictoryLine[] = [
-      {
-        position: "top",
-        rotation: "0",
-        winner: winningPlayer,
-      },
-      {
-        position: "middle",
-        rotation: "0",
-        winner: winningPlayer,
-      },
-      {
-        position: "bottom",
-        rotation: "0",
-        winner: winningPlayer,
-      },
-      {
-        position: "left",
-        rotation: "90deg",
-        winner: winningPlayer,
-      },
-      {
-        position: "middle",
-        rotation: "90deg",
-        winner: winningPlayer,
-      },
-      {
-        position: "right",
-        rotation: "90deg",
-        winner: winningPlayer,
-      },
-      {
-        position: "middle",
-        rotation: "45deg",
-        winner: winningPlayer,
-      },
-      {
-        position: "middle",
-        rotation: "-45deg",
-        winner: winningPlayer,
-      },
-    ];
-
-    return allPositions[winningPositionIndex];
-  };
-
   const isRowComplete = (row: number[]) => {
     const symbols = row.map((i) => cells[i]);
     return symbols.every((i) => !!i && i === symbols[0]);
@@ -71,7 +71,7 @@ export const IsVictory =(cells: (null | string)[], player: string): IVictoryLine
 
   if (winningPosition === -1) return null;
 
-  const victoryLine = getVictoryLine(winningPosition)
+  const victoryLine = getVictoryLine(winningPosition, winningPlayer);
 
   return victoryLine;
 }
