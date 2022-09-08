@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import colors from "../../assets/styles/colors";
-import { ReactNode } from "react";
+import styled from 'styled-components'
+import React, { ReactNode } from 'react'
+import colors from '../../assets/styles/colors'
 
 interface CardStyleProps extends React.HTMLAttributes<HTMLDivElement> {
-  size?: "normal" | "large";
+  size?: 'normal' | 'large';
 }
 
 interface Props extends CardStyleProps {
@@ -13,24 +13,26 @@ interface Props extends CardStyleProps {
 }
 
 const CardStyle = styled.div<CardStyleProps>`
+  background-color: ${colors.white};
+  border-radius: 4px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
   color: ${colors.main};
   font-size: 0.8rem;
-  background-color: ${colors.white};
-  width: fit-content;
-  border-radius: 4px;
-  padding: ${props=>props.size === 'large'? '16px' :'10px'} ;
+  padding: ${(props) => (props.size === 'large' ? '16px' : '10px')} ;
 
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-`;
+  width: fit-content;
+`
 
 /**
  * Card component act as a container for other elements
- * @text a text to be rendered as a child 
+ * @text a text to be rendered as a child
  * @children can be used to render any element as a child of a card
- * @returns 
+ * @returns
  */
-const Card = ({ text, action, size, children }: Props) => {
-  return <CardStyle onClick={()=>action && action()} size={size}>{text}{children}</CardStyle>;
-};
+function Card({
+  text, action, size, children,
+}: Props) {
+  return <CardStyle onClick={() => action && action()} size={size}>{text}{children}</CardStyle>
+}
 
-export default Card;
+export default Card

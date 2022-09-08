@@ -1,14 +1,14 @@
-import styled from "styled-components";
-import colors from "../../assets/styles/colors";
+import styled from 'styled-components'
+import colors from '../../assets/styles/colors'
 
 const Input = styled.input`
-  height: 45px;
-  width: 202px;
-
-  font-size: 1rem;
+  border: solid 1px ${colors.main};
   color: ${colors.main};
 
-  border: solid 1px ${colors.main};
+  font-size: 1rem;
+  height: 45px;
+
+  width: 202px;
 
   ::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -20,6 +20,6 @@ const Input = styled.input`
     /* Microsoft Edge */
     color: ${colors.smooth};
   }
-`;
+`
 
 export default Input

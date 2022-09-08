@@ -1,3 +1,3 @@
-import ReactionList from "./ReactionList";
+import ReactionList from './ReactionList'
 
-export default ReactionList;
+export default ReactionList

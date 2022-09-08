@@ -1,3 +1,3 @@
-import AvatarPick from "./AvatarPick";
+import AvatarPick from './AvatarPick'
 
 export default AvatarPick

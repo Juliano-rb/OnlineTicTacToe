@@ -1,3 +1,3 @@
-import ClickableItem from "./ClickableItem";
+import ClickableItem from './ClickableItem'
 
-export default ClickableItem;
+export default ClickableItem

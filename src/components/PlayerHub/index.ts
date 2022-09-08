@@ -1,3 +1,3 @@
-import PlayerHub from "./PlayerHub";
+import PlayerHub from './PlayerHub'
 
-export default PlayerHub;
+export default PlayerHub

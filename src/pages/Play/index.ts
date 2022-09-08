@@ -1,3 +1,3 @@
-import PlayPage from "./PlayPage";
+import PlayPage from './PlayPage'
 
-export default PlayPage;
+export default PlayPage

@@ -1,21 +1,21 @@
-import { useState } from "react";
-import Modal from "../Modal";
-import Emoji from "../Emoji";
-import EmojiList from "./EmojiList";
+import { useState } from 'react'
+import Modal from '../Modal'
+import Emoji from '../Emoji'
+import EmojiList from './EmojiList'
 
 interface Props {
   avatar?: string
   avatarList: string[]
 }
 
-const AvatarPick = ({
+export default function ({
   avatar,
-  avatarList
-}: Props) => {
+  avatarList,
+}: Props) {
   const [showEmojiList, setShowEmojiList] = useState<boolean>(false)
-  const [currentAvatar, setCurrentAvatar] = useState<string>(avatar? avatar : '👴🏼')
+  const [currentAvatar, setCurrentAvatar] = useState<string>(avatar || '👴🏼')
 
-  const clickAction = (data: string)=>{
+  const clickAction = (data: string) => {
     setCurrentAvatar(data)
     setShowEmojiList(false)
   }
@@ -23,9 +23,12 @@ const AvatarPick = ({
   return (
     <div>
       <Emoji emoji={currentAvatar} action={() => setShowEmojiList(true)} />
-      {showEmojiList && <Modal setIsOpen={setShowEmojiList}><EmojiList emojiList={avatarList} action={clickAction} /></Modal>}
+      {showEmojiList
+        && (
+        <Modal setIsOpen={setShowEmojiList}>
+          <EmojiList emojiList={avatarList} action={clickAction} />
+        </Modal>
+        )}
     </div>
-  );
-};
-
-export default AvatarPick;
+  )
+}

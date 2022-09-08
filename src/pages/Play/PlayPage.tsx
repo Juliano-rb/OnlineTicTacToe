@@ -1,10 +1,9 @@
-import { useState } from "react";
-import Board from "../../components/Board";
+import { useState } from 'react'
+import Board from '../../components/Board'
 
-const PlayPage = () => {
-  const [cells, setCells] = useState<string[]>(Array(8).fill(""));
-  const [player, setPlayer] = useState<string>("0");
-
+function PlayPage() {
+  const [cells, setCells] = useState<string[]>(Array(8).fill(''))
+  const [player, setPlayer] = useState<string>('0')
 
   return (
     <Board
@@ -12,9 +11,9 @@ const PlayPage = () => {
       setPlayer={setPlayer}
       setCells={setCells}
       cells={cells}
-      valueMapping={{ "0": "X", "1": "O" }}
+      valueMapping={{ 0: 'X', 1: 'O' }}
     />
-  );
-};
+  )
+}
 
-export default PlayPage;
+export default PlayPage

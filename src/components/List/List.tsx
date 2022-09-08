@@ -1,8 +1,8 @@
-import { ReactNode } from "react";
-import styled from "styled-components";
-import colors from "../../assets/styles/colors";
+import { ReactNode } from 'react'
+import styled from 'styled-components'
 import _uniqueId from 'lodash/uniqueId'
-import Button from "../Button";
+import colors from '../../assets/styles/colors'
+import Button from '../Button'
 
 interface Props {
   title?: string;
@@ -11,55 +11,55 @@ interface Props {
 }
 
 const ListStyle = styled.div`
+  background-color: ${colors.white};
+  border: 1px solid ${colors.softier};
+  border-radius: 4px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
   height: 300px;
-  border-radius: 4px;
-  border: 1px solid ${colors.softier};
-  background-color: ${colors.white};
+  justify-content: space-between;
   padding: 4px;
 
   h1{
     color: ${colors.main};
-    margin-top: 4px;
-    margin-bottom: 10px;
     font-size: 1.2rem;
+    margin-bottom: 10px;
+    margin-top: 4px;
   }
 
   ul {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-between;
     max-height: 245px;
     overflow-y: scroll;
     padding-right: 4px;
 
     ::-webkit-scrollbar {
-      width: 5px;
       background: ${colors.shadow};
+      width: 5px;
     }
 
     ::-webkit-scrollbar-thumb {
-      width: 5px;
       background: ${colors.softier};
+      width: 5px;
     }
   }
 
   li {
-    width: 100%;
     margin-bottom: 8px;
+    width: 100%;
   }
   li:last-child {
     margin-bottom: 0px;
   }
 
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
-`;
+  width: 100%;
+`
 
-const List = ({ title, action, children }: Props) => {
+function List({ title, action, children }: Props) {
   return (
     <ListStyle>
       <div>
@@ -70,13 +70,14 @@ const List = ({ title, action, children }: Props) => {
           ))}
         </ul>
       </div>
-      {action &&
+      {action
+        && (
         <div>
           <Button onClick={() => action.action()}>{action.text}</Button>
         </div>
-      }
+        )}
     </ListStyle>
-  );
-};
+  )
+}
 
-export default List;
+export default List

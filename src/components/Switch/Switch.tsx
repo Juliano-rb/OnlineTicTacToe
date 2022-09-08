@@ -1,6 +1,6 @@
-import { useState } from "react";
-import styled from "styled-components";
-import colors from "../../assets/styles/colors";
+import { useState } from 'react'
+import styled from 'styled-components'
+import colors from '../../assets/styles/colors'
 
 interface SwitchProps{
   options: string[],
@@ -8,18 +8,18 @@ interface SwitchProps{
 }
 
 const Container = styled.div`
-  width: 202px;
-  height: 36px;
-  color: ${colors.confirm};
+  align-items: center;
   background-color: white;
+  border: none;
   border-radius: 5px;
+  color: ${colors.confirm};
   cursor: pointer;
 
-  border: none;
-
   display: flex;
-  align-items: center;
+
+  height: 36px;
   justify-content: space-between;
+  width: 202px;
 
   div{
     font-size: 0.9rem;
@@ -27,9 +27,9 @@ const Container = styled.div`
 `
 
 const BtnStyle = styled.div`
-  width: 31px;
   height: 100%;
   text-align: center;
+  width: 31px;
 
   :active{
     background-color: ${colors.shadow};
@@ -43,26 +43,24 @@ const BtnStyle = styled.div`
   }
 `
 
-const Switch = ({ options, setOption }: SwitchProps) => {
+function Switch({ options, setOption }: SwitchProps) {
   const [currOption, setCurrOption] = useState<string>(options[0])
-  
-  const next = ()=>{
-    const actual = options.indexOf(currOption);
-    let nextIndex = actual+1;
-    if(nextIndex>=options.length)
-      nextIndex = 0
-    
+
+  const next = () => {
+    const actual = options.indexOf(currOption)
+    let nextIndex = actual + 1
+    if (nextIndex >= options.length) nextIndex = 0
+
     const value = options[nextIndex]
     setCurrOption(value)
     setOption(value)
   }
 
-  const prev = ()=>{
-    const actual = options.indexOf(currOption);
-    let nextIndex = actual-1;
-    if(nextIndex<0)
-      nextIndex = options.length-1
-    
+  const prev = () => {
+    const actual = options.indexOf(currOption)
+    let nextIndex = actual - 1
+    if (nextIndex < 0) nextIndex = options.length - 1
+
     const value = options[nextIndex]
     setCurrOption(value)
     setOption(value)
@@ -70,13 +68,13 @@ const Switch = ({ options, setOption }: SwitchProps) => {
 
   return (
     <Container>
-      <BtnStyle onClick={()=>prev()}>{'<'}</BtnStyle>
+      <BtnStyle onClick={() => prev()}>{'<'}</BtnStyle>
       <div>
         {currOption}
       </div>
-      <BtnStyle onClick={()=>next()}>{'>'}</BtnStyle>
+      <BtnStyle onClick={() => next()}>{'>'}</BtnStyle>
     </Container>
-  );
-};
+  )
+}
 
-export default Switch;
+export default Switch

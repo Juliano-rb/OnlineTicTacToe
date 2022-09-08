@@ -1,20 +1,20 @@
-import styled from "styled-components";
-import colors from "../../../assets/styles/colors";
+import styled from 'styled-components'
+import colors from '../../../assets/styles/colors'
 
 interface TdProps {
   value: string;
 }
 
 const TdStyle = styled.td<TdProps>`
-  color: ${(props) => (props.value === "0" ? colors.alert : colors.softier)};
-  cursor: pointer;
+  box-sizing: border-box;
+  color: ${(props) => (props.value === '0' ? colors.alert : colors.softier)};
 
-  width: 4.3rem;
+  cursor: pointer;
+  font-size: 3.2rem;
   height: 4.3rem;
   line-height: 4.1rem;
-  font-size: 3.2rem;
-  box-sizing: border-box;
-`;
+  width: 4.3rem;
+`
 
 interface CellProps {
   value: string;
@@ -23,13 +23,12 @@ interface CellProps {
   onClick: ()=>void
 }
 
-const Cell = ({ value, index, cellMapping, onClick }: CellProps) => {
-
+export default function Cell({
+  value, index, cellMapping, onClick,
+}: CellProps) {
   return (
     <TdStyle onClick={onClick} className={`_${index}`} role={`cell${index}`} value={value}>
-      {cellMapping? cellMapping[value] : value}
+      {cellMapping ? cellMapping[value] : value}
     </TdStyle>
-  );
-};
-
-export default Cell;
+  )
+}

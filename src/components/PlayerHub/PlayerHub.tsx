@@ -1,69 +1,67 @@
-import { ReactNode, useState } from "react";
-import styled from "styled-components";
-import colors from "../../assets/styles/colors";
-import Emoji from "../Emoji";
-import ReactionPicker from "./ReactionPicker";
-import Modal from "../Modal";
-import Reaction from "./Reaction";
-import ReactionList from "./ReactionList";
-import _uniqueId from "lodash/uniqueId";
+import { ReactNode, useState } from 'react'
+import styled from 'styled-components'
+import _uniqueId from 'lodash/uniqueId'
+import colors from '../../assets/styles/colors'
+import Emoji from '../Emoji'
+import ReactionPicker from './ReactionPicker'
+import Modal from '../Modal'
+import Reaction from './Reaction'
+import ReactionList from './ReactionList'
 
-const DEFAULT_MESSAGE_DURATION = 3000;
-export {DEFAULT_MESSAGE_DURATION}
+const DEFAULT_MESSAGE_DURATION = 3000
+export { DEFAULT_MESSAGE_DURATION }
 interface Props {
   avatar: string;
   name: string;
   messageDuration?: number;
-  orientation?: "left" | "right";
+  orientation?: 'left' | 'right';
 }
 
 interface AdjustableItem {
-  orientation: "left" | "right";
+  orientation: 'left' | 'right';
 }
 
 const Container = styled.div<AdjustableItem>`
-  position: relative;
   display: flex;
-  flex-direction: ${(props) =>
-    props.orientation === "left" ? "row" : "row-reverse"};
+  flex-direction: ${(props) => (props.orientation === 'left' ? 'row' : 'row-reverse')};
+  position: relative;
 
   p {
     color: ${colors.white};
     text-align: left;
     text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
   }
-`;
+`
 
 const FlexDiv = styled.div<AdjustableItem>`
+  align-items: ${(props) => (props.orientation === 'left' ? 'flex-start' : 'flex-end')};
   display: flex;
   flex-direction: column;
-  row-gap: 6px;
   justify-content: space-between;
-  align-items: ${(props) =>
-    props.orientation === "left" ? "flex-start" : "flex-end"};
+  row-gap: 6px;
 
-`;
+`
 
-const PlayerHub = ({
+function PlayerHub({
   avatar,
   name,
-  orientation = "left",
+  orientation = 'left',
   messageDuration = DEFAULT_MESSAGE_DURATION,
-}: Props) => {
-  const [messageList, setMessageList] = useState<ReactNode[]>([]);
-  const [showChat, setShowChat] = useState<boolean>(false);
+}: Props) {
+  const [messageList, setMessageList] = useState<ReactNode[]>([])
+  const [showChat, setShowChat] = useState<boolean>(false)
 
-  const newMessage = (message: string)=>{
+  const newMessage = (message: string) => {
     setMessageList([
       ...messageList,
       <Reaction messageDuration={messageDuration} message={message} key={_uniqueId()} />,
-    ]);
+    ])
   }
 
   const clickReactionAction = (data: string) => {
-    newMessage(data);
-    setShowChat(false);
-  };
+    newMessage(data)
+    setShowChat(false)
+  }
 
   return (
     <Container orientation={orientation}>
@@ -78,7 +76,7 @@ const PlayerHub = ({
         </Modal>
       )}
     </Container>
-  );
-};
+  )
+}
 
-export default PlayerHub;
+export default PlayerHub

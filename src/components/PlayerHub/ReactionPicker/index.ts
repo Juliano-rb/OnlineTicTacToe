@@ -1,3 +1,3 @@
-import ReactionPicker from "./ReactionPicker";
+import ReactionPicker from './ReactionPicker'
 
-export default ReactionPicker;
+export default ReactionPicker

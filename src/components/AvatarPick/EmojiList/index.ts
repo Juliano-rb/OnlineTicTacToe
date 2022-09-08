@@ -1,3 +1,3 @@
-import EmojiList from "./EmojiList";
+import EmojiList from './EmojiList'
 
-export default EmojiList;
+export default EmojiList

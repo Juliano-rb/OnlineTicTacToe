@@ -1,55 +1,54 @@
-import styled, { keyframes } from "styled-components";
-import _uniqueId from "lodash/uniqueId";
-import { bounceIn } from "react-animations";
-import colors from "../../../assets/styles/colors";
-import Card from "../../Card";
+import styled, { keyframes } from 'styled-components'
+import _uniqueId from 'lodash/uniqueId'
+import { bounceIn } from 'react-animations'
+import colors from '../../../assets/styles/colors'
+import Card from '../../Card'
 
 const REACTIONS = {
   text: [
-    "Você é bom!",
-    "Bem jogado",
-    "Parabéns",
-    "Eu vou ganhar",
-    "Sim",
-    "Não",
-    "Uau!!",
-    "Quero revanche",
+    'Você é bom!',
+    'Bem jogado',
+    'Parabéns',
+    'Eu vou ganhar',
+    'Sim',
+    'Não',
+    'Uau!!',
+    'Quero revanche',
   ],
-  emoji: ["😎", "😍", "😮", "😡", "😥", "😈", "👍", "👋", "🤛"],
-};
+  emoji: ['😎', '😍', '😮', '😡', '😥', '😈', '👍', '👋', '🤛'],
+}
 
 interface Props {
   action?: (data: string) => void;
-  setIsOpen?: (value: boolean) => void;
 }
 
 const Container = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
-`;
+  position: relative;
+`
 
 const Group = styled.div`
+  animation: 0.4s ${keyframes`${bounceIn}`};
+  background-color: ${colors.white};
+  border-radius: 4px;
   display: flex;
-  gap: 8px;
+
   flex-wrap: wrap;
+  gap: 8px;
+
   justify-content: flex-start;
 
   position: relative;
+
   top: 50%;
 
-  border-radius: 4px;
-
-  background-color: ${colors.white};
-
-  animation: 0.4s ${keyframes`${bounceIn}`};
-
   div {
+    cursor: pointer;
     display: flex;
     flex: 1 1 content;
     font-size: 0.8rem;
-    cursor: pointer;
     max-width: fit-content;
 
     :hover {
@@ -62,9 +61,9 @@ const Group = styled.div`
   h1{
     font-size: 1.07rem;
   }
-`;
+`
 
-const ReactionPicker = ({ action }: Props) => {
+function ReactionPicker({ action }: Props) {
   return (
     <Container>
       <Group>
@@ -88,7 +87,7 @@ const ReactionPicker = ({ action }: Props) => {
         ))}
       </Group>
     </Container>
-  );
-};
+  )
+}
 
-export default ReactionPicker;
+export default ReactionPicker

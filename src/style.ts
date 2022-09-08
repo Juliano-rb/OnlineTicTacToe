@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components"
-import colors from "./assets/styles/colors";
+import { createGlobalStyle } from 'styled-components'
+import colors from './assets/styles/colors'
 
 export default createGlobalStyle`
     #root {
@@ -28,4 +28,4 @@ export default createGlobalStyle`
         user-select: none;
         -webkit-user-select: none;
     }
-`;
+`
