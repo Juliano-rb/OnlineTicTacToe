@@ -2,15 +2,18 @@ import { useState } from 'react'
 import Modal from '../Modal'
 import Emoji from '../Emoji'
 import EmojiList from './EmojiList'
+import { Container } from './AvatarPick.styles'
+
+const DEFAULT_AVATAR_LIST = ['🧓🏼', '👩🏼‍🦰', '👩🏼', '👨🏿', '👩🏿', '👶🏽', '👵🏼', '🧔🏼', '👨🏼', '👨🏼‍🦰', '👨🏼‍🦲', '🤶🏼']
 
 interface Props {
   avatar?: string
-  avatarList: string[]
+  avatarList?: string[]
 }
 
 export default function ({
   avatar,
-  avatarList,
+  avatarList = DEFAULT_AVATAR_LIST,
 }: Props) {
   const [showEmojiList, setShowEmojiList] = useState<boolean>(false)
   const [currentAvatar, setCurrentAvatar] = useState<string>(avatar || '👴🏼')
@@ -21,14 +24,14 @@ export default function ({
   }
 
   return (
-    <div>
-      <Emoji emoji={currentAvatar} action={() => setShowEmojiList(true)} />
+    <Container>
+      <Emoji emoji={currentAvatar} size='small' action={() => setShowEmojiList(true)} />
       {showEmojiList
         && (
         <Modal setIsOpen={setShowEmojiList}>
           <EmojiList emojiList={avatarList} action={clickAction} />
         </Modal>
         )}
-    </div>
+    </Container>
   )
 }

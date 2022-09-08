@@ -25,6 +25,8 @@ const Container = styled.div<ContainerStyleProps>`
       transform: scale(1.1);
       transition: 0.1s ;
     }
+
+    position: absolute;
 `
 function Emoji({
   emoji,

@@ -17,11 +17,11 @@ const ListStyle = styled.div`
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  height: 300px;
+
   justify-content: space-between;
   padding: 4px;
 
-  h1{
+  h1 {
     color: ${colors.main};
     font-size: 1.2rem;
     margin-bottom: 10px;
@@ -33,9 +33,10 @@ const ListStyle = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-height: 245px;
+    max-height: 400px;
     overflow-y: scroll;
     padding-right: 4px;
+    height: fit-content;
 
     ::-webkit-scrollbar {
       background: ${colors.shadow};

@@ -28,6 +28,8 @@ const Button = styled.button<Props>`
   font-size: 1rem;
   height: 41px;
   min-width: 45px;
+  padding-left: 15px;
+  padding-right: 15px;
 
   :active {
     background-color: ${(props) => (props.variation
