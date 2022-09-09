@@ -1,29 +1,31 @@
-import { Client, Lobby } from "boardgame.io/react";
-import { SocketIO } from "boardgame.io/multiplayer";
-import { TicTacToeBoard } from "./Board";
-import { TicTacToe } from "./Game";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Client, Lobby } from 'boardgame.io/react'
+import { SocketIO } from 'boardgame.io/multiplayer'
+import { TicTacToeBoard } from './Board'
+import { TicTacToe } from './Game'
 
 const ENV = process.env.NODE_ENV
 const { protocol, hostname, port } = window.location
-const serverPort = ENV === 'development'? '8000' : port
+const serverPort = ENV === 'development' ? '8000' : port
 
-const server = `${protocol}//${hostname}:${serverPort}`;
+const server = `${protocol}//${hostname}:${serverPort}`
 
 const TicTacToeClient = Client({
   game: TicTacToe,
   board: TicTacToeBoard,
   // multiplayer: Local({ persist: true, storageKey: "bgio" }),
-  multiplayer: SocketIO({ server })
-});
+  multiplayer: SocketIO({ server }),
+})
 
-const App = () => {
+function App() {
+  return (
+    <Lobby
+      gameServer={server}
+      lobbyServer={server}
+      gameComponents={[{ game: TicTacToe, board: TicTacToeBoard }]}
+      debug
+    />
+  )
+}
 
-    return (
-      <>
-        <Lobby gameServer={server} lobbyServer={server} gameComponents={[{ game: TicTacToe, board: TicTacToeBoard }]} debug={true} />
-      </>
-    );
-  
-};
-
-export default App;
+export default App
