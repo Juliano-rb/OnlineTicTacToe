@@ -12,12 +12,13 @@ interface Props {
 
 const ListStyle = styled.div`
   background-color: ${colors.white};
-  border: 1px solid ${colors.softier};
   border-radius: 4px;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
   display: flex;
+  flex: 1;
   flex-direction: column;
-
+  /* max-height: 100%; */
   justify-content: space-between;
   padding: 4px;
 
@@ -33,13 +34,11 @@ const ListStyle = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-height: 400px;
     overflow-y: scroll;
     padding-right: 4px;
-    height: fit-content;
 
     ::-webkit-scrollbar {
-      background: ${colors.shadow};
+      /* background: ${colors.shadow}; */
       width: 5px;
     }
 

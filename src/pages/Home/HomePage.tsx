@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import _uniqueId from 'lodash/uniqueId'
+// import { LobbyClient } from 'boardgame.io/client'
+// import { LobbyAPI } from 'boardgame.io'
+import { useNavigate } from 'react-router-dom'
 import Button from '../../components/Button'
 import ClickableItem from '../../components/ClickableItem'
 import Input from '../../components/Input'
@@ -10,8 +13,9 @@ import AvatarPick from '../../components/AvatarPick'
 import Switch from '../../components/Switch'
 
 function HomePage() {
-  const [message, setMessage] = useState<string>('E lá vamos nós')
   const [selecao, setSelecao] = useState<string>('Jogo rápido')
+
+  const navigate = useNavigate()
 
   const itens = [
     <ClickableItem
@@ -31,12 +35,38 @@ function HomePage() {
       actionText='Entrar'
       action={() => alert('clicou')}
       key={_uniqueId()}
-    />, <ClickableItem
+    />,
+    <ClickableItem
       title='Flavinho do Pneu'
       actionText='Entrar'
       action={() => alert('clicou')}
       key={_uniqueId()}
-    />, <ClickableItem
+    />,
+    <ClickableItem
+      title='Flavinho do Pneu'
+      actionText='Entrar'
+      action={() => alert('clicou')}
+      key={_uniqueId()}
+    />,
+    <ClickableItem
+      title='Flavinho do Pneu'
+      actionText='Entrar'
+      action={() => alert('clicou')}
+      key={_uniqueId()}
+    />,
+    <ClickableItem
+      title='Flavinho do Pneu'
+      actionText='Entrar'
+      action={() => alert('clicou')}
+      key={_uniqueId()}
+    />,
+    <ClickableItem
+      title='Flavinho do Pneu'
+      actionText='Entrar'
+      action={() => alert('clicou')}
+      key={_uniqueId()}
+    />,
+    <ClickableItem
       title='Flavinho do Pneu'
       actionText='Entrar'
       action={() => alert('clicou')}
@@ -48,7 +78,10 @@ function HomePage() {
     <Container>
       <Title>Velha</Title>
       <MainUI>
-        <Switch options={['Jogo rápido', 'Ver oponentes']} setOption={setSelecao} />
+        <Switch
+          options={['Jogo rápido', 'Ver oponentes']}
+          setOption={setSelecao}
+        />
         <HorizontalDiv>
           <Input type='text' placeholder='Seu apelido' />
           <AvatarPick avatar='👩🏼' />
@@ -58,12 +91,10 @@ function HomePage() {
             {itens}
           </List>
         )}
-        <br />
         {selecao === 'Jogo rápido' && (
-          <Button onClick={() => setMessage(`${message}.`)}>Jogar</Button>
+          <Button onClick={() => { navigate('/play') }}>Jogar</Button>
         )}
       </MainUI>
-
     </Container>
   )
 }

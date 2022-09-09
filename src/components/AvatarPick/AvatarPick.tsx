@@ -25,7 +25,7 @@ export default function ({
 
   return (
     <Container>
-      <Emoji emoji={currentAvatar} size='small' action={() => setShowEmojiList(true)} />
+      <Emoji emoji={currentAvatar} size='medium' action={() => setShowEmojiList(true)} />
       {showEmojiList
         && (
         <Modal setIsOpen={setShowEmojiList}>

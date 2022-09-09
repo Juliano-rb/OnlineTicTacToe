@@ -1,47 +1,11 @@
 import { useState } from 'react'
-import styled from 'styled-components'
-import colors from '../../assets/styles/colors'
+import PlayArrow from '@mui/icons-material/PlayArrowRounded'
+import { Container, SmallBtn } from './Switch.styles'
 
-interface SwitchProps{
-  options: string[],
-  setOption: (value: string)=>void
+interface SwitchProps {
+  options: string[];
+  setOption: (value: string) => void;
 }
-
-const Container = styled.div`
-  align-items: center;
-  background-color: white;
-  border: none;
-  border-radius: 5px;
-  color: ${colors.confirm};
-  cursor: pointer;
-
-  display: flex;
-
-  height: 36px;
-  justify-content: space-between;
-  width: 202px;
-
-  div{
-    font-size: 0.9rem;
-  }
-`
-
-const BtnStyle = styled.div`
-  height: 100%;
-  text-align: center;
-  width: 31px;
-
-  :active{
-    background-color: ${colors.shadow};
-  }
-
-  ::before {
-    content: "";
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-  }
-`
 
 function Switch({ options, setOption }: SwitchProps) {
   const [currOption, setCurrOption] = useState<string>(options[0])
@@ -68,11 +32,13 @@ function Switch({ options, setOption }: SwitchProps) {
 
   return (
     <Container>
-      <BtnStyle onClick={() => prev()}>{'<'}</BtnStyle>
-      <div>
-        {currOption}
-      </div>
-      <BtnStyle onClick={() => next()}>{'>'}</BtnStyle>
+      <SmallBtn style={{ transform: 'rotate(180deg)' }} onClick={() => prev()}>
+        <PlayArrow />
+      </SmallBtn>
+      <div>{currOption}</div>
+      <SmallBtn onClick={() => next()}>
+        <PlayArrow />
+      </SmallBtn>
     </Container>
   )
 }

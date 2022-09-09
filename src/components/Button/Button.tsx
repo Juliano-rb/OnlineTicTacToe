@@ -22,6 +22,8 @@ const Button = styled.button<Props>`
   background-color: ${(props) => (props.variation ? COLORS_MAP[props.variation] : COLORS_MAP.confirm)};
   border: none;
   border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
   color: ${colors.white};
   cursor: pointer;
 
