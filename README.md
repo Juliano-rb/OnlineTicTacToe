@@ -4,8 +4,8 @@ In the project directory, you can run:
 
 ## Summary:
 ### In a development environment:
-- `yarn serve`: starts the server for multiplayer games in development mode (live reload activated). Server runs at http://localhost:8000.
-- `yarn dev`: starts frontend react project in development mode. Frontend runs at http://localhost:3000.
+- `yarn front-dev`: starts the server for multiplayer games in development mode (live reload activated). Server runs at http://localhost:8000.
+- `yarn back-dev`: starts frontend react project in development mode. Frontend runs at http://localhost:3000.
 
 ### In a production environment:
 - `yarn build`: create statics files in `/build` directory
