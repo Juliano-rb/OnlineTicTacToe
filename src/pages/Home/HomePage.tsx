@@ -18,9 +18,16 @@ function HomePage() {
   const [selecao, setSelecao] = useState<string>('Jogo rápido')
   const navigate = useNavigate()
 
+  const joinMatch = async (matchID: string, player: string) => {
+    const { playerCredentials, playerID } = await LobbyApi.joinMatch(matchID, player)
+    navigate({ pathname: '/play', search: `?playerID=${playerID}&token=${playerCredentials}&match=${matchID}` })
+  }
+
   const createMatch = async () => {
     const matchID = await LobbyApi.createMath(playerName)
     console.log(`match ${matchID} created`)
+
+    joinMatch(matchID, playerName)
   }
 
   const playerNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +53,7 @@ function HomePage() {
                 <ClickableItem
                   title={match?.setupData?.matchName || 'Partida sem nome'}
                   actionText='Entrar'
-                  action={() => alert(match?.setupData?.matchName || 'Partida sem nome')}
+                  action={() => joinMatch(match.matchID, playerName)}
                   key={_uniqueId()}
                 />
               ))}

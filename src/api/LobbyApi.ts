@@ -1,26 +1,20 @@
 import { LobbyClient } from 'boardgame.io/client'
 import Match from '../types/Matches'
+import variables from '../variables'
 
-const ENV = process.env.NODE_ENV
-const { protocol, hostname, port } = window.location
-const serverPort = ENV === 'development' ? '8000' : port
-
-const SERVER_URL = process.env.REACT_APP_SERVER_URL || `${protocol}//${hostname}:${serverPort}`
-const GAME_NAME = process.env.GAME_NAME || 'JogoDaVelha'
-
-const lobbyClient = new LobbyClient({ server: SERVER_URL })
+const lobbyClient = new LobbyClient({ server: variables.serverURL })
 
 export default {
   listMatches: async () : Promise<Match[]> => {
-    const { matches } = await lobbyClient.listMatches(GAME_NAME)
+    const { matches } = await lobbyClient.listMatches(variables.gameName)
     return matches
   },
   getMatch: async (matchID: string) => {
-    const match = await lobbyClient.getMatch(GAME_NAME, matchID)
+    const match = await lobbyClient.getMatch(variables.gameName, matchID)
     return match
   },
   createMath: async (matchName: string) => {
-    const { matchID } = await lobbyClient.createMatch(GAME_NAME, {
+    const { matchID } = await lobbyClient.createMatch(variables.gameName, {
       numPlayers: 2,
       setupData: {
         matchName,
@@ -35,7 +29,7 @@ export default {
     playerIDJoin?: string,
   ) => {
     const { playerCredentials, playerID } = await lobbyClient.joinMatch(
-      GAME_NAME,
+      variables.gameName,
       matchID,
       {
         playerID: playerIDJoin,
@@ -46,13 +40,13 @@ export default {
     return { playerCredentials, playerID }
   },
   leaveMatch: async (matchID: string, playerID: string, credentials: string) => {
-    await lobbyClient.leaveMatch(GAME_NAME, matchID, {
+    await lobbyClient.leaveMatch(variables.gameName, matchID, {
       playerID,
       credentials,
     })
   },
   playAgain: async (matchID: string, playerID: string, credentials: string) => {
-    const { nextMatchID } = await lobbyClient.playAgain(GAME_NAME, matchID, {
+    const { nextMatchID } = await lobbyClient.playAgain(variables.gameName, matchID, {
       playerID,
       credentials,
     })

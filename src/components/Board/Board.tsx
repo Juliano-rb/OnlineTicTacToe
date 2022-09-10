@@ -8,10 +8,11 @@ import { IVictory } from './VictoryLine/VictoryLine'
 
 interface Props {
   cells: string[];
-  setCells: (value: string[]) => void;
-  valueMapping?: {};
+  valueMapping?: any;
   player: string;
-  setPlayer: (data: string) => void;
+  setCells?: (value: string[]) => void;
+  setPlayer?: (data: string) => void;
+  moveFunction?: (index: number) => void;
 }
 
 const Container = styled.div`
@@ -61,7 +62,7 @@ const Table = styled.table`
 `
 
 function Board({
-  cells, valueMapping, setCells, player, setPlayer,
+  cells, valueMapping, setCells, player, setPlayer, moveFunction,
 }: Props) {
   const [victory, setVictory] = useState<IVictory | null>()
 
@@ -77,9 +78,12 @@ function Board({
     const cellsCopy = [...cells]
 
     cellsCopy[index] = playerAct
-    setCells(cellsCopy)
+    if (setCells) setCells(cellsCopy)
 
-    setPlayer(playerAct === '0' ? '1' : '0')
+    if (setPlayer) setPlayer(playerAct === '0' ? '1' : '0')
+
+    debugger
+    if (moveFunction) moveFunction(index)
   }
 
   return (
@@ -91,6 +95,7 @@ function Board({
         winner={victory.winner}
       />
       )}
+      <div>Vez de {valueMapping && valueMapping[player]}</div>
 
       <Table role='table'>
         <tbody>

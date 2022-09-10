@@ -26,8 +26,8 @@
     "web-vitals": "^3.0.0"
   },
   "scripts": {
-    "front-dev": "BROWSER=none react-scripts start",
-    "back-dev": "NODE_ENV=development nodemon src/server.ts",
+    "front-dev": "set BROWSER='none' && react-scripts start",
+    "back-dev": "set NODE_ENV='development' && nodemon src/server.ts",
     "build": "react-scripts build",
     "start": "ts-node src/server.ts",
     "serve": "ONLY_BACKEND=1 ts-node src/server.ts",
