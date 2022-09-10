@@ -1,12 +1,14 @@
 import { LobbyClient } from 'boardgame.io/client'
 
-const SERVER_URL = process.env.SERVER_URL || 'http://localhost'
-const SERVER_PORT = process.env.PORT || '8000'
-const SERVER = `${SERVER_URL}:${SERVER_PORT}`
-console.log(`SERVER:${SERVER}`)
+const ENV = process.env.NODE_ENV
+const { protocol, hostname, port } = window.location
+const serverPort = ENV === 'development' ? '8000' : port
+
+const SERVER_URL = process.env.REACT_APP_SERVER_URL || `${protocol}//${hostname}:${serverPort}`
+console.log(`SERVER:${SERVER_URL}`)
 const GAME_NAME = process.env.GAME_NAME || 'JogoDaVelha'
 
-const lobbyClient = new LobbyClient({ server: SERVER })
+const lobbyClient = new LobbyClient({ server: SERVER_URL })
 
 export default {
   listMatches: async () => {

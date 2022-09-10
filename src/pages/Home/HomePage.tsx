@@ -27,7 +27,7 @@ function HomePage() {
     }
 
     fetchData()
-  }, [])
+  }, [selecao])
 
   const createMatch = async () => {
     const matchID = LobbyApi.createMath(playerName)
