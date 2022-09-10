@@ -1,4 +1,5 @@
 import { LobbyClient } from 'boardgame.io/client'
+import Match from '../types/Matches'
 
 const ENV = process.env.NODE_ENV
 const { protocol, hostname, port } = window.location
@@ -10,7 +11,7 @@ const GAME_NAME = process.env.GAME_NAME || 'JogoDaVelha'
 const lobbyClient = new LobbyClient({ server: SERVER_URL })
 
 export default {
-  listMatches: async () => {
+  listMatches: async () : Promise<Match[]> => {
     const { matches } = await lobbyClient.listMatches(GAME_NAME)
     return matches
   },

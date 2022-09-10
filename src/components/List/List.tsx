@@ -6,7 +6,7 @@ import Button from '../Button'
 
 interface Props {
   title?: string;
-  children: ReactNode[];
+  children: ReactNode[] | ReactNode;
   action?: { text: string, action: () => void };
 }
 
@@ -65,7 +65,7 @@ function List({ title, action, children }: Props) {
       <div>
         {title && <h1>{title}</h1>}
         <ul>
-          {children.map((item) => (
+          {!Array.isArray(children) ? children : children.map((item) => (
             <li key={_uniqueId()}>{item}</li>
           ))}
         </ul>
