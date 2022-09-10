@@ -5,7 +5,6 @@ const { protocol, hostname, port } = window.location
 const serverPort = ENV === 'development' ? '8000' : port
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL || `${protocol}//${hostname}:${serverPort}`
-console.log(`SERVER:${SERVER_URL}`)
 const GAME_NAME = process.env.GAME_NAME || 'JogoDaVelha'
 
 const lobbyClient = new LobbyClient({ server: SERVER_URL })

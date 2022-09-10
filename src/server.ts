@@ -9,7 +9,7 @@ const PORT = parseInt(process.env.PORT || '', 10)
 
 const server = Server({
   games: [TicTacToe],
-  origins: [Origins.LOCALHOST_IN_DEVELOPMENT, 'https://velha1.herokuapp.com'],
+  origins: [Origins.LOCALHOST_IN_DEVELOPMENT, 'http://velha1.herokuapp.com', 'https://velha1.herokuapp.com', 'https://jogarvelha.web.app'],
 })
 
 console.log('NODE_ENV ', NODE_ENV)
