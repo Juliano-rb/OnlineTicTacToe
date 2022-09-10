@@ -3,6 +3,7 @@ import { LobbyClient } from 'boardgame.io/client'
 const SERVER_URL = process.env.SERVER_URL || 'http://localhost'
 const SERVER_PORT = process.env.PORT || '8000'
 const SERVER = `${SERVER_URL}:${SERVER_PORT}`
+console.log(`SERVER:${SERVER}`)
 const GAME_NAME = process.env.GAME_NAME || 'JogoDaVelha'
 
 const lobbyClient = new LobbyClient({ server: SERVER })
