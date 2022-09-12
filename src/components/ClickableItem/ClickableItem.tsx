@@ -25,12 +25,13 @@ const ClickableItemStyle = styled.div`
 
   width: 100%;
 
-  :hover {
+  :active {
     background-color: ${colors.shadow};
   }
 
   span {
     font-size: 0.9rem;
+    line-height: 0.9rem ;
   }
 `
 

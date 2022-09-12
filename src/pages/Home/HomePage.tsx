@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Button from '../../components/Button'
 import ClickableItem from '../../components/ClickableItem'
 import Input from '../../components/Input'
-import List from '../../components/List'
+import MatchList from '../../components/MatchList'
 import Title from '../../components/Title'
 import { Container, HorizontalDiv, MainUI } from './HomePage.styles'
 import AvatarPick from '../../components/AvatarPick'
@@ -15,7 +15,7 @@ import useGetMatches from '../../hooks/useGetMatches'
 function HomePage() {
   const { data: matchList, isLoading } = useGetMatches()
   const [playerName, setPlayerName] = useState<string>('')
-  const [selecao, setSelecao] = useState<string>('Jogo rápido')
+  const [selecao, setSelecao] = useState<string>('Ver jogos')
   const navigate = useNavigate()
 
   const joinMatch = async (matchID: string, player: string) => {
@@ -39,17 +39,23 @@ function HomePage() {
       <Title>Velha</Title>
       <MainUI>
         <Switch
-          options={['Jogo rápido', 'Ver oponentes']}
+          // options={["Jogo rápido", "Ver jogos", "Criar jogo", "Jogo local"]}
+          options={['Ver jogos', 'Criar jogo']}
           setOption={setSelecao}
         />
         <HorizontalDiv>
-          <Input type='text' placeholder='Seu apelido' value={playerName} onChange={playerNameChange} />
+          <Input
+            type='text'
+            placeholder='Seu apelido'
+            value={playerName}
+            onChange={playerNameChange}
+          />
           <AvatarPick avatar='👩🏼' />
         </HorizontalDiv>
-        {selecao === 'Ver oponentes' && (
-          <List action={{ text: 'Criar jogo', action: () => createMatch() }}>
-            {isLoading ? <div>Carregando oponentes...</div>
-              : matchList?.map((match) => (
+        {selecao === 'Ver jogos' && (
+          <MatchList isLoading={isLoading}>
+            {matchList
+              && matchList.map((match) => (
                 <ClickableItem
                   title={match?.setupData?.matchName || 'Partida sem nome'}
                   actionText='Entrar'
@@ -57,10 +63,16 @@ function HomePage() {
                   key={_uniqueId()}
                 />
               ))}
-          </List>
+          </MatchList>
         )}
-        {selecao === 'Jogo rápido' && (
-          <Button onClick={() => { navigate('/play') }}>Jogar</Button>
+        {(selecao === 'Criar jogo') && (
+          <Button
+            onClick={() => {
+              createMatch()
+            }}
+          >
+            Criar
+          </Button>
         )}
       </MainUI>
     </Container>

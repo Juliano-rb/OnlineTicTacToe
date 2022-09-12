@@ -82,7 +82,6 @@ function Board({
 
     if (setPlayer) setPlayer(playerAct === '0' ? '1' : '0')
 
-    debugger
     if (moveFunction) moveFunction(index)
   }
 

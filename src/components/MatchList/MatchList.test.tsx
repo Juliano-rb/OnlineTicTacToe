@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import _uniqueId from 'lodash/uniqueId'
-import { act } from 'react-dom/test-utils'
-import List from './List'
+import List from './MatchList'
 import ClickableItem from '../ClickableItem'
 
 describe('List', () => {
@@ -20,13 +19,11 @@ describe('List', () => {
       />,
     ]
 
-    act(() => {
-      render(<List title={title}>{children}</List>)
-    })
+    render(<List title={title}>{children}</List>)
 
-    expect(screen.queryByText(title)).toBeInTheDocument()
-    expect(screen.queryByText('Flavinho do Pneu')).toBeInTheDocument()
-    expect(screen.queryByText('Shaolim matador de porco')).toBeInTheDocument()
-    expect(screen.queryAllByText('Entrar').length).toBe(children.length)
+    expect(screen.getByText(title)).toBeInTheDocument()
+    expect(screen.getByText('Flavinho do Pneu')).toBeInTheDocument()
+    expect(screen.getByText('Shaolim matador de porco')).toBeInTheDocument()
+    expect(screen.getAllByText('Entrar').length).toBe(children.length)
   })
 })

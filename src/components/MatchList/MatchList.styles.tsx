@@ -1,16 +1,7 @@
-import { ReactNode } from 'react'
 import styled from 'styled-components'
-import _uniqueId from 'lodash/uniqueId'
 import colors from '../../assets/styles/colors'
-import Button from '../Button'
 
-interface Props {
-  title?: string;
-  children: ReactNode[] | ReactNode;
-  action?: { text: string, action: () => void };
-}
-
-const ListStyle = styled.div`
+export const Container = styled.div`
   background-color: ${colors.white};
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
@@ -35,7 +26,8 @@ const ListStyle = styled.div`
     flex-direction: column;
     justify-content: space-between;
     overflow-y: scroll;
-    padding-right: 4px;
+    height: 320px;
+    /* padding-right: 4px; */
 
     ::-webkit-scrollbar {
       /* background: ${colors.shadow}; */
@@ -49,35 +41,20 @@ const ListStyle = styled.div`
   }
 
   li {
-    margin-bottom: 8px;
+    height: fit-content;
+    margin-bottom: 6px;
+    /* min-height: 45px; */
     width: 100%;
   }
-  li:last-child {
-    margin-bottom: 0px;
+  li > span {
+    color: ${colors.confirmSoft};
+    font-size: 0.9rem;
+    line-height: 2rem;
+    vertical-align: center;
+  }
+  li:first-child {
+    margin-top: 6px;
   }
 
   width: 100%;
 `
-
-function List({ title, action, children }: Props) {
-  return (
-    <ListStyle>
-      <div>
-        {title && <h1>{title}</h1>}
-        <ul>
-          {!Array.isArray(children) ? children : children.map((item) => (
-            <li key={_uniqueId()}>{item}</li>
-          ))}
-        </ul>
-      </div>
-      {action
-        && (
-        <div>
-          <Button onClick={() => action.action()}>{action.text}</Button>
-        </div>
-        )}
-    </ListStyle>
-  )
-}
-
-export default List
