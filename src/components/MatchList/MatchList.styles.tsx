@@ -24,7 +24,7 @@ export const Container = styled.div`
     align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     overflow-y: scroll;
     height: 320px;
     /* padding-right: 4px; */
