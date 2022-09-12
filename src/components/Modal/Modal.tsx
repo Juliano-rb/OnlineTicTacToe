@@ -11,7 +11,7 @@ interface Props {
 
 const POSITION_MAPPING = {
   top: '0px',
-  center: '50%',
+  center: '30%',
   bottom: '60%',
 }
 
