@@ -16,7 +16,7 @@ const COLOR_MAPPING = {
   error: colors.alert,
 }
 
-const ToastStyle = styled.button<StyleProps>`
+const ToastStyle = styled.div<StyleProps>`
   align-items: center;
   background-color: ${colors.white};
   border: none;
