@@ -17,11 +17,16 @@ function HomePage() {
   const { data: matchList, isLoading } = useGetMatches()
   const [playerName, setPlayerName] = useState<string>('')
   const [selecao, setSelecao] = useState<string>('Ver jogos')
+  const [avatar, setAvatar] = useState<string>('')
   const navigate = useNavigate()
   const setStorage = useSetStorage()
 
   const joinMatch = async (matchID: string, player: string) => {
-    const { playerCredentials, playerID } = await LobbyApi.joinMatch(matchID, player)
+    const { playerCredentials, playerID } = await LobbyApi.joinMatch(
+      matchID,
+      player,
+      avatar,
+    )
 
     setStorage({ credentials: playerCredentials, playerID, matchID })
 
@@ -55,7 +60,7 @@ function HomePage() {
             value={playerName}
             onChange={playerNameChange}
           />
-          <AvatarPick avatar='👩🏼' />
+          <AvatarPick avatar={avatar} setAvatar={setAvatar} />
         </HorizontalDiv>
         {selecao === 'Ver jogos' && (
           <MatchList isLoading={isLoading}>
@@ -70,7 +75,7 @@ function HomePage() {
               ))}
           </MatchList>
         )}
-        {(selecao === 'Criar jogo') && (
+        {selecao === 'Criar jogo' && (
           <Button
             onClick={() => {
               createMatch()

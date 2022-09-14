@@ -7,31 +7,38 @@ import { Container } from './AvatarPick.styles'
 const DEFAULT_AVATAR_LIST = ['🧓🏼', '👩🏼‍🦰', '👩🏼', '👨🏿', '👩🏿', '👶🏽', '👵🏼', '🧔🏼', '👨🏼', '👨🏼‍🦰', '👨🏼‍🦲', '🤶🏼']
 
 interface Props {
-  avatar?: string
+  setAvatar: (data: string)=>void
   avatarList?: string[]
+  avatar?: string
 }
 
 export default function ({
   avatar,
   avatarList = DEFAULT_AVATAR_LIST,
+  setAvatar,
 }: Props) {
   const [showEmojiList, setShowEmojiList] = useState<boolean>(false)
-  const [currentAvatar, setCurrentAvatar] = useState<string>(avatar || '👴🏼')
+  if (!avatar) {
+    setAvatar('👴🏼')
+  }
 
   const clickAction = (data: string) => {
-    setCurrentAvatar(data)
+    if (setAvatar) setAvatar(data)
     setShowEmojiList(false)
   }
 
   return (
     <Container>
-      <Emoji emoji={currentAvatar} size='medium' action={() => setShowEmojiList(true)} />
-      {showEmojiList
-        && (
+      <Emoji
+        emoji={avatar || ''}
+        size='medium'
+        action={() => setShowEmojiList(true)}
+      />
+      {showEmojiList && (
         <Modal setIsOpen={setShowEmojiList}>
           <EmojiList emojiList={avatarList} action={clickAction} />
         </Modal>
-        )}
+      )}
     </Container>
   )
 }

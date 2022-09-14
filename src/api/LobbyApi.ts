@@ -26,6 +26,7 @@ export default {
   joinMatch: async (
     matchID: string,
     playerName: string,
+    playerAvatar: string,
     playerIDJoin?: string,
   ) => {
     const { playerCredentials, playerID } = await lobbyClient.joinMatch(
@@ -34,6 +35,7 @@ export default {
       {
         playerID: playerIDJoin,
         playerName,
+        playerAvatar,
       },
     )
 
