@@ -25,7 +25,7 @@ export const Container = styled.section`
   display: flex;
   flex-direction: column;
   /* height: ${window.screen.height}; */
-  padding-top: 20%;
+  padding-top: 20vh;
   row-gap: 30px;
   vertical-align: center;
 `
