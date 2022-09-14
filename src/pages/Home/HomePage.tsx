@@ -11,16 +11,21 @@ import AvatarPick from '../../components/AvatarPick'
 import Switch from '../../components/Switch'
 import LobbyApi from '../../api/LobbyApi'
 import useGetMatches from '../../hooks/useGetMatches'
+import { useSetStorage } from '../../hooks/useSetStorage'
 
 function HomePage() {
   const { data: matchList, isLoading } = useGetMatches()
   const [playerName, setPlayerName] = useState<string>('')
   const [selecao, setSelecao] = useState<string>('Ver jogos')
   const navigate = useNavigate()
+  const setStorage = useSetStorage()
 
   const joinMatch = async (matchID: string, player: string) => {
     const { playerCredentials, playerID } = await LobbyApi.joinMatch(matchID, player)
-    navigate({ pathname: '/play', search: `?playerID=${playerID}&token=${playerCredentials}&match=${matchID}` })
+
+    setStorage({ credentials: playerCredentials, playerID, matchID })
+
+    navigate({ pathname: '/play' })
   }
 
   const createMatch = async () => {

@@ -4,9 +4,19 @@ import colors from '../../assets/styles/colors'
 interface Props {
   title: string;
   description: string;
+  variation?: 'warn' | 'error';
 }
 
-const ToastStyle = styled.button`
+interface StyleProps {
+  variation: 'warn' | 'error';
+}
+
+const COLOR_MAPPING = {
+  warn: colors.softier,
+  error: colors.alert,
+}
+
+const ToastStyle = styled.button<StyleProps>`
   align-items: center;
   background-color: ${colors.white};
   border: none;
@@ -24,7 +34,7 @@ const ToastStyle = styled.button`
   padding-right: 8px;
 
   span {
-    color: ${colors.softier};
+    color: ${(props) => COLOR_MAPPING[props.variation]};
     font-size: 0.9rem;
   }
   p {
@@ -35,9 +45,9 @@ const ToastStyle = styled.button`
   width: 320px;
 `
 
-function Toast({ title, description }: Props) {
+function Toast({ title, description, variation = 'warn' }: Props) {
   return (
-    <ToastStyle>
+    <ToastStyle variation={variation}>
       <span>{title}</span>
       <p>{description}</p>
     </ToastStyle>

@@ -1,5 +1,5 @@
 import { LobbyClient } from 'boardgame.io/client'
-import Match from '../types/Matches'
+import Match from '../types/IMatches'
 import variables from '../variables'
 
 const lobbyClient = new LobbyClient({ server: variables.serverURL })

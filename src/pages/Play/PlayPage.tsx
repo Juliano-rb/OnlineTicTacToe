@@ -1,45 +1,31 @@
-// import { useState } from 'react'
 import { Client } from 'boardgame.io/react'
 import { SocketIO } from 'boardgame.io/multiplayer'
 import { TicTacToe } from '../../game/Game'
-// import { BoardProps } from 'boardgame.io/react'
-import { TicTacToeBoard } from '../../game/TicTacToeBoard'
+import GameScreen from '../../components/GameScreen'
 import variables from '../../variables'
-import { useQueryParams } from '../../hooks/useQueryParams'
+import { useGetStorage } from '../../hooks/useGetStorage'
 
-// import { TicTacToeState } from '../../Game'
-
-// interface TicTacToeProps extends Partial<BoardProps><TicTacToeState> {}
-const CoupClient = Client({
+const GameClient = Client({
   game: TicTacToe,
-  board: TicTacToeBoard,
+  board: GameScreen,
   debug: true,
   multiplayer: SocketIO({ server: variables.serverURL }),
 })
 
 function PlayPage() {
-  const query = useQueryParams()
-  const playerId = query.get('playerID') || ''
-  const credentials = query.get('token') || ''
-  const matchId = query.get('match') || ''
+  const {
+    matchID, credentials, playerID,
+  } = useGetStorage()
 
-  // const [cells, setCells] = useState<string[]>(Array(8).fill(''))
-  // const [player, setPlayer] = useState<string>('0')
+  console.log('matchID, credentials, playerID', matchID, credentials, playerID)
 
   return (
-    <CoupClient
-      matchID={matchId}
-      playerID={playerId}
+    <GameClient
+      matchID={matchID}
+      playerID={playerID}
       // playerID={localStorage.getItem('id')}
       credentials={credentials}
     />
-  // <Board
-  //   player={player}
-  //   setPlayer={setPlayer}
-  //   setCells={setCells}
-  //   cells={cells}
-  //   valueMapping={{ 0: 'X', 1: 'O' }}
-  // />
   )
 }
 

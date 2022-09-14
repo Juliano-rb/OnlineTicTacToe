@@ -1,5 +1,4 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+// disabling due to gameboard.io
 /* eslint-disable no-param-reassign */
 /* eslint-disable consistent-return */
 import { Game } from 'boardgame.io'
@@ -24,7 +23,7 @@ function IsVictory(cells: (null | string)[]) {
 
   const isRowComplete = (row: number[]) => {
     const symbols = row.map((i) => cells[i])
-    return symbols.every((i) => i !== null && i === symbols[0])
+    return symbols.every((i) => i !== '' && i === symbols[0])
   }
 
   return positions.map(isRowComplete).some((i) => i === true)
@@ -32,7 +31,7 @@ function IsVictory(cells: (null | string)[]) {
 
 // Return true if all `cells` are occupied.
 function IsDraw(cells: (null | string)[]) {
-  return cells.filter((c) => c === null).length === 0
+  return cells.filter((c) => c === '').length === 0
 }
 
 export const TicTacToe: Game<TicTacToeState> = {
@@ -49,7 +48,7 @@ export const TicTacToe: Game<TicTacToeState> = {
 
   moves: {
     clickCell: (G, ctx, id) => {
-      if (G.cells[id] !== null) {
+      if (G.cells[id] !== '') {
         return INVALID_MOVE
       }
 
@@ -58,6 +57,7 @@ export const TicTacToe: Game<TicTacToeState> = {
   },
 
   endIf: (G, ctx) => {
+    console.log(G.cells)
     if (IsVictory(G.cells)) {
       return { winner: ctx.currentPlayer }
     }
@@ -67,10 +67,10 @@ export const TicTacToe: Game<TicTacToeState> = {
   },
 
   ai: {
-    enumerate: (G, ctx) => {
+    enumerate: (G) => {
       const moves = []
-      for (let i = 0; i < 9; i++) {
-        if (G.cells[i] === null) {
+      for (let i = 0; i < 9; i += 1) {
+        if (G.cells[i] === '') {
           moves.push({ move: 'clickCell', args: [i] })
         }
       }

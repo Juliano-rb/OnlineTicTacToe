@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import Match from '../types/Matches'
+import Match from '../types/IMatches'
 import lobbyApi from '../api/LobbyApi'
 
 const useListMatches = () => useQuery<Match[]>(['poke'], lobbyApi.listMatches, {
