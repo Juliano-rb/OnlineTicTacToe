@@ -1,5 +1,6 @@
 import { Client } from 'boardgame.io/react'
 import { SocketIO } from 'boardgame.io/multiplayer'
+import styled from 'styled-components'
 import { TicTacToe } from '../../game/Game'
 import GameScreen from '../../components/GameScreen'
 import variables from '../../variables'
@@ -12,6 +13,19 @@ const GameClient = Client({
   multiplayer: SocketIO({ server: variables.serverURL }),
 })
 
+export const Container = styled.section`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  vertical-align: center;
+  
+  .bgio-client {
+    height: 100vh;
+    width: 100vw;
+  }
+`
+
 function PlayPage() {
   const {
     matchID, credentials, playerID,
@@ -20,12 +34,14 @@ function PlayPage() {
   console.log('matchID, credentials, playerID', matchID, credentials, playerID)
 
   return (
-    <GameClient
-      matchID={matchID}
-      playerID={playerID}
-      // playerID={localStorage.getItem('id')}
-      credentials={credentials}
-    />
+    <Container>
+      <GameClient
+        matchID={matchID}
+        playerID={playerID}
+        // playerID={localStorage.getItem('id')}
+        credentials={credentials}
+      />
+    </Container>
   )
 }
 

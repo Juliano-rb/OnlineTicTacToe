@@ -5,7 +5,11 @@ import { Game } from 'boardgame.io'
 import { INVALID_MOVE } from 'boardgame.io/core'
 
 export interface TicTacToeState {
-  cells: (string)[];
+  cells: string[];
+  setupData: {
+    matchName: string,
+    playerAvatar: string
+  }
 }
 
 // Return true if `cells` is in a winning configuration.
@@ -36,7 +40,7 @@ function IsDraw(cells: (null | string)[]) {
 
 export const TicTacToe: Game<TicTacToeState> = {
   name: 'JogoDaVelha',
-  setup: () => ({ cells: Array(9).fill('') }),
+  setup: (ctx, setupData) => ({ cells: Array(9).fill(''), setupData }),
 
   turn: {
     minMoves: 1,
