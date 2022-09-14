@@ -10,6 +10,7 @@ const Title = styled.h1`
   font-family: "Bangers";
 
   font-size: 4.5rem;
+  margin-bottom: 0;
   text-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
 `
 
