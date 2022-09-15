@@ -5,11 +5,11 @@ import variables from '../variables'
 const lobbyClient = new LobbyClient({ server: variables.serverURL })
 
 export default {
-  listMatches: async () : Promise<Match[]> => {
+  listMatches: async (): Promise<Match[]> => {
     const { matches } = await lobbyClient.listMatches(variables.gameName)
     return matches
   },
-  getMatch: async (matchID: string) => {
+  getMatch: async (matchID: string): Promise<Match> => {
     const match = await lobbyClient.getMatch(variables.gameName, matchID)
     return match
   },

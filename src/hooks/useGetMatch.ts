@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import Match from '../types/IMatches'
 import lobbyApi from '../api/LobbyApi'
 
-const useListMatches = () => useQuery<Match[]>(['match'], lobbyApi.listMatches, {
+const useGetMatch = (matchID: string) => useQuery<Match>(['match'], () => lobbyApi.getMatch(matchID), {
 //   onError: () => console.log('houve um erro aqui'),
 //   onSuccess: () => toast('Partidas carregados com sucesso!'),
   enabled: true,
@@ -11,4 +11,4 @@ const useListMatches = () => useQuery<Match[]>(['match'], lobbyApi.listMatches, 
   refetchInterval: 6000,
 })
 
-export default useListMatches
+export default useGetMatch
