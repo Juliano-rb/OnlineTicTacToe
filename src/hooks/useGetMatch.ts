@@ -8,7 +8,6 @@ const useGetMatch = (matchID: string) => useQuery<Match>(['match'], () => lobbyA
 //   onSuccess: () => toast('Partidas carregados com sucesso!'),
   enabled: true,
   refetchOnWindowFocus: true,
-  refetchInterval: 6000,
 })
 
 export default useGetMatch
