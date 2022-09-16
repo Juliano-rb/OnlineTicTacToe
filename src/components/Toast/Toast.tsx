@@ -5,6 +5,7 @@ interface Props {
   title: string;
   description: string;
   variation?: 'warn' | 'error';
+  handleClick?: () => void;
 }
 
 interface StyleProps {
@@ -45,9 +46,11 @@ const ToastStyle = styled.div<StyleProps>`
   width: 320px;
 `
 
-function Toast({ title, description, variation = 'warn' }: Props) {
+function Toast({
+  title, description, variation = 'warn', handleClick,
+}: Props) {
   return (
-    <ToastStyle variation={variation}>
+    <ToastStyle onClick={handleClick} variation={variation}>
       <span>{title}</span>
       <p>{description}</p>
     </ToastStyle>

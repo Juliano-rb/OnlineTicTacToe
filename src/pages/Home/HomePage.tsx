@@ -49,7 +49,8 @@ function HomePage() {
       <Title>Velha</Title>
       <MainUI>
         <Switch
-          // options={["Jogo rápido", "Ver jogos", "Criar jogo", "Jogo local"]}
+          option={selecao}
+          // options={["Jogo rápido", "Ver jogos", "Criar jogo", "Jogo local", "Entrar"]}
           options={['Ver jogos', 'Criar jogo']}
           setOption={setSelecao}
         />
