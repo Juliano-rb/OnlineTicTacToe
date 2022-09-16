@@ -1,53 +1,59 @@
-import { ChangeEvent, useState } from 'react'
-import _uniqueId from 'lodash/uniqueId'
-import { useNavigate } from 'react-router-dom'
-import Button from '../../components/Button'
-import ClickableItem from '../../components/ClickableItem'
-import Input from '../../components/Input'
-import MatchList from '../../components/MatchList'
+import {
+  ChangeEvent,
+  ReactNode, useEffect, useState,
+} from 'react'
 import Title from '../../components/Title'
 import { Container, HorizontalDiv, MainUI } from './HomePage.styles'
-import AvatarPick from '../../components/AvatarPick'
 import Switch from '../../components/Switch'
-import LobbyApi from '../../api/LobbyApi'
-import useGetMatches from '../../hooks/useGetMatches'
-import { useSetStorage } from '../../hooks/useSetStorage'
+import { useQueryParams } from '../../hooks/useQueryParams'
+import List from './GameModes/List'
+import Create from './GameModes/Create'
+import { JoinBtn, JoinDescription } from './GameModes/Join'
+import AvatarPick from '../../components/AvatarPick'
+import Input from '../../components/Input'
+import useGetMatch from '../../hooks/useGetMatch'
 
 function HomePage() {
-  const { data: matchList, isLoading } = useGetMatches()
+  const [avatar, setAvatar] = useState<string>('👴🏼')
   const [playerName, setPlayerName] = useState<string>('')
-  const [selecao, setSelecao] = useState<string>('Ver jogos')
-  const [avatar, setAvatar] = useState<string>('')
-  const navigate = useNavigate()
-  const setStorage = useSetStorage()
+  const joinID = useQueryParams().get('join') || ''
+  const { data: joinMatchData, isError, isLoading } = useGetMatch(joinID)
+  const [selecao, setSelecao] = useState<string>(
+    joinID ? 'Entrar' : 'Ver jogos',
+  )
 
-  const joinMatch = async (matchID: string, player: string) => {
-    const { playerCredentials, playerID } = await LobbyApi.joinMatch(
-      matchID,
-      player,
-      avatar,
-    )
-
-    setStorage({ credentials: playerCredentials, playerID, matchID })
-
-    navigate({ pathname: '/play' })
-  }
-
-  const createMatch = async () => {
-    const matchID = await LobbyApi.createMath(playerName)
-    console.log(`match ${matchID} created`)
-
-    joinMatch(matchID, playerName)
-  }
+  // TODO: improove this
+  useEffect(() => {
+    if (joinID && !isLoading && isError) {
+      setSelecao('Ver jogos')
+    }
+  }, [joinID, isLoading, isError])
 
   const playerNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPlayerName(e.target.value)
   }
 
+  const GameModeSwitch = new Map<string, ReactNode>([
+    ['Ver jogos', <List avatar={avatar} playerName={playerName} />],
+    ['Criar jogo', <Create avatar={avatar} playerName={playerName} />],
+    [
+      'Entrar',
+      <JoinBtn
+        disabled={isError || isLoading}
+        joinID={joinID}
+        avatar={avatar}
+        playerName={playerName}
+      />,
+    ],
+  ])
+
   return (
     <Container>
       <Title>Velha</Title>
       <MainUI>
+        {joinID && (
+          <JoinDescription error={isError} matchName={joinMatchData?.setupData?.matchName || '...'} />
+        )}
         <Switch
           option={selecao}
           // options={["Jogo rápido", "Ver jogos", "Criar jogo", "Jogo local", "Entrar"]}
@@ -63,28 +69,8 @@ function HomePage() {
           />
           <AvatarPick avatar={avatar} setAvatar={setAvatar} />
         </HorizontalDiv>
-        {selecao === 'Ver jogos' && (
-          <MatchList isLoading={isLoading}>
-            {matchList
-              && matchList.map((match) => (
-                <ClickableItem
-                  title={match?.setupData?.matchName || 'Partida sem nome'}
-                  actionText='Entrar'
-                  action={() => joinMatch(match.matchID, playerName)}
-                  key={_uniqueId()}
-                />
-              ))}
-          </MatchList>
-        )}
-        {selecao === 'Criar jogo' && (
-          <Button
-            onClick={() => {
-              createMatch()
-            }}
-          >
-            Criar
-          </Button>
-        )}
+
+        {GameModeSwitch.get(selecao)}
       </MainUI>
     </Container>
   )
