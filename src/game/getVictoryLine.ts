@@ -1,4 +1,4 @@
-import { IVictory as IVictoryLine } from './VictoryLine'
+import { IVictoryLine } from '../types/IVictory'
 
 const getVictoryLine = (winningPositionIndex: number, winningPlayer: string): IVictoryLine => {
   const allPositions: IVictoryLine[] = [
@@ -49,8 +49,6 @@ const getVictoryLine = (winningPositionIndex: number, winningPlayer: string): IV
 
 // Return a setup for a 'victory stroke' if `cells` is in a winning configuration. False else where
 export function IsVictory(cells: (null | string)[], player: string): IVictoryLine | null {
-  const winningPlayer = player === '0' ? '1' : '0'
-
   const positions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -71,7 +69,7 @@ export function IsVictory(cells: (null | string)[], player: string): IVictoryLin
 
   if (winningPosition === -1) return null
 
-  const victoryLine = getVictoryLine(winningPosition, winningPlayer)
+  const victoryLine = getVictoryLine(winningPosition, player)
 
   return victoryLine
 }

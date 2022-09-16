@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event'
 import Board from './Board'
 
 describe('Board', () => {
+  // TODO: write test to test if victoryLine is rendering
   test('should renders Board', () => {
     let cells: string[] = Array(9).fill('')
     let player = '0'

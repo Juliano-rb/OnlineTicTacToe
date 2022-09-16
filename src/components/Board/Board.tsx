@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import colors from '../../assets/styles/colors'
+import { IVictoryLine } from '../../types/IVictory'
 import Cell from './Cell'
 import VictoryLine from './VictoryLine'
-import { IsVictory as CheckVictory } from './VictoryLine/getVictoryLine'
-import { IVictory } from './VictoryLine/VictoryLine'
 
 interface Props {
   cells: string[];
@@ -13,6 +11,7 @@ interface Props {
   setCells?: (value: string[]) => void;
   setPlayer?: (data: string) => void;
   moveFunction?: (index: number) => void;
+  victoryLine?: IVictoryLine;
 }
 
 const Container = styled.div`
@@ -62,17 +61,16 @@ const Table = styled.table`
 `
 
 function Board({
-  cells, valueMapping, setCells, player, setPlayer, moveFunction,
+  cells,
+  valueMapping,
+  setCells,
+  player,
+  setPlayer,
+  moveFunction,
+  victoryLine,
 }: Props) {
-  const [victory, setVictory] = useState<IVictory | null>()
-
-  useEffect(() => {
-    const isVictory = CheckVictory(cells, player)
-    setVictory(isVictory)
-  }, [cells, player])
-
   const onClick = (index: number, playerAct: string) => {
-    if (victory) return
+    if (victoryLine) return
     if (cells[index]) return
 
     const cellsCopy = [...cells]
@@ -87,12 +85,12 @@ function Board({
 
   return (
     <Container>
-      {victory && (
-      <VictoryLine
-        position={victory.position}
-        rotation={victory.rotation}
-        winner={victory.winner}
-      />
+      {victoryLine && (
+        <VictoryLine
+          position={victoryLine.position}
+          rotation={victoryLine.rotation}
+          winner={victoryLine.winner}
+        />
       )}
 
       <Table role='table'>

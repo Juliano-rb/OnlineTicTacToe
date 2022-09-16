@@ -1,14 +1,6 @@
 import styled from 'styled-components'
 import colors from '../../../assets/styles/colors'
-
-export type VictoryPositions = 'top' | 'left' | 'right' | 'bottom' | 'middle';
-export type VictoryRotations = '45deg' | '90deg' | '-45deg' | '0';
-
-export interface IVictory {
-  position: VictoryPositions;
-  rotation: VictoryRotations;
-  winner: string;
-}
+import { IVictoryLine } from '../../../types/IVictory'
 
 const alignmentMappig = {
   top: 'top: 17%;',
@@ -18,7 +10,7 @@ const alignmentMappig = {
   middle: 'top: 48%; left: 0%;',
 }
 
-const Container = styled.div<IVictory>`
+const Container = styled.div<IVictoryLine>`
   @keyframes bounce-in {
     0% {
       ${(props) => alignmentMappig[props.position]}
@@ -51,7 +43,7 @@ const Container = styled.div<IVictory>`
   width: 100%;
 `
 
-function VictoryLine({ position, rotation, winner }: IVictory) {
+function VictoryLine({ position, rotation, winner }: IVictoryLine) {
   return (
     <Container
       position={position}

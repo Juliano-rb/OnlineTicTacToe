@@ -51,6 +51,7 @@ export default function GameScreen({
       </div>
 
       <Board
+        victoryLine={ctx.gameover?.victoryData}
         player={ctx.currentPlayer}
         // setPlayer={setPlayer}
         // setCells={setCells}

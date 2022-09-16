@@ -3,6 +3,7 @@
 /* eslint-disable consistent-return */
 import { Game } from 'boardgame.io'
 import { INVALID_MOVE } from 'boardgame.io/core'
+import { IsVictory } from './getVictoryLine'
 
 export interface TicTacToeState {
   cells: string[];
@@ -10,27 +11,6 @@ export interface TicTacToeState {
     matchName: string,
     playerAvatar: string
   }
-}
-
-// Return true if `cells` is in a winning configuration.
-function IsVictory(cells: (null | string)[]) {
-  const positions = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ]
-
-  const isRowComplete = (row: number[]) => {
-    const symbols = row.map((i) => cells[i])
-    return symbols.every((i) => i !== '' && i === symbols[0])
-  }
-
-  return positions.map(isRowComplete).some((i) => i === true)
 }
 
 // Return true if all `cells` are occupied.
@@ -61,9 +41,9 @@ export const TicTacToe: Game<TicTacToeState> = {
   },
 
   endIf: (G, ctx) => {
-    console.log(G.cells)
-    if (IsVictory(G.cells)) {
-      return { winner: ctx.currentPlayer }
+    const victoryData = IsVictory(G.cells, ctx.currentPlayer)
+    if (victoryData) {
+      return { winner: ctx.currentPlayer, victoryData }
     }
     if (IsDraw(G.cells)) {
       return { draw: true }
