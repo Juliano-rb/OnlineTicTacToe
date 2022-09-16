@@ -39,6 +39,11 @@ const Button = styled.button<Props>`
     : ACTIVE_COLORS_MAP.confirm)};
   }
 
+  :disabled {
+    background-color: ${colors.shadow};
+    box-shadow: none;
+  }
+
   * {
     vertical-align: middle;
   }
