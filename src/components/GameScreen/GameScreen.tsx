@@ -15,6 +15,12 @@ export default function GameScreen({
 }: GameScreenProps) {
   const navigate = useNavigate()
 
+  const getPlayerName = (player: string, matchInfo: FilteredMetadata) => {
+    const playerData = matchInfo.find((p) => p.id.toString() === player)
+
+    return playerData?.name
+  }
+
   const allPlayersConnected = (matchInfo: FilteredMetadata) => matchInfo.every((m) => m.isConnected)
 
   if (!matchID || !playerID || !credentials || !matchData) {
@@ -29,24 +35,34 @@ export default function GameScreen({
     await LobbyApi.leaveMatch(matchID, playerID, credentials)
     navigate('/')
   }
+
+  const cellValueMapping: any = { 0: 'X', 1: 'O' }
+
+  const currentPlayerName = getPlayerName(ctx.currentPlayer, matchData)
+  console.log(currentPlayerName)
   return allPlayersConnected(matchData) ? (
     <>
       <Button variation='cancel' onClick={exitMatch}>
         Sair
       </Button>
+      <div>
+        Vez de {cellValueMapping && cellValueMapping[playerID]}{' - '}
+        {currentPlayerName}
+      </div>
+
       <Board
         player={ctx.currentPlayer}
         // setPlayer={setPlayer}
         // setCells={setCells}
         moveFunction={moves.clickCell}
         cells={G.cells}
-        valueMapping={{ 0: 'X', 1: 'O' }}
+        valueMapping={cellValueMapping}
       />
     </>
   ) : (
     <WaitingPlayers
       matchID={matchID}
-      matchName={G.setupData.matchName}
+      matchName={G.setupData?.matchName || ''}
       playerID={ctx.currentPlayer}
       credentials={credentials}
     />

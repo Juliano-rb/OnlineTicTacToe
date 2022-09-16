@@ -94,7 +94,6 @@ function Board({
         winner={victory.winner}
       />
       )}
-      <div>Vez de {valueMapping && valueMapping[player]}</div>
 
       <Table role='table'>
         <tbody>

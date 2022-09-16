@@ -17,6 +17,7 @@ function HomePage() {
   const [avatar, setAvatar] = useState<string>('👴🏼')
   const [playerName, setPlayerName] = useState<string>('')
   const joinID = useQueryParams().get('join') || ''
+  // TODO: try to put in a component to conditionaly fetch
   const { data: joinMatchData, isError, isLoading } = useGetMatch(joinID)
   const [selecao, setSelecao] = useState<string>(
     joinID ? 'Entrar' : 'Ver jogos',
