@@ -1,4 +1,4 @@
-import { Server, Origins } from 'boardgame.io/server'
+import { Server, Origins, FlatFile } from 'boardgame.io/server'
 import path from 'path'
 import serve from 'koa-static'
 import { TicTacToe } from './game/Game'
@@ -10,6 +10,11 @@ const PORT = parseInt(process.env.PORT || '', 10)
 const server = Server({
   games: [TicTacToe],
   origins: [Origins.LOCALHOST_IN_DEVELOPMENT, 'http://velha1.herokuapp.com', 'https://velha1.herokuapp.com', 'https://jogarvelha.web.app'],
+  db: new FlatFile({
+    dir: 'storage',
+    logging: false,
+    // ttl: (optional, see node-persist docs),
+  }),
 })
 
 console.log('NODE_ENV ', NODE_ENV)
