@@ -2,10 +2,10 @@ import {
   ChangeEvent,
   ReactNode, useEffect, useState,
 } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import Title from '../../components/Title'
 import { Container, HorizontalDiv, MainUI } from './HomePage.styles'
 import Switch from '../../components/Switch'
-import { useQueryParams } from '../../hooks/useQueryParams'
 import List from './GameModes/List'
 import Create from './GameModes/Create'
 import { JoinBtn, JoinDescription } from './GameModes/Join'
@@ -14,10 +14,12 @@ import Input from '../../components/Input'
 import useGetMatch from '../../hooks/useGetMatch'
 
 function HomePage() {
+  const [searchParams] = useSearchParams()
+
   const [avatar, setAvatar] = useState<string>('👴🏼')
   const [playerName, setPlayerName] = useState<string>('')
-  const joinID = useQueryParams().get('join') || ''
-  // TODO: try to put in a component to conditionaly fetch
+  const joinID = searchParams.get('join') || ''
+
   const { data: joinMatchData, isError, isLoading } = useGetMatch(joinID)
   const [selecao, setSelecao] = useState<string>(
     joinID ? 'Entrar' : 'Ver jogos',
