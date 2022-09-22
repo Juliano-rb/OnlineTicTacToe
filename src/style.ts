@@ -28,4 +28,10 @@ export default createGlobalStyle`
         user-select: none;
         -webkit-user-select: none;
     }
+
+    .debug-panel *{
+        text-align: left;
+        font-size: unset;
+        font-family: unset;
+    }
 `
