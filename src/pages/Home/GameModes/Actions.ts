@@ -1,4 +1,4 @@
-import { NavigateFunction, useNavigate } from 'react-router-dom'
+import { NavigateFunction, useNavigate, useLocation } from 'react-router-dom'
 import LobbyApi from '../../../api/LobbyApi'
 import { useSetStorage } from '../../../hooks/useSetStorage'
 import { ILocalStorage } from '../../../types/ILocalStorage'
@@ -9,6 +9,7 @@ const joinMatch = async (
   avatar: string,
   setStorage: (data: ILocalStorage) => void,
   navigate: NavigateFunction,
+  actualPathName?: string,
 ) => {
   const { playerCredentials, playerID } = await LobbyApi.joinMatch(
     matchID,
@@ -18,7 +19,8 @@ const joinMatch = async (
 
   setStorage({ credentials: playerCredentials, playerID, matchID })
 
-  navigate({ pathname: '/play' })
+  if (actualPathName === '/play') navigate(0)
+  else navigate({ pathname: '/play' })
 }
 
 const createMatch = async (
@@ -34,13 +36,14 @@ const createMatch = async (
 
 const useJoinMatch = () => {
   const setStorage = useSetStorage()
+  const location = useLocation()
   const navigate = useNavigate()
 
   return (
     matchID: string,
     player: string,
     avatar: string,
-  ) => joinMatch(matchID, player, avatar, setStorage, navigate)
+  ) => joinMatch(matchID, player, avatar, setStorage, navigate, location.pathname)
 }
 
 const useCreateMatch = () => {
