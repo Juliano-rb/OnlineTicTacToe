@@ -46,7 +46,8 @@ export default function GameScreen({
         Sair
       </Button>
       <div>
-        Vez de {cellValueMapping && cellValueMapping[playerID]}{' - '}
+        Vez de {cellValueMapping && cellValueMapping[ctx.currentPlayer]}
+        {' - '}
         {currentPlayerName}
       </div>
 
