@@ -1,78 +1,39 @@
 import { BoardProps } from 'boardgame.io/react'
 import { useNavigate } from 'react-router-dom'
 import { FilteredMetadata } from 'boardgame.io'
-import { useEffect } from 'react'
-import Board from '../Board'
-import Button from '../Button'
+import { ReactNode, useEffect, useState } from 'react'
 import LobbyApi from '../../api/LobbyApi'
 import Toast from '../Toast'
 import WaitingPlayers from './WaitingPlayersUI'
-import { useJoinMatch } from '../../pages/Home/GameModes/Actions'
 import { IGameState } from '../../types/IGameState'
+import Playing from './PlayingUI'
+import GameOver from './GameOverUI'
 
 interface GameScreenProps extends BoardProps<IGameState> {}
+
+type IGameProgression = 'waiting player' | 'playing' | 'game over' | 'waiting rematch'
 
 export default function GameScreen({
   ctx, G, moves, matchData, matchID, playerID, credentials,
 }: GameScreenProps) {
-  // TODO: refactor all of this rematch stuff
-  const joinMatch = useJoinMatch()
-
-  const newMatchID = G.gameOver?.newMatchID || ''
-  const playAgain = G.gameOver?.playAgain || ''
-
-  const getPlayerName = (player: string, matchInfo?: FilteredMetadata) => {
-    const playerData = matchInfo?.find((p) => p.id.toString() === player)
-
-    return playerData?.name
-  }
-
-  const currentPlayerName = getPlayerName(ctx.currentPlayer, matchData)
+  const [gameState, setGameState] = useState<IGameProgression>('waiting player')
+  const allPlayersConnected = (matchInfo: FilteredMetadata) => matchInfo.every((m) => m.isConnected)
 
   useEffect(() => {
-    if (!credentials || !playerID || !currentPlayerName) return
+    if (!matchData) return
 
-    const joinNewMatch = async (nextMatch: string) => {
-      try {
-        await LobbyApi.leaveMatch(matchID, playerID, credentials)
-      } catch (error) {
-        console.log(error)
-      }
-      joinMatch(nextMatch, playerID, '👩🏿')
+    if (!allPlayersConnected(matchData)) {
+      setGameState('waiting player')
+    } else if (G.matchResult) {
+      setGameState('game over')
+    } else {
+      setGameState('playing')
     }
+  }, [G.matchResult, matchData])
 
-    const createAndJoin = async () => {
-      try {
-        const nextMatchID = await LobbyApi.createMath(currentPlayerName)
-        moves.setNewMatchID(nextMatchID)
-        await joinNewMatch(nextMatchID)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    if (playAgain.length === ctx.numPlayers) {
-      if (!newMatchID && playerID === playAgain[0]) {
-        createAndJoin()
-      } else if (newMatchID && playerID !== playAgain[0]) {
-        joinNewMatch(newMatchID)
-      }
-    }
-  }, [
-    credentials,
-    ctx.numPlayers,
-    currentPlayerName,
-    joinMatch,
-    matchID,
-    moves,
-    newMatchID,
-    playAgain,
-    playerID,
-  ])
+  console.log({ matchData, G, gameState })
 
   const navigate = useNavigate()
-
-  const allPlayersConnected = (matchInfo: FilteredMetadata) => matchInfo.every((m) => m.isConnected)
 
   if (!matchID || !playerID || !credentials || !matchData) {
     return (
@@ -89,38 +50,42 @@ export default function GameScreen({
 
   const cellValueMapping: any = { 0: 'X', 1: 'O' }
 
-  return allPlayersConnected(matchData) ? (
-    <>
-      <Button variation='cancel' onClick={exitMatch}>
-        Sair
-      </Button>
-      {G.matchResult?.winner ? (
-        <Button variation='cancel' onClick={() => moves.playAgain(playerID)}>
-          Jogar de novo
-        </Button>
-      ) : null}
-      <div>
-        Vez de {cellValueMapping && cellValueMapping[ctx.currentPlayer]}
-        {' - '}
-        {currentPlayerName}
-      </div>
-
-      <Board
-        victoryLine={G.matchResult?.winner?.victoryData}
-        player={ctx.currentPlayer}
-        // setPlayer={setPlayer}
-        // setCells={setCells}
-        moveFunction={moves.clickCell}
-        cells={G.cells}
-        valueMapping={cellValueMapping}
+  const GameProgressionState: { [key in IGameProgression]: ReactNode } = {
+    'waiting player': (
+      <WaitingPlayers
+        matchID={matchID}
+        matchName={G.setupData?.matchName || ''}
+        playerID={ctx.currentPlayer}
+        credentials={credentials}
       />
-    </>
-  ) : (
-    <WaitingPlayers
-      matchID={matchID}
-      matchName={G.setupData?.matchName || ''}
-      playerID={ctx.currentPlayer}
-      credentials={credentials}
-    />
-  )
+    ),
+    // eslint-disable-next-line quote-props
+    'playing': (
+      <Playing
+        G={G}
+        cellValueMapping={cellValueMapping}
+        ctx={ctx}
+        exitMatchFn={exitMatch}
+        moves={moves}
+        matchData={matchData}
+      />
+    ),
+    'game over': (
+      <GameOver
+        G={G}
+        cellValueMapping={cellValueMapping}
+        ctx={ctx}
+        exitMatchFn={exitMatch}
+        matchData={matchData}
+        moves={moves}
+        credentials={credentials}
+        matchID={matchID}
+        playerID={playerID}
+
+      />
+    ),
+    'waiting rematch': <div>aa</div>,
+  }
+
+  return <div>{GameProgressionState[gameState]}</div>
 }
