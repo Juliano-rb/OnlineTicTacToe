@@ -12,6 +12,7 @@ import { JoinBtn, JoinDescription } from './GameModes/Join'
 import AvatarPick from '../../components/AvatarPick'
 import Input from '../../components/Input'
 import useGetMatch from '../../hooks/useGetMatch'
+import { IGameModes } from '../../types/IGameModes'
 
 function HomePage() {
   const [searchParams] = useSearchParams()
@@ -21,7 +22,7 @@ function HomePage() {
   const joinID = searchParams.get('join') || ''
 
   const { data: joinMatchData, isError, isLoading } = useGetMatch(joinID)
-  const [selecao, setSelecao] = useState<string>(
+  const [selecao, setSelecao] = useState<IGameModes>(
     joinID ? 'Entrar' : 'Ver jogos',
   )
 
@@ -36,26 +37,29 @@ function HomePage() {
     setPlayerName(e.target.value)
   }
 
-  const GameModeSwitch = new Map<string, ReactNode>([
-    ['Ver jogos', <List avatar={avatar} playerName={playerName} />],
-    ['Criar jogo', <Create avatar={avatar} playerName={playerName} />],
-    [
-      'Entrar',
+  const GameModeSwitch: { [key in IGameModes]: ReactNode } = {
+    'Ver jogos': <List avatar={avatar} playerName={playerName} />,
+    'Criar jogo': <Create avatar={avatar} playerName={playerName} />,
+    // eslint-disable-next-line quote-props
+    'Entrar': (
       <JoinBtn
         disabled={isError || isLoading}
         joinID={joinID}
         avatar={avatar}
         playerName={playerName}
-      />,
-    ],
-  ])
+      />
+    ),
+  }
 
   return (
     <Container>
       <Title>Velha</Title>
       <MainUI>
         {joinID && (
-          <JoinDescription error={isError} matchName={joinMatchData?.setupData?.matchName || '...'} />
+          <JoinDescription
+            error={isError}
+            matchName={joinMatchData?.setupData?.matchName || '...'}
+          />
         )}
         <Switch
           option={selecao}
@@ -73,7 +77,7 @@ function HomePage() {
           <AvatarPick avatar={avatar} setAvatar={setAvatar} />
         </HorizontalDiv>
 
-        {GameModeSwitch.get(selecao)}
+        {GameModeSwitch[selecao]}
       </MainUI>
     </Container>
   )

@@ -4,7 +4,7 @@ import { Container, SmallBtn } from './Switch.styles'
 interface SwitchProps {
   options: string[];
   option: string;
-  setOption: (value: string) => void;
+  setOption: (value: any) => void;
 }
 
 function Switch({ options, option, setOption }: SwitchProps) {
