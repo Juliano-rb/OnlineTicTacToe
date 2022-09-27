@@ -2,7 +2,6 @@ export interface IGameState {
   cells: string[];
   setupData: {
     matchName: string;
-    playerAvatar: string;
   };
   matchResult?: {
     isDraw?: boolean;

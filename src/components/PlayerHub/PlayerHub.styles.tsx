@@ -8,7 +8,6 @@ interface AdjustableItem {
 export const Container = styled.div<AdjustableItem>`
   display: flex;
   flex-direction: ${(props) => (props.orientation === 'left' ? 'row' : 'row-reverse')};
-  position: relative;
 
   p {
     color: ${colors.white};

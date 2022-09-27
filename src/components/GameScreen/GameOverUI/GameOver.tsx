@@ -3,9 +3,12 @@ import { useCallback, useEffect } from 'react'
 import { IGameState } from '../../../types/IGameState'
 import Button from '../../Button'
 import Board from '../../Board'
-import { getPlayerName } from '../Utils'
 import { useJoinMatch } from '../../../pages/Home/GameModes/Actions'
 import LobbyApi from '../../../api/LobbyApi'
+import { useGetOpponent, useGetPlayer } from '../../../hooks/useGetPlayer'
+import IPlayer from '../../../types/IPlayer'
+import PlayerHub from '../../PlayerHub'
+import { PlayerControllsContainer } from '../GameScreen.styles'
 
 interface IGameOver {
   exitMatchFn: () => void;
@@ -31,17 +34,18 @@ export default function GameOver({
   credentials,
 }: IGameOver) {
   const joinMatch = useJoinMatch()
-  const currentPlayerName = getPlayerName(ctx.currentPlayer, matchData)
+  const player = useGetPlayer(playerID, matchData)
+  const opponent = useGetOpponent(playerID, matchData)
 
   const newMatchID = G.gameOver?.newMatchID || ''
   const playAgain = G.gameOver?.playAgain || ''
 
   const joinNewMatch = useCallback(
-    async (nextMatch: string, player: string, cred: string) => {
-      await LobbyApi.leaveMatch(matchID, player, cred)
-      joinMatch(nextMatch, getPlayerName(player, matchData) || playerID, '👩🏿')
+    async (nextMatch: string, playerData: IPlayer, cred: string) => {
+      await LobbyApi.leaveMatch(matchID, playerData.id, cred)
+      joinMatch(nextMatch, playerData.name || playerID, playerData.avatar)
     },
-    [joinMatch, matchData, matchID, playerID],
+    [joinMatch, matchID, playerID],
   )
 
   const createNewMatch = useCallback(
@@ -55,14 +59,14 @@ export default function GameOver({
 
   useEffect(() => {
     const effect = async () => {
-      if (!credentials || !playerID || !currentPlayerName) return
+      if (!credentials || !playerID || !player.id) return
 
       if (playAgain.length === ctx.numPlayers) {
         if (!newMatchID && playerID === playAgain[0]) {
-          const nextMatchID = await createNewMatch(currentPlayerName)
-          await joinNewMatch(nextMatchID, playerID, credentials)
+          const nextMatchID = await createNewMatch(player.name)
+          await joinNewMatch(nextMatchID, player, credentials)
         } else if (newMatchID && playerID !== playAgain[0]) {
-          await joinNewMatch(newMatchID, playerID, credentials)
+          await joinNewMatch(newMatchID, player, credentials)
         }
       }
     }
@@ -71,33 +75,48 @@ export default function GameOver({
     createNewMatch,
     credentials,
     ctx.numPlayers,
-    currentPlayerName,
     joinNewMatch,
     newMatchID,
     playAgain,
+    player,
     playerID,
   ])
 
   return (
     <>
-      <Button variation='cancel' onClick={exitMatchFn}>
-        Sair
-      </Button>
-      <Button variation='cancel' onClick={() => moves.playAgain(playerID)}>
-        Jogar de novo
-      </Button>
-      <div>
-        O vencedor foi{' '}
-        {getPlayerName(G.matchResult?.winner?.playerID || '', matchData)}
-      </div>
+      <PlayerControllsContainer>
+        <PlayerHub avatar={opponent.avatar} name={opponent.name} />
+        <Button variation='cancel' onClick={exitMatchFn}>
+          Sair
+        </Button>
+      </PlayerControllsContainer>
 
-      <Board
-        victoryLine={G.matchResult?.winner?.victoryData}
-        player={ctx.currentPlayer}
-        moveFunction={moves.clickCell}
-        cells={G.cells}
-        valueMapping={cellValueMapping}
-      />
+      <div>
+
+        <Button variation='cancel' onClick={() => moves.playAgain(playerID)}>
+          Jogar de novo
+        </Button>
+        <div>
+          O vencedor foi{' '}
+          {useGetPlayer(G.matchResult?.winner?.playerID || '', matchData).name}
+        </div>
+
+        <Board
+          victoryLine={G.matchResult?.winner?.victoryData}
+          player={ctx.currentPlayer}
+          moveFunction={moves.clickCell}
+          cells={G.cells}
+          valueMapping={cellValueMapping}
+        />
+      </div>
+      <PlayerControllsContainer>
+        <div />
+        <PlayerHub
+          avatar={player.avatar}
+          name={player.name}
+          orientation='right'
+        />
+      </PlayerControllsContainer>
     </>
   )
 }

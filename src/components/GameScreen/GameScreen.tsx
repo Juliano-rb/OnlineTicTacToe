@@ -8,6 +8,7 @@ import WaitingPlayers from './WaitingPlayersUI'
 import { IGameState } from '../../types/IGameState'
 import Playing from './PlayingUI'
 import GameOver from './GameOverUI'
+import { Container } from './GameScreen.styles'
 
 interface GameScreenProps extends BoardProps<IGameState> {}
 
@@ -70,6 +71,7 @@ export default function GameScreen({
         exitMatchFn={exitMatch}
         moves={moves}
         matchData={matchData}
+        playerID={playerID}
       />
     ),
     'game over': (
@@ -88,5 +90,5 @@ export default function GameScreen({
     ),
   }
 
-  return <div>{GameProgressionState[gameState]}</div>
+  return <Container>{GameProgressionState[gameState]}</Container>
 }

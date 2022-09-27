@@ -35,7 +35,7 @@ export default {
       {
         playerID: playerIDJoin,
         playerName,
-        playerAvatar,
+        data: { playerName, playerAvatar },
       },
     )
 
