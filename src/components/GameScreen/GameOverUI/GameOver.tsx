@@ -1,5 +1,5 @@
 import { Ctx, FilteredMetadata } from 'boardgame.io'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { IGameState } from '../../../types/IGameState'
 import Button from '../../Button'
 import Board from '../../Board'
@@ -36,43 +36,43 @@ export default function GameOver({
   const newMatchID = G.gameOver?.newMatchID || ''
   const playAgain = G.gameOver?.playAgain || ''
 
+  const joinNewMatch = useCallback(
+    async (nextMatch: string, player: string, cred: string) => {
+      await LobbyApi.leaveMatch(matchID, player, cred)
+      joinMatch(nextMatch, getPlayerName(player) || playerID, '👩🏿')
+    },
+    [joinMatch, matchID, playerID],
+  )
+
+  const createNewMatch = useCallback(
+    async (playerName: string) => {
+      const nextMatchID = await LobbyApi.createMath(playerName)
+      moves.setNewMatchID(nextMatchID)
+      return nextMatchID
+    },
+    [moves],
+  )
+
   useEffect(() => {
-    if (!credentials || !playerID || !currentPlayerName) return
+    const effect = async () => {
+      if (!credentials || !playerID || !currentPlayerName) return
 
-    const joinNewMatch = async (nextMatch: string) => {
-      try {
-        await LobbyApi.leaveMatch(matchID, playerID, credentials)
-      } catch (error) {
-        console.log(error)
-      }
-      joinMatch(nextMatch, getPlayerName(playerID) || playerID, '👩🏿')
-    }
-
-    const createAndJoin = async () => {
-      try {
-        const nextMatchID = await LobbyApi.createMath(currentPlayerName)
-        moves.setNewMatchID(nextMatchID)
-        await joinNewMatch(nextMatchID)
-      } catch (error) {
-        console.log(error)
+      if (playAgain.length === ctx.numPlayers) {
+        if (!newMatchID && playerID === playAgain[0]) {
+          const nextMatchID = await createNewMatch(currentPlayerName)
+          await joinNewMatch(nextMatchID, playerID, credentials)
+        } else if (newMatchID && playerID !== playAgain[0]) {
+          await joinNewMatch(newMatchID, playerID, credentials)
+        }
       }
     }
-
-    if (playAgain.length === ctx.numPlayers) {
-      if (!newMatchID && playerID === playAgain[0]) {
-        createAndJoin()
-      } else if (newMatchID && playerID !== playAgain[0]) {
-        joinNewMatch(newMatchID)
-      }
-    }
+    effect()
   }, [
+    createNewMatch,
     credentials,
     ctx.numPlayers,
-    ctx.playerID,
     currentPlayerName,
-    joinMatch,
-    matchID,
-    moves,
+    joinNewMatch,
     newMatchID,
     playAgain,
     playerID,
@@ -83,10 +83,7 @@ export default function GameOver({
       <Button variation='cancel' onClick={exitMatchFn}>
         Sair
       </Button>
-      <Button
-        variation='cancel'
-        onClick={() => moves.playAgain(ctx.currentPlayer)}
-      >
+      <Button variation='cancel' onClick={() => moves.playAgain(playerID)}>
         Jogar de novo
       </Button>
       <div>

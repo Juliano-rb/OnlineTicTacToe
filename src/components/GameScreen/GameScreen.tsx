@@ -11,7 +11,7 @@ import GameOver from './GameOverUI'
 
 interface GameScreenProps extends BoardProps<IGameState> {}
 
-type IGameProgression = 'waiting player' | 'playing' | 'game over' | 'waiting rematch'
+type IGameProgression = 'waiting player' | 'playing' | 'game over'
 
 export default function GameScreen({
   ctx, G, moves, matchData, matchID, playerID, credentials,
@@ -31,7 +31,9 @@ export default function GameScreen({
     }
   }, [G.matchResult, matchData])
 
-  console.log({ matchData, G, gameState })
+  console.log({
+    matchData, G, gameState, matchID, playerID,
+  })
 
   const navigate = useNavigate()
 
@@ -84,7 +86,6 @@ export default function GameScreen({
 
       />
     ),
-    'waiting rematch': <div>aa</div>,
   }
 
   return <div>{GameProgressionState[gameState]}</div>
