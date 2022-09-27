@@ -1,12 +1,11 @@
 import { ReactNode, useState } from 'react'
-import styled from 'styled-components'
 import _uniqueId from 'lodash/uniqueId'
-import colors from '../../assets/styles/colors'
 import Emoji from '../Emoji'
 import ReactionPicker from './ReactionPicker'
 import Modal from '../Modal'
 import Reaction from './Reaction'
 import ReactionList from './ReactionList'
+import { Container, FlexDiv } from './PlayerHub.styles'
 
 const DEFAULT_MESSAGE_DURATION = 3000
 export { DEFAULT_MESSAGE_DURATION }
@@ -16,31 +15,6 @@ interface Props {
   messageDuration?: number;
   orientation?: 'left' | 'right';
 }
-
-interface AdjustableItem {
-  orientation: 'left' | 'right';
-}
-
-const Container = styled.div<AdjustableItem>`
-  display: flex;
-  flex-direction: ${(props) => (props.orientation === 'left' ? 'row' : 'row-reverse')};
-  position: relative;
-
-  p {
-    color: ${colors.white};
-    text-align: left;
-    text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
-  }
-`
-
-const FlexDiv = styled.div<AdjustableItem>`
-  align-items: ${(props) => (props.orientation === 'left' ? 'flex-start' : 'flex-end')};
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  row-gap: 6px;
-
-`
 
 function PlayerHub({
   avatar,
