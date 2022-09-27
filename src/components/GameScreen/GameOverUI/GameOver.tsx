@@ -39,9 +39,9 @@ export default function GameOver({
   const joinNewMatch = useCallback(
     async (nextMatch: string, player: string, cred: string) => {
       await LobbyApi.leaveMatch(matchID, player, cred)
-      joinMatch(nextMatch, getPlayerName(player) || playerID, '👩🏿')
+      joinMatch(nextMatch, getPlayerName(player, matchData) || playerID, '👩🏿')
     },
-    [joinMatch, matchID, playerID],
+    [joinMatch, matchData, matchID, playerID],
   )
 
   const createNewMatch = useCallback(
