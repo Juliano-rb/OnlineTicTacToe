@@ -12,7 +12,6 @@ export default function ({ avatar, playerName }: Props) {
 
   const createMatch = async () => {
     const matchID = await LobbyApi.createMath(playerName)
-    console.log(`match ${matchID} created`)
 
     joinMatch(matchID, playerName, avatar)
   }

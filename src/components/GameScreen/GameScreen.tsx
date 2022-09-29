@@ -40,14 +40,6 @@ export default function GameScreen({
     }
   }, [G.matchResult, matchData])
 
-  console.log({
-    matchData,
-    G,
-    gameState,
-    matchID,
-    playerID,
-  })
-
   const navigate = useNavigate()
 
   if (!matchID || !playerID || !credentials || !matchData) {

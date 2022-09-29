@@ -33,8 +33,6 @@ function PlayPage() {
     matchID, credentials, playerID,
   } = useGetStorage()
 
-  console.log('matchID, credentials, playerID', matchID, credentials, playerID)
-
   return (
     <Container>
       <GameClient

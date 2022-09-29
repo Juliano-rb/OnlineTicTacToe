@@ -13,6 +13,7 @@ module.exports = {
   },
   extends: ["airbnb", "airbnb/hooks"],
   rules: {
+    "no-alert": 0,
     "no-debugger":  "warn",
     "linebreak-style": ["error", (process.platform === "win32" ? "windows" : "unix")], // https://stackoverflow.com/q/39114446/2771889,
     "@typescript-eslint/array-type": ["error", { default: "array" }],

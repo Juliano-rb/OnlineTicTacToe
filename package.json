@@ -34,6 +34,7 @@
     "build": "react-scripts build",
     "start": "ts-node src/server.ts",
     "serve": "ONLY_BACKEND=1 ts-node src/server.ts",
+    "ci": "yarn install --immutable --immutable-cache --check-cache",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
