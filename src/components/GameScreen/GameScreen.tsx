@@ -15,7 +15,15 @@ interface GameScreenProps extends BoardProps<IGameState> {}
 type IGameProgression = 'waiting player' | 'playing' | 'game over'
 
 export default function GameScreen({
-  ctx, G, moves, matchData, matchID, playerID, credentials,
+  ctx,
+  G,
+  moves,
+  matchData,
+  matchID,
+  playerID,
+  credentials,
+  sendChatMessage,
+  chatMessages,
 }: GameScreenProps) {
   const [gameState, setGameState] = useState<IGameProgression>('waiting player')
   const allPlayersConnected = (matchInfo: FilteredMetadata) => matchInfo.every((m) => m.isConnected)
@@ -33,7 +41,11 @@ export default function GameScreen({
   }, [G.matchResult, matchData])
 
   console.log({
-    matchData, G, gameState, matchID, playerID,
+    matchData,
+    G,
+    gameState,
+    matchID,
+    playerID,
   })
 
   const navigate = useNavigate()
@@ -72,6 +84,8 @@ export default function GameScreen({
         moves={moves}
         matchData={matchData}
         playerID={playerID}
+        sendChatMessage={sendChatMessage}
+        chatMessages={chatMessages}
       />
     ),
     'game over': (
@@ -85,7 +99,8 @@ export default function GameScreen({
         credentials={credentials}
         matchID={matchID}
         playerID={playerID}
-
+        sendChatMessage={sendChatMessage}
+        chatMessages={chatMessages}
       />
     ),
   }

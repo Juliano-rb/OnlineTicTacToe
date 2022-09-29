@@ -1,5 +1,6 @@
 import {
-  ReactNode, useEffect, useRef, useState,
+  forwardRef,
+  ReactNode, useCallback, useEffect, useImperativeHandle, useRef, useState,
 } from 'react'
 import _uniqueId from 'lodash/uniqueId'
 import Emoji from '../Emoji'
@@ -15,30 +16,45 @@ interface Props {
   avatar: string;
   name: string;
   messageDuration?: number;
+  enableReaction?: boolean;
   orientation?: 'left' | 'right';
+  action?: (data: any) => void;
 }
 
-function PlayerHub({
+export interface PlayerHubHandle {
+  receiveNewMessage: (data: string) => void;
+}
+
+const PlayerHub = forwardRef<PlayerHubHandle, Props>(({
   avatar,
   name,
   orientation = 'left',
+  enableReaction = true,
+  action,
   messageDuration = DEFAULT_MESSAGE_DURATION,
-}: Props) {
+}: Props, ref) => {
   const [messageList, setMessageList] = useState<ReactNode[]>([])
   const [showChat, setShowChat] = useState<boolean>(false)
   const element = useRef<HTMLDivElement>(null)
-  const [reactionPosition, setReactionPosition] = useState<'top' | 'bottom'>('top')
+  const [reactionPosition, setReactionPosition] = useState<'top' | 'bottom'>(
+    'top',
+  )
 
-  const newMessage = (message: string) => {
+  const newMessage = useCallback((message: string) => {
     setMessageList([
       ...messageList,
-      <Reaction messageDuration={messageDuration} message={message} key={_uniqueId()} />,
+      <Reaction
+        messageDuration={messageDuration}
+        message={message}
+        key={_uniqueId()}
+      />,
     ])
-  }
+  }, [messageDuration, messageList])
 
   const clickReactionAction = (data: string) => {
-    newMessage(data)
     setShowChat(false)
+
+    if (action) action(data)
   }
   useEffect(() => {
     const top = element?.current?.getBoundingClientRect()?.top || 0
@@ -47,6 +63,12 @@ function PlayerHub({
     if (elDistanceToTop > 200) setReactionPosition('bottom')
     else setReactionPosition('top')
   }, [])
+
+  useImperativeHandle(ref, () => ({
+    receiveNewMessage(data: string) {
+      newMessage(data)
+    },
+  }))
 
   return (
     <Container orientation={orientation} ref={element}>
@@ -66,6 +88,6 @@ function PlayerHub({
       )}
     </Container>
   )
-}
+})
 
 export default PlayerHub

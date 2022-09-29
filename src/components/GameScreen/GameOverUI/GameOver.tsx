@@ -1,5 +1,5 @@
-import { Ctx, FilteredMetadata } from 'boardgame.io'
-import { useCallback, useEffect } from 'react'
+import { ChatMessage, Ctx, FilteredMetadata } from 'boardgame.io'
+import { useCallback, useEffect, useRef } from 'react'
 import { IGameState } from '../../../types/IGameState'
 import Button from '../../Button'
 import Board from '../../Board'
@@ -9,6 +9,7 @@ import { useGetOpponent, useGetPlayer } from '../../../hooks/useGetPlayer'
 import IPlayer from '../../../types/IPlayer'
 import PlayerHub from '../../PlayerHub'
 import { PlayerControllsContainer } from '../GameScreen.styles'
+import { PlayerHubHandle } from '../../PlayerHub/PlayerHub'
 
 interface IGameOver {
   exitMatchFn: () => void;
@@ -20,6 +21,8 @@ interface IGameOver {
   moves: Record<string, (...args: any[]) => void>;
   credentials: string;
   cellValueMapping: any;
+  chatMessages: ChatMessage[];
+  sendChatMessage: (message: any) => void;
 }
 
 export default function GameOver({
@@ -32,10 +35,14 @@ export default function GameOver({
   ctx,
   matchData,
   credentials,
+  chatMessages,
+  sendChatMessage,
 }: IGameOver) {
   const joinMatch = useJoinMatch()
   const player = useGetPlayer(playerID, matchData)
   const opponent = useGetOpponent(playerID, matchData)
+  const opponentHubRef = useRef<PlayerHubHandle>(null)
+  const playerHubRef = useRef<PlayerHubHandle>(null)
 
   const newMatchID = G.gameOver?.newMatchID || ''
   const playAgain = G.gameOver?.playAgain || ''
@@ -82,17 +89,33 @@ export default function GameOver({
     playerID,
   ])
 
+  useEffect(() => {
+    const totalMessages = chatMessages.length
+    if (!totalMessages) return
+
+    const lastMessage = chatMessages[totalMessages - 1]
+    if (lastMessage.sender === playerID) {
+      playerHubRef.current?.receiveNewMessage(lastMessage.payload)
+      return
+    }
+
+    opponentHubRef.current?.receiveNewMessage(lastMessage.payload)
+  }, [chatMessages, playerID])
+
   return (
     <>
       <PlayerControllsContainer>
-        <PlayerHub avatar={opponent.avatar} name={opponent.name} />
+        <PlayerHub
+          ref={playerHubRef}
+          avatar={opponent.avatar}
+          name={opponent.name}
+        />
         <Button variation='cancel' onClick={exitMatchFn}>
           Sair
         </Button>
       </PlayerControllsContainer>
 
       <div>
-
         <Button variation='cancel' onClick={() => moves.playAgain(playerID)}>
           Jogar de novo
         </Button>
@@ -112,9 +135,11 @@ export default function GameOver({
       <PlayerControllsContainer>
         <div />
         <PlayerHub
+          ref={playerHubRef}
           avatar={player.avatar}
           name={player.name}
           orientation='right'
+          action={sendChatMessage}
         />
       </PlayerControllsContainer>
     </>
