@@ -38,11 +38,14 @@ describe('PlayerHub', () => {
     expect(screen.getByText('🤛')).toBeInTheDocument()
   })
 
-  test.each(['Você é bom!', 'Uau!!', 'Quero revanche', '😎', '🤛'])(
-    'should show a message when click in reaction %i',
+  test.each(['Você é bom!', 'Uau!!', '😎', '🤛'])(
+    'should call action() when click in reaction %s',
     async (reaction) => {
+      const actionMock = jest.fn()
+
       render(
         <PlayerHub
+          action={actionMock}
           avatar={avatar}
           name={name}
           messageDuration={messageDuration}
@@ -55,8 +58,7 @@ describe('PlayerHub', () => {
       userEvent.click(reactButton)
       expect(reactButton).not.toBeInTheDocument()
 
-      const message = await screen.findByText(reaction)
-      expect(message).toBeInTheDocument()
+      expect(actionMock).toHaveBeenCalledWith(reaction)
     },
   )
 })
