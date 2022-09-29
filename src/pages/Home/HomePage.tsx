@@ -23,7 +23,7 @@ function HomePage() {
 
   const { data: joinMatchData, isError, isLoading } = useGetMatch(joinID)
   const [selecao, setSelecao] = useState<IGameModes>(
-    joinID ? 'Entrar' : 'Ver jogos',
+    joinID ? 'Entrar' : 'Criar jogo',
   )
 
   // TODO: improove this
@@ -64,7 +64,7 @@ function HomePage() {
         <Switch
           option={selecao}
           // options={["Jogo rápido", "Ver jogos", "Criar jogo", "Jogo local", "Entrar"]}
-          options={['Ver jogos', 'Criar jogo']}
+          options={['Criar jogo', 'Ver jogos']}
           setOption={setSelecao}
         />
         <HorizontalDiv>
