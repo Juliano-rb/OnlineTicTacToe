@@ -9,7 +9,12 @@ const PORT = parseInt(process.env.PORT || '', 10)
 
 const server = Server({
   games: [TicTacToe],
-  origins: [Origins.LOCALHOST_IN_DEVELOPMENT, 'http://velha1.herokuapp.com', 'https://velha1.herokuapp.com', 'https://jogarvelha.web.app'],
+  origins: [
+    Origins.LOCALHOST_IN_DEVELOPMENT,
+    'http://dev-jogarvelha.herokuapp.com',
+    'https://dev-jogarvelha.herokuapp.com',
+    'https://jogarvelha.web.app',
+  ],
   db: new FlatFile({
     dir: 'storage',
     logging: false,
