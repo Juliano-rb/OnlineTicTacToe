@@ -9,8 +9,15 @@ const { ONLY_BACKEND } = process.env
 const PORT = parseInt(process.env.PORT || '', 10)
 
 const router = new Router()
-router.get('/wakeup', (ctx) => {
-  ctx.body = 'who dares wake me up?'
+router.get('/wakeup', async (ctx) => {
+  try {
+    const response = await fetch('https://keep-alive-tictactoe.onrender.com')
+    console.log(response)
+
+    ctx.body = '{message: "who dares wake me up?"}'
+  } catch (error) {
+    console.log(error)
+  }
 })
 
 const server = Server({
