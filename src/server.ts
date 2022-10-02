@@ -1,3 +1,4 @@
+import Router from '@koa/router'
 import { Server, Origins, FlatFile } from 'boardgame.io/server'
 import path from 'path'
 import serve from 'koa-static'
@@ -6,6 +7,11 @@ import { TicTacToe } from './game/Game'
 const { NODE_ENV } = process.env
 const { ONLY_BACKEND } = process.env
 const PORT = parseInt(process.env.PORT || '', 10)
+
+const router = new Router()
+router.get('/wakeup', (ctx) => {
+  ctx.body = 'who dares wake me up?'
+})
 
 const server = Server({
   games: [TicTacToe],
@@ -22,6 +28,8 @@ const server = Server({
   }),
 })
 
+server.app.use(router.routes())
+
 console.log('NODE_ENV ', NODE_ENV)
 console.log('ONLY_BACKEND', ONLY_BACKEND)
 if (NODE_ENV === 'development' || ONLY_BACKEND) {
@@ -36,11 +44,9 @@ if (NODE_ENV === 'development' || ONLY_BACKEND) {
   server.app.use(serve(frontEndAppBuildPath))
 
   server.run(PORT || 8000, () => {
-    server.app.use(
-      async (ctx, next) => serve(frontEndAppBuildPath)(
-        Object.assign(ctx, { path: 'index.html' }),
-        next,
-      ),
-    )
+    server.app.use(async (ctx, next) => serve(frontEndAppBuildPath)(
+      Object.assign(ctx, { path: 'index.html' }),
+      next,
+    ))
   })
 }
