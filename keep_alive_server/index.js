@@ -1,9 +1,9 @@
 import express from "express";
 import fetch from "node-fetch";
 
-const WAKEUP_TIMER_MIN = process.env.WAKEUP_TIMER_MIN || 2;
+const WAKEUP_TIMER_MIN = process.env.WAKEUP_TIMER_MIN || 5;
 const SERVER_URL =
-  process.env.SERVER_URL || "https://velha.onrender.com/games/JogoDaVelha";
+  process.env.SERVER_URL || "https://velha.onrender.com/wakeup";
 const PORT = process.env.port || 8888;
 
 const app = express();
