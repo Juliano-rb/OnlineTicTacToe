@@ -75,6 +75,7 @@ export default function WaitingPlayers({
             shareUrl={shareUrl}
             buttonText='Compartilhar'
             shareTitle='Jogue Jogo da Velha comigo! Use o link abaixo:'
+            shareText='Jogue Jogo da Velha comigo! Use o link abaixo:'
           />
           <Button onClick={exitMatch} variation='cancel'>
             Cancelar
