@@ -32,7 +32,7 @@ const schedule_wakeup = () => {
 
 const routes = express.Router();
 
-routes.get("/", (req, res) => {
+routes.get("/ping", (req, res) => {
   return res.send(`<h1>I'm awake ( ͡° ͜ʖ ͡°)</h1>`);
 });
 
