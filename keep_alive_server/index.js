@@ -17,7 +17,7 @@ const wakeup = async () => {
     console.log("** Server response: ", response.data);
     
   } catch (error) {
-    console.log("error", error)
+    console.log("error", error.code)
   }
   
 };
