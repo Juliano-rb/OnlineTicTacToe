@@ -1,4 +1,3 @@
-import Router from '@koa/router'
 import axios from 'axios'
 import { Server, Origins, FlatFile } from 'boardgame.io/server'
 import path from 'path'
@@ -9,20 +8,6 @@ const { NODE_ENV } = process.env
 const { ONLY_BACKEND } = process.env
 const PORT = parseInt(process.env.PORT || '8000', 10)
 const WAKEUP_SERVICE_URL = process.env.WAKEUP_URL || 'http://localhost:8888'
-
-const router = new Router()
-router.get('/wakeup', async (ctx) => {
-  try {
-    console.log('\n** Someone is waking me up, answering...')
-
-    const response = await axios.get(WAKEUP_SERVICE_URL)
-    console.log('** Response from waking up server:', response.data)
-
-    ctx.body = 'success'
-  } catch (error) {
-    console.log('error', (error as any))
-  }
-})
 
 const server = Server({
   games: [TicTacToe],
@@ -39,7 +24,19 @@ const server = Server({
   }),
 })
 
-server.app.use(router.routes())
+server.router.get('/wakeup', async (ctx) => {
+  try {
+    console.log(
+      `\n** Someone is waking me up, answering to ${WAKEUP_SERVICE_URL}...`,
+    )
+
+    const response = await axios.get(WAKEUP_SERVICE_URL)
+    console.log('** Response from waking up server:', response.data)
+  } catch (error) {
+    console.log('error', error as any)
+  }
+  ctx.body = 'success'
+})
 
 console.log('NODE_ENV ', NODE_ENV)
 console.log('ONLY_BACKEND', ONLY_BACKEND)
