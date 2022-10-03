@@ -1,5 +1,6 @@
 import express from "express";
 import axios from "axios";
+import cors from "cors";
 
 const WAKEUP_TIMER_MIN = process.env.WAKEUP_TIMER_MIN || 0.5;
 const PORT = process.env.port || 8888;
@@ -29,9 +30,14 @@ const schedule_wakeup = () => {
   }, WAKEUP_TIMER_MIN * 60 * 1000);
 };
 
-app.get("/", (req, res) => {
-  res.send("I'm awake");
+const routes = express.Router();
+
+routes.get("/", (req, res) => {
+  return res.send(`<h1>I'm awake ( ͡° ͜ʖ ͡°)</h1>`);
 });
+
+app.use(cors());
+app.use(routes);
 
 app.listen(PORT, async () => {
   schedule_wakeup();
