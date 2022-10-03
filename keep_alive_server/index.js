@@ -1,5 +1,5 @@
 import express from "express";
-import fetch from "node-fetch";
+import axios from "axios";
 
 const WAKEUP_TIMER_MIN = process.env.WAKEUP_TIMER_MIN || 0.5;
 const PORT = process.env.port || 8888;
@@ -12,11 +12,12 @@ console.log({ WAKEUP_TIMER_MIN, SERVER_URL, PORT });
 
 const wakeup = async () => {
   try {
-    const response = await fetch(SERVER_URL);
-    console.log("Server response: ", response);
+    console.log("\n** Waking up server...");
+    const response = await axios.get(SERVER_URL);
+    console.log("** Server response: ", response.data);
     
   } catch (error) {
-    console.log(error)
+    console.log("error", error)
   }
   
 };
@@ -29,7 +30,7 @@ const schedule_wakeup = () => {
 };
 
 app.get("/", (req, res) => {
-  res.send("Keep alive server is alive");
+  res.send("I'm awake");
 });
 
 app.listen(PORT, async () => {
