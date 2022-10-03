@@ -7,6 +7,11 @@ const PORT = process.env.port || 8888;
 const SERVER_URL =
   process.env.SERVER_URL || `http://localhost:8000/wakeup`;
 
+var corsOptions = {
+  origin: process.env.SERVER_URL,
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
 const app = express();
 
 console.log({ WAKEUP_TIMER_MIN, SERVER_URL, PORT });
@@ -36,7 +41,7 @@ routes.get("/", (req, res) => {
   return res.send(`<h1>I'm awake ( ͡° ͜ʖ ͡°)</h1>`);
 });
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(routes);
 
 app.listen(PORT, async () => {
