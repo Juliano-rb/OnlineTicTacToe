@@ -16,6 +16,7 @@ const server = Server({
     'http://dev-jogarvelha.herokuapp.com',
     'https://dev-jogarvelha.herokuapp.com',
     'https://jogarvelha.web.app',
+    'https://keep-alive-tictactoe.onrender.com',
   ],
   db: new FlatFile({
     dir: 'storage',
