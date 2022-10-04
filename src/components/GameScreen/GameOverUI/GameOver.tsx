@@ -106,7 +106,7 @@ export default function GameOver({
     <>
       <PlayerControllsContainer>
         <PlayerHub
-          ref={playerHubRef}
+          ref={opponentHubRef}
           avatar={opponent.avatar}
           name={opponent.name}
         />
