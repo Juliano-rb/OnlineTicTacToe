@@ -5,7 +5,7 @@ import VictoryLine from './VictoryLine'
 
 interface Props {
   cells: string[];
-  valueMapping?: any;
+  valueMapping?: { [key: string]: string };
   player: string;
   setCells?: (value: string[]) => void;
   setPlayer?: (data: string) => void;

@@ -7,6 +7,7 @@ import PlayerHub from '../../PlayerHub'
 import { useGetOpponent, useGetPlayer } from '../../../hooks/useGetPlayer'
 import { PlayerControllsContainer } from '../GameScreen.styles'
 import { PlayerHubHandle } from '../../PlayerHub/PlayerHub'
+import TurnInfo from '../../TurnInfo'
 
 interface IPlaying {
   exitMatchFn: () => void;
@@ -15,9 +16,9 @@ interface IPlaying {
   playerID: string;
   matchData: FilteredMetadata;
   moves: Record<string, (...args: any[]) => void>;
-  cellValueMapping: any;
+  cellValueMapping: { [key: string]: string };
   sendChatMessage: (message: any) => void;
-  chatMessages: ChatMessage[]
+  chatMessages: ChatMessage[];
 }
 
 export default function Playing({
@@ -67,11 +68,11 @@ export default function Playing({
       </PlayerControllsContainer>
 
       <div>
-        <div>
-          Vez de {cellValueMapping && cellValueMapping[ctx.currentPlayer]}
-          {' - '}
-          {currentPlayer.name}
-        </div>
+        <TurnInfo
+          player={player}
+          currentPlayer={currentPlayer}
+          valueMapping={cellValueMapping}
+        />
 
         <Board
           victoryLine={G.matchResult?.winner?.victoryData}
