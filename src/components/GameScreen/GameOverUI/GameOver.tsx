@@ -10,6 +10,7 @@ import IPlayer from '../../../types/IPlayer'
 import PlayerHub from '../../PlayerHub'
 import { PlayerControllsContainer } from '../GameScreen.styles'
 import { PlayerHubHandle } from '../../PlayerHub/PlayerHub'
+import MatchResult from '../../MatchResult'
 
 interface IGameOver {
   exitMatchFn: () => void;
@@ -116,13 +117,14 @@ export default function GameOver({
       </PlayerControllsContainer>
 
       <div>
-        <Button variation='cancel' onClick={() => moves.playAgain(playerID)}>
-          Jogar de novo
-        </Button>
-        <div>
-          O vencedor foi{' '}
-          {useGetPlayer(G.matchResult?.winner?.playerID || '', matchData).name}
-        </div>
+        {G.matchResult && (
+          <MatchResult
+            player={player}
+            matchResult={G.matchResult}
+            matchData={matchData}
+            valueMapping={cellValueMapping}
+          />
+        )}
 
         <Board
           victoryLine={G.matchResult?.winner?.victoryData}
@@ -131,6 +133,10 @@ export default function GameOver({
           cells={G.cells}
           valueMapping={cellValueMapping}
         />
+
+        <Button variation='cancel' onClick={() => moves.playAgain(playerID)}>
+          Jogar de novo
+        </Button>
       </div>
       <PlayerControllsContainer>
         <div />

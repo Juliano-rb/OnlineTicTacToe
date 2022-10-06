@@ -15,7 +15,6 @@ export const PlayerSymbolStyle = styled.span<IPlayerSymbolStyle>`
 `
 
 function PlayerSymbol({ value, valueMapping }: IPlayerSymbol) {
-  console.log(value)
   return <PlayerSymbolStyle value={value}>{valueMapping[value]}</PlayerSymbolStyle>
 }
 

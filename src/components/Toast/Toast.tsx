@@ -1,19 +1,26 @@
-import { ToastStyle } from './Toast.styles'
+import { ReactNode } from 'react'
+import { ToastStyle, ToastTyle } from './Toast.styles'
 
 interface Props {
   title: string;
-  description: string;
+  description?: string;
   variation?: 'warn' | 'error';
   handleClick?: () => void;
+  children?: ReactNode;
 }
 
 function Toast({
-  title, description, variation = 'warn', handleClick,
+  title,
+  description,
+  variation = 'warn',
+  handleClick,
+  children,
 }: Props) {
   return (
     <ToastStyle onClick={handleClick} variation={variation}>
-      <span>{title}</span>
-      <p>{description}</p>
+      <ToastTyle variation={variation}>{title}</ToastTyle>
+      {children}
+      {description && <p>{description}</p>}
     </ToastStyle>
   )
 }

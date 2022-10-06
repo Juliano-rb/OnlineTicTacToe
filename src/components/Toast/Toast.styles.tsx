@@ -10,6 +10,11 @@ const COLOR_MAPPING = {
   error: colors.alert,
 }
 
+export const ToastTyle = styled.span<StyleProps>`
+  color: ${(props) => COLOR_MAPPING[props.variation]};
+  font-size: 0.9rem;
+`
+
 export const ToastStyle = styled.div<StyleProps>`
   align-items: center;
   background-color: ${colors.white};
@@ -27,10 +32,6 @@ export const ToastStyle = styled.div<StyleProps>`
 
   padding-right: 8px;
 
-  span {
-    color: ${(props) => COLOR_MAPPING[props.variation]};
-    font-size: 0.9rem;
-  }
   p {
     color: ${colors.main};
     font-size: 0.9rem;
