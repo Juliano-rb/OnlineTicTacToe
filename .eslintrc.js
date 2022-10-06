@@ -11,11 +11,18 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: "module",
   },
-  extends: ["airbnb", "airbnb/hooks"],
+  extends: [
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:react-hooks/recommended",
+  ],
   rules: {
     "no-alert": 0,
-    "no-debugger":  "warn",
-    "linebreak-style": ["error", (process.platform === "win32" ? "windows" : "unix")], // https://stackoverflow.com/q/39114446/2771889,
+    "no-debugger": "warn",
+    "linebreak-style": [
+      "error",
+      process.platform === "win32" ? "windows" : "unix",
+    ], // https://stackoverflow.com/q/39114446/2771889,
     "@typescript-eslint/array-type": ["error", { default: "array" }],
     "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
     "@typescript-eslint/no-shadow": ["error"],
@@ -44,7 +51,7 @@ module.exports = {
         ignoreNonDOM: true,
       },
     ],
-    "react/destructuring-assignment": ['off']
+    "react/destructuring-assignment": ["off"],
   },
   env: { browser: true, jest: true },
   settings: {
