@@ -25,8 +25,10 @@ export default function GameScreen({
   sendChatMessage,
   chatMessages,
 }: GameScreenProps) {
+  const navigate = useNavigate()
   const [gameState, setGameState] = useState<IGameProgression>('waiting player')
   const allPlayersConnected = (matchInfo: FilteredMetadata) => matchInfo.every((m) => m.isConnected)
+  const cellValueMapping = { 0: 'X', 1: 'O' }
 
   useEffect(() => {
     if (!matchData) return
@@ -40,8 +42,6 @@ export default function GameScreen({
     }
   }, [G.matchResult, matchData])
 
-  const navigate = useNavigate()
-
   if (!matchID || !playerID || !credentials || !matchData) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -54,8 +54,6 @@ export default function GameScreen({
     await LobbyApi.leaveMatch(matchID, playerID, credentials)
     navigate('/')
   }
-
-  const cellValueMapping: any = { 0: 'X', 1: 'O' }
 
   const GameProgressionState: { [key in IGameProgression]: ReactNode } = {
     'waiting player': (

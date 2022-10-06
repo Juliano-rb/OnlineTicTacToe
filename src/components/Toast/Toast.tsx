@@ -1,58 +1,26 @@
-import styled from 'styled-components'
-import colors from '../../assets/styles/colors'
+import { ReactNode } from 'react'
+import { ToastStyle, ToastTyle } from './Toast.styles'
 
 interface Props {
   title: string;
-  description: string;
+  description?: string;
   variation?: 'warn' | 'error';
   handleClick?: () => void;
+  children?: ReactNode;
 }
-
-interface StyleProps {
-  variation: 'warn' | 'error';
-}
-
-const COLOR_MAPPING = {
-  warn: colors.softier,
-  error: colors.alert,
-}
-
-const ToastStyle = styled.div<StyleProps>`
-  align-items: center;
-  background-color: ${colors.white};
-  border: none;
-  border-radius: 4px;
-
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
-  column-gap: 10px;
-  display: flex;
-
-  height: 45px;
-  justify-content: start;
-  padding: 8px;
-  padding-left: 8px;
-
-  padding-right: 8px;
-
-  span {
-    color: ${(props) => COLOR_MAPPING[props.variation]};
-    font-size: 0.9rem;
-  }
-  p {
-    color: ${colors.main};
-    font-size: 0.9rem;
-  }
-
-  width: 320px;
-`
 
 function Toast({
-  title, description, variation = 'warn', handleClick,
+  title,
+  description,
+  variation = 'warn',
+  handleClick,
+  children,
 }: Props) {
   return (
     <ToastStyle onClick={handleClick} variation={variation}>
-      <span>{title}</span>
-      <p>{description}</p>
+      <ToastTyle variation={variation}>{title}</ToastTyle>
+      {children}
+      {description && <p>{description}</p>}
     </ToastStyle>
   )
 }

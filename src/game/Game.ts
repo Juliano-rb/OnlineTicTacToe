@@ -50,6 +50,8 @@ export const TicTacToe: Game<IGameState> = {
     },
     onEnd: (G: IGameState, ctx: Ctx) => {
       const victoryData = IsVictory(G.cells, ctx.currentPlayer)
+      if (G.matchResult) return
+
       if (victoryData) {
         G.matchResult = {
           winner: { playerID: ctx.currentPlayer, victoryData },
