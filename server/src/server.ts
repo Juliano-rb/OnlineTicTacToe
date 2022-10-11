@@ -9,15 +9,16 @@ const { ONLY_BACKEND } = process.env
 const PORT = parseInt(process.env.PORT || '8000', 10)
 const WAKEUP_SERVICE_URL = process.env.WAKEUP_URL || 'http://localhost:8888'
 
+const PROD_ORIGINS = ["https://jogarvelha.web.app"];
+
+const DEV_ORIGINS = [
+  Origins.LOCALHOST_IN_DEVELOPMENT,
+  "https://dev-jogarvelha.web.app",
+];
+
 const server = Server({
   games: [TicTacToe],
-  origins: [
-    Origins.LOCALHOST_IN_DEVELOPMENT,
-    'http://dev-jogarvelha.herokuapp.com',
-    'https://dev-jogarvelha.herokuapp.com',
-    'https://jogarvelha.web.app',
-    'https://keep-alive-tictactoe.onrender.com',
-  ],
+  origins: NODE_ENV == "production" ? PROD_ORIGINS : DEV_ORIGINS,
   db: new FlatFile({
     dir: 'storage',
     logging: false,
