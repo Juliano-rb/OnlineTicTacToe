@@ -20,8 +20,8 @@ jobs:
       - run: yarn ci
       - run: yarn build
       - run: yarn test
-      # - uses: FirebaseExtended/action-hosting-deploy@v0 # uncomment this to enable preview of PRs 
-      #   with:
-      #     repoToken: '${{ secrets.GITHUB_TOKEN }}'
-      #     firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JOGARVELHA }}'
-      #     projectId: jogarvelha
+      - uses: FirebaseExtended/action-hosting-deploy@v0 
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JOGARVELHA }}'
+          projectId: jogarvelha
