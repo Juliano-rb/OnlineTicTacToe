@@ -8,9 +8,12 @@ name: Deploy to Firebase Hosting on merge
       - main
 jobs:
   build_and_deploy:
+    defaults:
+      run:
+        working-directory: frontend
     runs-on: ubuntu-latest
     env:
-      REACT_APP_SERVER_URL: https://velha.onrender.com
+      REACT_APP_SERVER_URL: https://jogarvelha.fly.dev/
     steps:
       - uses: actions/checkout@v2
       - run: yarn ci
