@@ -11,10 +11,7 @@ const WAKEUP_SERVICE_URL = process.env.WAKEUP_URL || 'http://localhost:8888'
 
 const PROD_ORIGINS = ["https://jogarvelha.web.app"];
 
-const DEV_ORIGINS = [
-  Origins.LOCALHOST_IN_DEVELOPMENT,
-  "*",
-];
+const DEV_ORIGINS = [/.*/];
 
 const server = Server({
   games: [TicTacToe],
