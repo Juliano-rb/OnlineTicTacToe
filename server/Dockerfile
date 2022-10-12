@@ -2,6 +2,10 @@ FROM node:alpine
 
 WORKDIR .
 
+ARG NODE_ENV=unknown
+
+ENV NODE_ENV=$ENVIRONMENT
+
 COPY package.json yarn.lock ./
 
 RUN yarn

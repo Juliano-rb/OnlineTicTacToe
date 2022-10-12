@@ -1,12 +1,9 @@
-# fly.toml file generated for jogarvelha on 2022-10-09T10:20:55-03:00
-
+# fly.toml file generated for jogarvelha
 app = "jogarvelha"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
-[env]
-  NODE_ENV = 'production'
 [experimental]
   allowed_public_ports = []
   auto_rollback = true
