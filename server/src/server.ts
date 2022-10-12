@@ -13,7 +13,7 @@ const PROD_ORIGINS = ["https://jogarvelha.web.app"];
 
 const DEV_ORIGINS = [
   Origins.LOCALHOST_IN_DEVELOPMENT,
-  "https://dev-jogarvelha.web.app",
+  "*",
 ];
 
 const server = Server({
