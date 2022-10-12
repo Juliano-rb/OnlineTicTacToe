@@ -20,5 +20,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [ "/src/server.ts"  ]
+  "include": [ "./src/server.ts"  ]
 }
