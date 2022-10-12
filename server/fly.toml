@@ -1,5 +1,5 @@
 # fly.toml file generated for jogarvelha
-app = "jogarvelha"
+# app = "jogarvelha"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
