@@ -13,5 +13,7 @@ export const TdStyle = styled.td<TdProps>`
   font-size: 3.2rem;
   height: 4.3rem;
   line-height: 4.1rem;
+  text-shadow: 2px 3px 4px rgb(0 0 0 / 30%);
+
   width: 4.3rem;
 `
