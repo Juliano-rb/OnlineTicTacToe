@@ -56,7 +56,9 @@ export const Winner = styled.div<IWinner>`
   display: flex;
 
   flex-direction: row;
+  justify-content: center;
   max-width: 98%;
+  min-width: 100px;
   overflow: hidden;
   overflow-wrap: break-word;
   padding: 8px;
