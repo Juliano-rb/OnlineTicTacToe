@@ -111,6 +111,7 @@ export default function GameOver({
           ref={opponentHubRef}
           avatar={opponent.avatar}
           name={opponent.name}
+          enableReaction={false}
         />
         <Button variation='cancel' onClick={exitMatchFn}>
           Sair
@@ -135,7 +136,6 @@ export default function GameOver({
           cells={G.cells}
           valueMapping={cellValueMapping}
         />
-
       </PanelContainer>
       <PlayerControllsContainer>
         <div />

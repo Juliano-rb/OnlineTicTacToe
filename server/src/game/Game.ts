@@ -56,7 +56,9 @@ export const TicTacToe: Game<IGameState> = {
         G.matchResult = {
           winner: { playerID: ctx.currentPlayer, victoryData },
         }
+        return
       }
+
       if (IsDraw(G.cells)) {
         G.matchResult = { isDraw: true }
       }
