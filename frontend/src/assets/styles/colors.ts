@@ -13,6 +13,7 @@ const colors = {
   white: '#fff',
   black: '#000',
   shadow: '#E1E1E1',
+  disabled: '#CECECE',
 }
 
 export default colors

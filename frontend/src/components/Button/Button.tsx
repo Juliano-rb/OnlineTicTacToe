@@ -40,7 +40,7 @@ const Button = styled.button<Props>`
   }
 
   :disabled {
-    background-color: ${colors.shadow};
+    background-color: ${colors.disabled};
     box-shadow: none;
   }
 

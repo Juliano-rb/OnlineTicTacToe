@@ -2,15 +2,14 @@ import { FilteredMetadata } from 'boardgame.io'
 import { useGetPlayer } from '../../hooks/useGetPlayer'
 import { IMatchResult } from '../../types/IGameState'
 import IPlayer from '../../types/IPlayer'
-import PlayerSymbolSmall from '../PlayerSymbolSmall'
-import Toast from '../Toast'
-import { Container, Title } from './MatchResult.styles'
+import Button from '../Button'
+import { Container, Title, Winner } from './MatchResult.styles'
 
 interface IMatchResultUI {
   player: IPlayer;
   matchResult: IMatchResult;
   matchData: FilteredMetadata;
-  valueMapping: { [key: string]: string };
+  moves: Record<string, (...args: any[]) => void>;
 }
 
 type ResultStateType = 'winner' | 'defeated' | 'draw';
@@ -27,7 +26,7 @@ export default function TurnInfo({
   player,
   matchResult,
   matchData,
-  valueMapping,
+  moves,
 }: IMatchResultUI) {
   const resultState = getResultState(player, matchResult)
   const winner = useGetPlayer(matchResult.winner?.playerID || '', matchData)
@@ -40,12 +39,23 @@ export default function TurnInfo({
 
   return (
     <Container>
-      <Title>{resultStateTitleMap[resultState]}</Title>
-      {resultState !== 'draw' && (
-      <Toast title='Vencedor' description={winner.name}>
-        <PlayerSymbolSmall value={winner.id} valueMapping={valueMapping} />
-      </Toast>
-      )}
+      <Title gameStatus={resultState}>{resultStateTitleMap[resultState]}</Title>
+      <Winner gameStatus={resultState}>
+        {resultState !== 'draw' ? (
+          <>
+            <span>🏆</span>
+            <span>{winner.name || 'Sem ganhadores'}</span>
+          </>
+        ) : (
+          <>
+            <span />
+            <span>Sem ganhadores</span>
+          </>
+        )}
+      </Winner>
+      <Button variation='cancel' onClick={() => moves.playAgain(player.id)}>
+        Jogar de novo
+      </Button>
     </Container>
   )
 }

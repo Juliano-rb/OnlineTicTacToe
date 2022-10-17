@@ -1,18 +1,54 @@
 import styled from 'styled-components'
 import colors from '../../assets/styles/colors'
+import { BounceIn } from '../../assets/styles/animations'
 
 export const Container = styled.div`
   align-items: center;
-  color: ${colors.white};
+  animation: ${BounceIn};
+  background-color: ${colors.white};
+  border-radius: 4px;
+  color: ${colors.main};
   display: flex;
   flex-direction: column;
-  
-  row-gap: 10px;
+  margin: 0 auto;
+  max-width: 320px;
+
+  padding: 10px;
+  row-gap: 15px;
+
   * {
     font-size: 1.1rem;
   }
-`
 
-export const Title = styled.div`
-  text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  z-index: 1;
+`
+type IGameResult = 'winner' | 'defeated' | 'draw';
+
+const GameResultColorsMap: { [key: string]: string } = {
+  winner: colors.main,
+  defeated: colors.alert,
+  draw: colors.confirm,
+}
+
+interface ITitle {
+  gameStatus: IGameResult;
+}
+export const Title = styled.h1<ITitle>`
+  color: ${(props) => GameResultColorsMap[props.gameStatus]};
+  font-size: 1.4rem ;
+  margin: 0px;
+
+`
+interface IWinner {
+  gameStatus: IGameResult;
+}
+export const Winner = styled.div<IWinner>`
+  span:nth-child(1) {
+    font-size: 1.5rem;
+  }
+  span:nth-child(2) {
+    color: ${(props) => (props.gameStatus === 'draw' ? colors.disabled : colors.main)};
+    font-size: 1rem;
+  }
 `

@@ -3,7 +3,7 @@ import colors from '../../assets/styles/colors'
 
 export const Container = styled.div`
   margin: 0 auto;
-  padding: 6px;
+  padding: 2px;
   position: relative;
   width: fit-content;
 `

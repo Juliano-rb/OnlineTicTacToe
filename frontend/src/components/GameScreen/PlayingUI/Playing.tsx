@@ -8,6 +8,7 @@ import { useGetOpponent, useGetPlayer } from '../../../hooks/useGetPlayer'
 import { PlayerControllsContainer } from '../GameScreen.styles'
 import { PlayerHubHandle } from '../../PlayerHub/PlayerHub'
 import TurnInfo from '../../TurnInfo'
+import { PanelContainer } from './Playing.styles'
 
 interface IPlaying {
   exitMatchFn: () => void;
@@ -67,7 +68,7 @@ export default function Playing({
         </Button>
       </PlayerControllsContainer>
 
-      <div>
+      <PanelContainer>
         <TurnInfo
           player={player}
           currentPlayer={currentPlayer}
@@ -81,7 +82,7 @@ export default function Playing({
           cells={G.cells}
           valueMapping={cellValueMapping}
         />
-      </div>
+      </PanelContainer>
 
       <PlayerControllsContainer>
         <div />
