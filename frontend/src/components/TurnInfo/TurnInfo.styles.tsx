@@ -8,13 +8,9 @@ export const Container = styled.div`
 
   flex-direction: column;
   row-gap: 10px;
-  
+
   * {
     font-size: 1.1rem;
+    text-shadow: 2px 3px 4px rgb(0 0 0 / 30%);
   }
-`
-
-export const Title = styled.div`
-
-  text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
 `
