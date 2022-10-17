@@ -10,6 +10,7 @@ const colors = {
   highlight: '#B26C42',
   soft: '#AD9311',
   softier: '#FAE369',
+  softier_shadow: '#ffff77',
   white: '#fff',
   black: '#000',
   shadow: '#E1E1E1',

@@ -5,8 +5,9 @@ export const Container = styled.div`
   align-items: center;
   color: ${colors.white};
   display: flex;
-
   flex-direction: column;
+
+  margin-bottom: 10px;
   row-gap: 10px;
 
   * {

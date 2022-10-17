@@ -42,6 +42,7 @@ const Button = styled.button<Props>`
   :disabled {
     background-color: ${colors.disabled};
     box-shadow: none;
+    cursor: wait;
   }
 
   * {

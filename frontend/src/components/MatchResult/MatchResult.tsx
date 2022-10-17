@@ -1,4 +1,5 @@
 import { FilteredMetadata } from 'boardgame.io'
+import { useState } from 'react'
 import { useGetPlayer } from '../../hooks/useGetPlayer'
 import { IMatchResult } from '../../types/IGameState'
 import IPlayer from '../../types/IPlayer'
@@ -10,6 +11,7 @@ interface IMatchResultUI {
   matchResult: IMatchResult;
   matchData: FilteredMetadata;
   moves: Record<string, (...args: any[]) => void>;
+  playAgain: string[]
 }
 
 type ResultStateType = 'winner' | 'defeated' | 'draw';
@@ -22,12 +24,22 @@ const getResultState = (player: IPlayer, matchResult: IMatchResult): ResultState
   return 'defeated'
 }
 
+const getPlayAgainStatusText = (playAgainList: string[]) => {
+  if (playAgainList.length === 0) return ''
+
+  if (playAgainList.length === 1) return `(${playAgainList.length}/2)`
+
+  return `(${playAgainList.length}/2)...`
+}
+
 export default function TurnInfo({
   player,
   matchResult,
   matchData,
   moves,
+  playAgain,
 }: IMatchResultUI) {
+  const [clickedPlayAgain, setClickedPlayAgain] = useState(false)
   const resultState = getResultState(player, matchResult)
   const winner = useGetPlayer(matchResult.winner?.playerID || '', matchData)
 
@@ -36,6 +48,9 @@ export default function TurnInfo({
     winner: 'Você ganhou!',
     defeated: 'Você perdeu!',
   }
+
+  const playAgainProgressText = getPlayAgainStatusText(playAgain)
+  const disabledPlayAgain = clickedPlayAgain && !!playAgain.find((p) => p === player.id)
 
   return (
     <Container>
@@ -53,8 +68,15 @@ export default function TurnInfo({
           </>
         )}
       </Winner>
-      <Button variation='cancel' onClick={() => moves.playAgain(player.id)}>
-        Jogar de novo
+      <Button
+        variation='cancel'
+        disabled={disabledPlayAgain}
+        onClick={() => {
+          setClickedPlayAgain(true)
+          moves.playAgain(player.id)
+        }}
+      >
+        Jogar de novo {playAgainProgressText}
       </Button>
     </Container>
   )
