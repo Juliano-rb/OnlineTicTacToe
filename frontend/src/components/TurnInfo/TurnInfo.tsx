@@ -1,5 +1,5 @@
 import IPlayer from '../../types/IPlayer'
-import { Container, Title } from './TurnInfo.styles'
+import { Container } from './TurnInfo.styles'
 import PlayerSymbol from '../PlayerSymbolSmall'
 
 interface IGameStatus {
@@ -15,9 +15,9 @@ export default function TurnInfo({
 }: IGameStatus) {
   return (
     <Container>
-      <Title>
+      <div>
         {player.id === currentPlayer.id ? 'Sua vez' : 'É a vez de'}:
-      </Title>
+      </div>
       <div>
         <PlayerSymbol value={currentPlayer.id} valueMapping={valueMapping} />{' '}
         {currentPlayer.name}

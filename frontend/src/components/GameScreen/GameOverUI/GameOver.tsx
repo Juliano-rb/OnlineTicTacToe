@@ -124,6 +124,7 @@ export default function GameOver({
             matchResult={G.matchResult}
             matchData={matchData}
             moves={moves}
+            playAgain={G.gameOver?.playAgain}
           />
         )}
 

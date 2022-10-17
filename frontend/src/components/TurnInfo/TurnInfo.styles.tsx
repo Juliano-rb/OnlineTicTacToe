@@ -5,16 +5,13 @@ export const Container = styled.div`
   align-items: center;
   color: ${colors.white};
   display: flex;
-
   flex-direction: column;
+
+  margin-bottom: 10px;
   row-gap: 10px;
-  
+
   * {
     font-size: 1.1rem;
+    text-shadow: 2px 3px 4px rgb(0 0 0 / 30%);
   }
-`
-
-export const Title = styled.div`
-
-  text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
 `

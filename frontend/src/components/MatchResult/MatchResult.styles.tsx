@@ -7,6 +7,8 @@ export const Container = styled.div`
   animation: ${BounceIn};
   background-color: ${colors.white};
   border-radius: 4px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 10px 15px -3px,
+    rgb(0 0 0 / 5%) 0px 4px 6px -2px;
   color: ${colors.main};
   display: flex;
   flex-direction: column;
@@ -14,7 +16,7 @@ export const Container = styled.div`
   max-width: 320px;
 
   padding: 10px;
-  row-gap: 15px;
+  row-gap: 10px;
 
   * {
     font-size: 1.1rem;
@@ -44,6 +46,19 @@ interface IWinner {
   gameStatus: IGameResult;
 }
 export const Winner = styled.div<IWinner>`
+  background-color: ${(props) => (props.gameStatus !== 'draw' ? `${colors.softier}` : '')};
+  border-radius: 25px;
+  
+  box-shadow: ${(props) => (props.gameStatus !== 'draw' ? `3px 3px 10px ${colors.softier}, -3px -3px 3px ${colors.softier_shadow}` : '')};
+  max-width: 98%;
+  overflow: hidden;
+
+  overflow-wrap: break-word;
+  padding: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: fit-content;
+
   span:nth-child(1) {
     font-size: 1.5rem;
   }
