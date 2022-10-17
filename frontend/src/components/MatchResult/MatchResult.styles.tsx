@@ -46,15 +46,21 @@ interface IWinner {
   gameStatus: IGameResult;
 }
 export const Winner = styled.div<IWinner>`
+  align-items: center;
   background-color: ${(props) => (props.gameStatus !== 'draw' ? `${colors.softier}` : '')};
+
   border-radius: 25px;
-  
-  box-shadow: ${(props) => (props.gameStatus !== 'draw' ? `3px 3px 10px ${colors.softier}, -3px -3px 3px ${colors.softier_shadow}` : '')};
+  box-shadow: ${(props) => (props.gameStatus !== 'draw'
+    ? `3px 3px 10px ${colors.softier}, -3px -3px 3px ${colors.softier_shadow}`
+    : '')};
+  display: flex;
+
+  flex-direction: row;
   max-width: 98%;
   overflow: hidden;
-
   overflow-wrap: break-word;
   padding: 8px;
+
   text-overflow: ellipsis;
   white-space: nowrap;
   width: fit-content;
