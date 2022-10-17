@@ -7,6 +7,8 @@ export const Container = styled.div`
   animation: ${BounceIn};
   background-color: ${colors.white};
   border-radius: 4px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 10px 15px -3px,
+    rgb(0 0 0 / 5%) 0px 4px 6px -2px;
   color: ${colors.main};
   display: flex;
   flex-direction: column;
