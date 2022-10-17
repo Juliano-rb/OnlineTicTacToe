@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   margin-left: 10px;
   margin-right: 10px;
-  row-gap: 50px;
+  /* row-gap: 10px; */
 `
 
 export const PlayerControllsContainer = styled.div`

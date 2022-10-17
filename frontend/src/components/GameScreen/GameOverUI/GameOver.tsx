@@ -11,6 +11,7 @@ import PlayerHub from '../../PlayerHub'
 import { PlayerControllsContainer } from '../GameScreen.styles'
 import { PlayerHubHandle } from '../../PlayerHub/PlayerHub'
 import MatchResult from '../../MatchResult'
+import { PanelContainer } from './GameOver.styles'
 
 interface IGameOver {
   exitMatchFn: () => void;
@@ -116,13 +117,13 @@ export default function GameOver({
         </Button>
       </PlayerControllsContainer>
 
-      <div>
+      <PanelContainer>
         {G.matchResult && (
           <MatchResult
             player={player}
             matchResult={G.matchResult}
             matchData={matchData}
-            valueMapping={cellValueMapping}
+            moves={moves}
           />
         )}
 
@@ -134,10 +135,7 @@ export default function GameOver({
           valueMapping={cellValueMapping}
         />
 
-        <Button variation='cancel' onClick={() => moves.playAgain(playerID)}>
-          Jogar de novo
-        </Button>
-      </div>
+      </PanelContainer>
       <PlayerControllsContainer>
         <div />
         <PlayerHub
