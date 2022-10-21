@@ -74,7 +74,7 @@ const PlayerHub = forwardRef<PlayerHubHandle, Props>(({
     <Container orientation={orientation} ref={element}>
       <Emoji emoji={avatar} action={() => enableReaction && setShowChat(true)} />
       <FlexDiv orientation={orientation}>
-        <p>{name}</p>
+        <span>{name}</span>
         <ReactionList
           messages={messageList}
           align={orientation}

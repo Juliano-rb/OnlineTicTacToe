@@ -27,6 +27,8 @@ const Container = styled.div<PropsContainer>`
   row-gap: 6px;
 
   top: ${(props) => (props.position === 'top' ? '60px' : null)};
+
+  z-index: 2;
 `
 
 function ReactionList({ messages, align = 'left', position = 'top' }: Props) {

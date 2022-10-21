@@ -1,6 +1,7 @@
 const colors = {
   dark: '#0153AC',
   main: '#5AA7FA',
+  main_shadow: '#5196e1',
   smooth: '#B9E1FF',
   confirm: '#B38164',
   confirmSoft: '#D0A891',
