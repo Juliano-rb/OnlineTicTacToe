@@ -59,13 +59,9 @@ export const Winner = styled.div<IWinner>`
   justify-content: center;
   max-width: 98%;
   min-width: 100px;
-  overflow: hidden;
-  overflow-wrap: break-word;
   padding: 8px;
 
-  text-overflow: ellipsis;
   white-space: nowrap;
-  width: fit-content;
 
   span:nth-child(1) {
     font-size: 1.5rem;
@@ -73,5 +69,7 @@ export const Winner = styled.div<IWinner>`
   span:nth-child(2) {
     color: ${(props) => (props.gameStatus === 'draw' ? colors.disabled : colors.main)};
     font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `

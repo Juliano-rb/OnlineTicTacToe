@@ -66,12 +66,10 @@ export default function Playing({
           Sair
         </Button>
       </PlayerControllsContainer>
-
       <PanelContainer>
         <TurnInfo
           player={player}
           currentPlayer={currentPlayer}
-          valueMapping={cellValueMapping}
         />
 
         <Board
@@ -82,8 +80,9 @@ export default function Playing({
           valueMapping={cellValueMapping}
         />
       </PanelContainer>
-
-      <PlayerControllsContainer active={currentPlayer.id === player.id}>
+      <PlayerControllsContainer
+        active={currentPlayer.id === player.id}
+      >
         <PlayerSymbol
           value={player.id}
           valueMapping={cellValueMapping}
