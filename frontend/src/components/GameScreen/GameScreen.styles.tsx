@@ -23,8 +23,11 @@ export const PlayerControllsContainer = styled.div<IPlayerControllsContainer>`
 
   ${(props) => (props.active
     ? `
-    background: linear-gradient(134deg,${colors.main}, ${colors.smooth});
-    box-shadow: 5px 5px 15px ${colors.smooth}, -10px -10px 20px ${colors.main_shadow};
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+
+    background-color: ${colors.dark};
   `
     : null)}
 `
