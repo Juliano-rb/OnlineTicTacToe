@@ -54,7 +54,7 @@ export default function Playing({
 
   return (
     <>
-      <PlayerControllsContainer>
+      <PlayerControllsContainer active={currentPlayer.id === opponent.id}>
         <div>
           <PlayerHub
             ref={opponentHubRef}
@@ -84,7 +84,7 @@ export default function Playing({
         />
       </PanelContainer>
 
-      <PlayerControllsContainer>
+      <PlayerControllsContainer active={currentPlayer.id === player.id}>
         <div />
         <div>
           <PlayerHub
