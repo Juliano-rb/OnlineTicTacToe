@@ -1,5 +1,6 @@
 import { ChatMessage, Ctx, FilteredMetadata } from 'boardgame.io'
 import { useEffect, useRef } from 'react'
+import PlayerSymbol from '../../PlayerSymbol'
 import { IGameState } from '../../../types/IGameState'
 import Button from '../../Button'
 import Board from '../../Board'
@@ -55,14 +56,12 @@ export default function Playing({
   return (
     <>
       <PlayerControllsContainer active={currentPlayer.id === opponent.id}>
-        <div>
-          <PlayerHub
-            ref={opponentHubRef}
-            avatar={opponent.avatar}
-            name={opponent.name}
-            enableReaction={false}
-          />
-        </div>
+        <PlayerHub
+          ref={opponentHubRef}
+          avatar={opponent.avatar}
+          name={opponent.name}
+          enableReaction={false}
+        />
         <Button variation='cancel' onClick={exitMatchFn}>
           Sair
         </Button>
@@ -85,7 +84,11 @@ export default function Playing({
       </PanelContainer>
 
       <PlayerControllsContainer active={currentPlayer.id === player.id}>
-        <div />
+        <PlayerSymbol
+          value={player.id}
+          valueMapping={cellValueMapping}
+          size='large'
+        />
         <div>
           <PlayerHub
             ref={playerHubRef}
