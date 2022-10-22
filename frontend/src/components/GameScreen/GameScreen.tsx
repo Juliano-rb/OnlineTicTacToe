@@ -54,7 +54,7 @@ export default function GameScreen({
     try {
       await LobbyApi.leaveMatch(matchID, playerID, credentials)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     } finally {
       navigate('/')
     }

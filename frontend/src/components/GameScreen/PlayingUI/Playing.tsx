@@ -57,7 +57,7 @@ export default function Playing({
     try {
       window.navigator.vibrate(200)
     } catch (error) {
-      console.log(error)
+      // console.error(error)
       alert(error)
     }
   }, [currentPlayer.id])
