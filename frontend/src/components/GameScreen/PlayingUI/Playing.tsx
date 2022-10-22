@@ -97,15 +97,13 @@ export default function Playing({
           valueMapping={cellValueMapping}
           size='large'
         />
-        <div>
-          <PlayerHub
-            ref={playerHubRef}
-            avatar={player.avatar}
-            name={player.name}
-            orientation='right'
-            action={sendChatMessage}
-          />
-        </div>
+        <PlayerHub
+          ref={playerHubRef}
+          avatar={player.avatar}
+          name={player.name}
+          orientation='right'
+          action={sendChatMessage}
+        />
       </PlayerControllsContainer>
     </>
   )

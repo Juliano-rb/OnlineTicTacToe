@@ -15,5 +15,6 @@ const SIZE_MAPPING = {
 export const PlayerSymbolStyle = styled.span<IPlayerSymbolStyle>`
   color: ${(props) => (props.value === '0' ? colors.alert : colors.softier)};
   font-size: ${(props) => SIZE_MAPPING[props.size]};
+  margin-left: 6px;
   text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
 `
