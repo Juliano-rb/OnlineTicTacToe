@@ -53,6 +53,15 @@ export default function Playing({
     opponentHubRef.current?.receiveNewMessage(lastMessage.payload)
   }, [chatMessages, playerID])
 
+  useEffect(() => {
+    try {
+      window.navigator.vibrate(200)
+    } catch (error) {
+      console.log(error)
+      alert(error)
+    }
+  }, [currentPlayer.id])
+
   return (
     <>
       <PlayerControllsContainer active={currentPlayer.id === opponent.id}>
