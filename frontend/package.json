@@ -48,7 +48,8 @@
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "postinstall": "cd .. && husky install frontend/.husky",
-    "cz": "cz"
+    "cz": "cz",
+    "husky": "cd .. && husky"
   },
   "eslintConfig": {
     "extends": [
