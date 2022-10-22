@@ -4,9 +4,7 @@
 import { Ctx, Game } from 'boardgame.io'
 import { INVALID_MOVE } from 'boardgame.io/core'
 import { IGameState } from '../types/IGameState'
-import {
-  leaveMatch, playAgain, setNewMatchID,
-} from './moves'
+import { leaveMatch, playAgain, setNewMatchID } from './moves'
 
 import { IsVictory } from './getVictoryLine'
 
@@ -34,11 +32,15 @@ export const TicTacToe: Game<IGameState> = {
       G.cells[id] = ctx.currentPlayer
     },
   },
-
   // TODO: refactor this
   turn: {
     minMoves: 1,
     maxMoves: 1,
+
+    order: {
+      first: () => Math.round(Math.random()),
+      next: (G: IGameState, ctx: Ctx) => (ctx.playOrderPos + 1) % ctx.numPlayers,
+    },
 
     stages: {
       gameOver: {
@@ -46,7 +48,12 @@ export const TicTacToe: Game<IGameState> = {
       },
     },
     onBegin: (G, ctx) => {
-      if (G.matchResult) ctx.events?.setActivePlayers({ currentPlayer: 'gameOver', others: 'gameOver' })
+      if (G.matchResult) {
+        ctx.events?.setActivePlayers({
+          currentPlayer: 'gameOver',
+          others: 'gameOver',
+        })
+      }
     },
     onEnd: (G: IGameState, ctx: Ctx) => {
       const victoryData = IsVictory(G.cells, ctx.currentPlayer)
@@ -58,6 +65,7 @@ export const TicTacToe: Game<IGameState> = {
         }
         return
       }
+
       if (IsDraw(G.cells)) {
         G.matchResult = { isDraw: true }
       }

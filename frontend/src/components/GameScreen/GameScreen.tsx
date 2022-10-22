@@ -51,8 +51,13 @@ export default function GameScreen({
   }
 
   const exitMatch = async () => {
-    await LobbyApi.leaveMatch(matchID, playerID, credentials)
-    navigate('/')
+    try {
+      await LobbyApi.leaveMatch(matchID, playerID, credentials)
+    } catch (error) {
+      // console.log(error)
+    } finally {
+      navigate('/')
+    }
   }
 
   const GameProgressionState: { [key in IGameProgression]: ReactNode } = {

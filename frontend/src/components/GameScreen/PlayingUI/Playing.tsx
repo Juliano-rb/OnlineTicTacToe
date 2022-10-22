@@ -53,6 +53,15 @@ export default function Playing({
     opponentHubRef.current?.receiveNewMessage(lastMessage.payload)
   }, [chatMessages, playerID])
 
+  useEffect(() => {
+    try {
+      window.navigator.vibrate(200)
+    } catch (error) {
+      // console.error(error)
+      alert(error)
+    }
+  }, [currentPlayer.id])
+
   return (
     <>
       <PlayerControllsContainer active={currentPlayer.id === opponent.id}>
@@ -88,15 +97,13 @@ export default function Playing({
           valueMapping={cellValueMapping}
           size='large'
         />
-        <div>
-          <PlayerHub
-            ref={playerHubRef}
-            avatar={player.avatar}
-            name={player.name}
-            orientation='right'
-            action={sendChatMessage}
-          />
-        </div>
+        <PlayerHub
+          ref={playerHubRef}
+          avatar={player.avatar}
+          name={player.name}
+          orientation='right'
+          action={sendChatMessage}
+        />
       </PlayerControllsContainer>
     </>
   )

@@ -17,7 +17,7 @@ const joinMatch = async (
     avatar,
   )
 
-  setStorage({ credentials: playerCredentials, playerID, matchID })
+  await setStorage({ credentials: playerCredentials, playerID, matchID })
 
   if (actualPathName === '/play') navigate(0)
   else navigate({ pathname: '/play' })
@@ -31,7 +31,7 @@ const createMatch = async (
 ) => {
   const matchID = await LobbyApi.createMath(playerName)
 
-  joinMatch(matchID, playerName, avatar, setStorage, navigate)
+  await joinMatch(matchID, playerName, avatar, setStorage, navigate)
 }
 
 const useJoinMatch = () => {

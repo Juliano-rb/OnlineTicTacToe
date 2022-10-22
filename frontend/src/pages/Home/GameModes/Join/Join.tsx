@@ -18,9 +18,7 @@ export function JoinBtn({
   return (
     <Button
       disabled={disabled}
-      onClick={() => {
-        joinMatch(joinID, playerName, avatar)
-      }}
+      onClick={async () => joinMatch(joinID, playerName, avatar)}
     >
       Entrar
     </Button>

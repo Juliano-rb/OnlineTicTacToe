@@ -21,7 +21,7 @@ export default function ({ avatar, playerName }: Props) {
           <ClickableItem
             title={match?.setupData?.matchName || 'Partida sem nome'}
             actionText='Entrar'
-            action={() => joinMatch(match.matchID, playerName, avatar)}
+            action={async () => joinMatch(match.matchID, playerName, avatar)}
             key={_uniqueId()}
           />
         ))
