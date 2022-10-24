@@ -47,7 +47,7 @@
     "ci": "yarn install --immutable --immutable-cache --check-cache",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "postinstall": "cd .. && husky install frontend/.husky",
+    "postinstall": "if [ $CI ]; then exit 0; else cd .. && husky install frontend/.husky; fi",
     "cz": "cz",
     "husky": "cd .. && husky"
   },
