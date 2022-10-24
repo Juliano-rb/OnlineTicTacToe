@@ -29,6 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REACT_APP_SERVER_URL: https://jogarvelha.fly.dev/
+      HUSKY: 0
     steps:
       - uses: actions/checkout@v2
       - run: yarn ci
