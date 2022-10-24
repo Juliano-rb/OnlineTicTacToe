@@ -44,7 +44,7 @@
   "scripts": {
     "dev": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
-    "ci": "yarn install --immutable --immutable-cache --check-cache",
+    "ci": "HUSKY=0 yarn install --immutable --immutable-cache --check-cache",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "postinstall": "cd .. && husky install frontend/.husky",
