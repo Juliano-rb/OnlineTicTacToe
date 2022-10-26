@@ -38,8 +38,9 @@ export const TicTacToe: Game<IGameState> = {
     maxMoves: 1,
 
     order: {
-      first: () => Math.round(Math.random()),
+      first: () => 0,
       next: (G: IGameState, ctx: Ctx) => (ctx.playOrderPos + 1) % ctx.numPlayers,
+      playOrder: (G: IGameState) => G.setupData?.playerOrder || ['0', '1'],
     },
 
     stages: {

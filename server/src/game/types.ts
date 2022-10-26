@@ -19,6 +19,7 @@ export interface IGameState {
   cells: string[];
   setupData: {
     matchName: string;
+    playerOrder?: string[];
   };
   matchResult?: IMatchResult;
   gameOver: {

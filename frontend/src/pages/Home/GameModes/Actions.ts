@@ -10,11 +10,13 @@ const joinMatch = async (
   setStorage: (data: ILocalStorage) => void,
   navigate: NavigateFunction,
   actualPathName?: string,
+  playerIDJoin?: string,
 ) => {
   const { playerCredentials, playerID } = await LobbyApi.joinMatch(
     matchID,
     player,
     avatar,
+    playerIDJoin,
   )
 
   await setStorage({ credentials: playerCredentials, playerID, matchID })
@@ -28,8 +30,9 @@ const createMatch = async (
   avatar: string,
   setStorage: (data: ILocalStorage) => void,
   navigate: NavigateFunction,
+  playerOrder?: string[],
 ) => {
-  const matchID = await LobbyApi.createMath(playerName)
+  const matchID = await LobbyApi.createMath(playerName, playerOrder)
 
   await joinMatch(matchID, playerName, avatar, setStorage, navigate)
 }
@@ -43,7 +46,16 @@ const useJoinMatch = () => {
     matchID: string,
     player: string,
     avatar: string,
-  ) => joinMatch(matchID, player, avatar, setStorage, navigate, location.pathname)
+    playerIDJoin?: string,
+  ) => joinMatch(
+    matchID,
+    player,
+    avatar,
+    setStorage,
+    navigate,
+    location.pathname,
+    playerIDJoin,
+  )
 }
 
 const useCreateMatch = () => {
@@ -53,7 +65,8 @@ const useCreateMatch = () => {
   return (
     playerName: string,
     avatar: string,
-  ) => createMatch(playerName, avatar, setStorage, navigate)
+    playerOrder?: string[],
+  ) => createMatch(playerName, avatar, setStorage, navigate, playerOrder)
 }
 
 export { useJoinMatch, useCreateMatch }

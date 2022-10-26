@@ -52,18 +52,23 @@ export default function GameOver({
   const joinNewMatch = useCallback(
     async (nextMatch: string, playerData: IPlayer, cred: string) => {
       await LobbyApi.leaveMatch(matchID, playerData.id, cred)
-      await joinMatch(nextMatch, playerData.name || playerID, playerData.avatar)
+      await joinMatch(
+        nextMatch,
+        playerData.name || playerID,
+        playerData.avatar,
+        playerID,
+      )
     },
     [joinMatch, matchID, playerID],
   )
 
   const createNewMatch = useCallback(
     async (playerName: string) => {
-      const nextMatchID = await LobbyApi.createMath(playerName)
+      const nextMatchID = await LobbyApi.createMath(playerName, ctx.playOrder.reverse())
       moves.setNewMatchID(nextMatchID)
       return nextMatchID
     },
-    [moves],
+    [ctx.playOrder, moves],
   )
 
   useEffect(() => {

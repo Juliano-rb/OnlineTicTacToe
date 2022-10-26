@@ -13,11 +13,12 @@ export default {
     const match = await lobbyClient.getMatch(variables.gameName, matchID)
     return match
   },
-  createMath: async (matchName: string) => {
+  createMath: async (matchName: string, playerOrder?: string[]) => {
     const { matchID } = await lobbyClient.createMatch(variables.gameName, {
       numPlayers: 2,
       setupData: {
         matchName,
+        playerOrder,
       },
     })
 
