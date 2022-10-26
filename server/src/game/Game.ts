@@ -38,9 +38,10 @@ export const TicTacToe: Game<IGameState> = {
     maxMoves: 1,
 
     order: {
-      first: () => Math.round(Math.random()),
+      first: () => 0,
       next: (G: IGameState, ctx: Ctx) =>
         (ctx.playOrderPos + 1) % ctx.numPlayers,
+      playOrder: (G: IGameState) => G.setupData?.playerOrder || ["0", "1"],
     },
 
     stages: {
@@ -49,11 +50,12 @@ export const TicTacToe: Game<IGameState> = {
       },
     },
     onBegin: (G, ctx) => {
-      if (G.matchResult)
+      if (G.matchResult) {
         ctx.events?.setActivePlayers({
           currentPlayer: "gameOver",
           others: "gameOver",
         });
+      }
     },
     onEnd: (G: IGameState, ctx: Ctx) => {
       const victoryData = IsVictory(G.cells, ctx.currentPlayer);
