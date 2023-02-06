@@ -23,7 +23,7 @@ function Modal({
   }
   return (
     <Background
-      onClick={() => setIsOpen && setIsOpen(false)}
+      onClick={() => setIsOpen?.(false)}
     >
       <Container position={position} onClick={handleClick}>
         {children}

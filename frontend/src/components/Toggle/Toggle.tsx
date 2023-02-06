@@ -41,7 +41,7 @@ function Toggle({ onChange }: ToggleProps) {
   const handleChange = () => {
     const newValue = !active
     setActive(newValue)
-    onChange && onChange(newValue)
+    onChange?.(newValue)
   }
 
   return (

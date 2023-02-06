@@ -70,7 +70,7 @@ function ReactionPicker({ action }: Props) {
         {REACTIONS.text.map((reaction) => (
           <Card
             key={_uniqueId()}
-            action={() => action && action(reaction)}
+            action={() => action?.(reaction)}
             text={reaction}
           />
         ))}
@@ -80,7 +80,7 @@ function ReactionPicker({ action }: Props) {
         {REACTIONS.emoji.map((reaction) => (
           <Card
             key={_uniqueId()}
-            action={() => action && action(reaction)}
+            action={() => action?.(reaction)}
           >
             <h1>{reaction}</h1>
           </Card>
