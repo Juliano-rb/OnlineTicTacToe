@@ -14,7 +14,7 @@ export default function ({
   return (
     <EmojiList>
       {emojiList.map((emoji) => (
-        <Card key={_uniqueId()} action={() => action && action(emoji)} text={emoji} />
+        <Card key={_uniqueId()} action={() => action?.(emoji)} text={emoji} />
       ))}
     </EmojiList>
   )

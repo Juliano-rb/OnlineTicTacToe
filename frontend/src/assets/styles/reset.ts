@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -58,4 +58,4 @@ export default createGlobalStyle`
   input:focus, textarea:focus, select:focus{
     outline: none;
   }
-` as any
+`;

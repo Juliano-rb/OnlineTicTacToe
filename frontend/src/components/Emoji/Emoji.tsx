@@ -35,7 +35,7 @@ function Emoji({
   size = 'large',
 }: Props) {
   return (
-    <Container size={size} onClick={() => action && action()}>{emoji}</Container>
+    <Container size={size} onClick={() => action?.()}>{emoji}</Container>
   )
 }
 

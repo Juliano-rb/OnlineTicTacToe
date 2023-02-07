@@ -42,7 +42,7 @@ export default function GameScreen({
     }
   }, [G.matchResult, matchData])
 
-  if (!matchID || !playerID || !credentials || !matchData) {
+  if (!(((matchID && playerID ) && credentials ) && matchData)) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Toast title='Erro' description='Ocorreu um erro ao carregar a página' />

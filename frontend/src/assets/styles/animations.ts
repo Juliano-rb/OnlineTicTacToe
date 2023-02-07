@@ -1,36 +1,42 @@
-import { css, keyframes } from 'styled-components'
+import { css, keyframes } from "styled-components";
 import {
-  slideInUp, zoomInLeft, fadeIn, fadeOut, tada, merge, bounceIn,
-} from 'react-animations'
+  slideInUp,
+  zoomInLeft,
+  fadeIn,
+  fadeOut,
+  tada,
+  merge,
+  bounceIn,
+} from "react-animations";
 
-const FADE_IN_DURATION = 1000
-const FADE_OUT_DURATION = 450
+const FADE_IN_DURATION = 1000;
+const FADE_OUT_DURATION = 450;
 
-const zoomInLeftKeyframes = keyframes`${zoomInLeft}`
-const fadeOutKeyframes = keyframes`${fadeOut}`
-const bounceInKeyframes = keyframes`${bounceIn}`
+const zoomInLeftKeyframes = keyframes`${zoomInLeft}`;
+const fadeOutKeyframes = keyframes`${fadeOut}`;
+const bounceInKeyframes = keyframes`${bounceIn}`;
 
-const inKeyFrames = keyframes`${merge(merge(fadeIn, slideInUp), tada)}`
+const inKeyFrames = keyframes`${merge(merge(fadeIn, slideInUp), tada)}`;
 
 const FancyIn = css(
-  ['', ` ${FADE_IN_DURATION}ms linear;`] as any as TemplateStringsArray,
-  inKeyFrames,
-)
+  ["", ` ${FADE_IN_DURATION}ms linear;`] as unknown as TemplateStringsArray,
+  inKeyFrames
+);
 
 const ZoomInLeft = css(
-  ['', ` ${FADE_IN_DURATION}ms linear;`] as any as TemplateStringsArray,
-  zoomInLeftKeyframes,
-)
+  ["", ` ${FADE_IN_DURATION}ms linear;`] as unknown as TemplateStringsArray,
+  zoomInLeftKeyframes
+);
 
 const FadeOut = css(
-  ['', ` ${FADE_OUT_DURATION}ms linear;`] as any as TemplateStringsArray,
-  fadeOutKeyframes,
-)
+  ["", ` ${FADE_OUT_DURATION}ms linear;`] as unknown as TemplateStringsArray,
+  fadeOutKeyframes
+);
 
 const BounceIn = css(
-  ['', ` ${700}ms linear;`] as any as TemplateStringsArray,
-  bounceInKeyframes,
-)
+  ["", ` ${700}ms linear;`] as unknown as TemplateStringsArray,
+  bounceInKeyframes
+);
 
 export {
   ZoomInLeft,
@@ -39,4 +45,4 @@ export {
   FADE_IN_DURATION,
   FADE_OUT_DURATION,
   BounceIn,
-}
+};

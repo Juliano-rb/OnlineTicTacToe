@@ -32,7 +32,7 @@ const CardStyle = styled.div<CardStyleProps>`
 function Card({
   text, action, size, children,
 }: Props) {
-  return <CardStyle onClick={() => action && action()} size={size}>{text}{children}</CardStyle>
+  return <CardStyle onClick={() => action?.()} size={size}>{text}{children}</CardStyle>
 }
 
 export default Card
